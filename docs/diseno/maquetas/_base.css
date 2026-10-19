@@ -1193,6 +1193,24 @@ button, input, textarea, select {
   font-size: var(--bt-fs-xs);
   line-height: 1.4;
   box-shadow: 2px 2px 0 color-mix(in srgb, var(--bt-orange-500) 30%, transparent);
+  /* El texto largo baja de línea en vez de empujar la caja fuera del viewport. */
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Contenido de la nota: puede encogerse y partir cadenas sin espacios
+   (correos, URLs, tokens CSS, rutas). Sin esto, un <code> largo desborda
+   el documento a 320 px: medido scrollWidth 340 px / clientWidth 320 px. */
+.bt-por-confirmar > :not(.bt-por-confirmar__tag) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Regla global: el texto técnico nunca debe romper el ancho de su contenedor. */
+code {
+  font-family: ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
 }
 
 .bt-por-confirmar__tag {
