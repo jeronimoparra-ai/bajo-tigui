@@ -1,0 +1,1245 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inicio — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="Internet por fibra óptica de 50 Mbps de descarga y televisión por antena parabólica con 90 canales SD + HD en El Bagre, Antioquia. $70.000 al mes y 1 mes gratis.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Inicio» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y las clases bt-* de
+       _base.css. Solo se añade lo que la composición editorial necesita.
+       ========================================================================== */
+
+    .bt-section[id] { scroll-margin-top: 5.5rem; }
+
+    /* --- navegación: los seis enlaces necesitan 64rem para no apretarse --- */
+    .in-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .in-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .in-nav .bt-nav__links { display: flex; }
+    }
+    .in-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    /* A 360 px el logo + botón con texto no caben: el botón queda con ícono
+       y el enlace conserva su aria-label. */
+    @media (max-width: 23rem) {
+      .in-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .in-aviso { padding-top: var(--bt-space-4); }
+    /* AA: el texto pequeño del tag no puede ir blanco sobre naranja (3,0:1). */
+    .in-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+
+    /* ============================ ACTO 1 · ÓRBITA ============================ */
+    .in-orbita {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .in-orbita__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -7rem;
+      right: -9rem;
+      width: min(48rem, 110vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.16;
+    }
+    .in-hero {
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 5rem);
+    }
+    @media (min-width: 62rem) {
+      .in-hero {
+        grid-template-columns: minmax(0, 8fr) minmax(0, 3fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    /* Tope calculado para que «LA SEÑAL VIAJA» quepa en la columna de 8/11
+       y las palabras con pincel (nowrap) nunca desborden a 320 px. */
+    .in-hero__title {
+      font-size: clamp(2.3rem, 1.4rem + 3.4vw, 4.2rem);
+      line-height: 0.93;
+      margin-top: var(--bt-space-3);
+    }
+    /* La palabra va en tinta sobre el pincel: blanco sobre amarillo no pasa AA. */
+    .in-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .in-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+    }
+    .in-hero__pills,
+    .in-barrio__pills { list-style: none; margin: 0; padding: 0; }
+    .in-hero__pills { margin-top: var(--bt-space-5); }
+    .in-hero__ctas { margin-top: var(--bt-space-6); }
+    .in-hero__meta {
+      margin-top: var(--bt-space-5);
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+    .in-index {
+      position: relative;
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      padding: var(--bt-space-5);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      transform: rotate(-1.4deg);
+    }
+    .in-index__title { color: var(--bt-sky-400); margin-bottom: 0; }
+    .in-viaje {
+      list-style: none;
+      margin: var(--bt-space-3) 0 0;
+      padding: 0;
+    }
+    .in-viaje li + li {
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+    }
+    .in-viaje a {
+      display: flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+      min-height: 48px;
+      color: var(--bt-sky-200);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1.1;
+      text-decoration: none;
+    }
+    .in-viaje a:hover { color: var(--bt-yellow-400); }
+    .in-viaje__num {
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      color: var(--bt-yellow-400);
+      font-variant-numeric: tabular-nums;
+    }
+    .in-viaje__go { margin-inline-start: auto; color: var(--bt-sky-400); }
+    .in-index__sticker {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-5));
+      right: 0;
+    }
+
+    /* ============================ FRANJA DE DATOS ============================ */
+    .in-franja {
+      padding-block: var(--bt-space-7);
+      border-block: var(--bt-border-w-thick) solid var(--bt-border);
+    }
+    .in-facts {
+      display: grid;
+      gap: var(--bt-space-5);
+      margin: 0;
+    }
+    @media (min-width: 34rem) {
+      .in-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 60rem) {
+      .in-facts {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0;
+      }
+      .in-fact { padding-inline: var(--bt-space-4); }
+      .in-fact:first-child { padding-inline-start: 0; }
+      .in-fact:last-child { padding-inline-end: 0; }
+      .in-fact + .in-fact {
+        border-inline-start: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+      }
+    }
+    .in-fact__num {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(2rem, 1.3rem + 2.2vw, 3.1rem);
+      line-height: 1;
+      color: var(--bt-yellow-400);
+      font-variant-numeric: tabular-nums;
+    }
+    .in-fact__lbl {
+      margin: var(--bt-space-2) 0 0;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.35;
+    }
+
+    /* ============================ ACTO 2 · AZOTEA ============================ */
+    .in-azotea {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .in-azotea {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .in-antena {
+      position: relative;
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      padding: clamp(1rem, 3vw, 2rem);
+    }
+    .in-antena__img {
+      width: 100%;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+    .in-antena__tag {
+      display: flex;
+      align-items: center;
+      gap: var(--bt-space-2);
+      width: fit-content;
+      margin: var(--bt-space-4) auto 0;
+      padding: 0.35rem 0.8rem;
+      background: var(--bt-sky-200);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      line-height: 1.3;
+      text-align: center;
+    }
+    .in-azotea__text {
+      display: grid;
+      gap: var(--bt-space-5);
+      align-content: start;
+    }
+    .in-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-4);
+    }
+    .in-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--bt-space-4);
+      padding: var(--bt-space-4) var(--bt-space-5);
+    }
+    .in-step:nth-child(2) { margin-inline-start: clamp(0rem, 3vw, 1.75rem); }
+    .in-step:nth-child(3) { margin-inline-start: clamp(0rem, 6vw, 3.5rem); }
+    .in-step__num {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      flex: 0 0 auto;
+      font-size: var(--bt-fs-md);
+    }
+    .in-step__body { min-width: 0; }
+    .in-step__title {
+      margin: 0 0 var(--bt-space-1);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .in-step__text {
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+
+    /* ============================ ACTO 3 · EL BARRIO ========================= */
+    .in-barrio { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+    @media (min-width: 62rem) {
+      .in-barrio {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    /* #6B6B6B sobre #EDEDED no llega a 4,5:1; el kicker va en navy. */
+    .in-barrio .bt-kicker { color: var(--bt-brand); }
+    .in-barrio__text {
+      display: grid;
+      gap: var(--bt-space-4);
+      align-content: start;
+    }
+    .in-barrio__text p { margin: 0; }
+    .in-lema {
+      position: relative;
+      margin: 0;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      transform: rotate(-1.2deg);
+    }
+    .in-lema blockquote { margin: 0; }
+    .in-lema__quote {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-style: italic;
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-titular), "wght" 900;
+      font-size: clamp(1.45rem, 1rem + 1.8vw, 2.15rem);
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--bt-yellow-400);
+    }
+    .in-lema figcaption {
+      margin-top: var(--bt-space-4);
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.4;
+    }
+    .in-lema__sticker {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-5));
+      right: var(--bt-space-4);
+    }
+
+    /* ============================ ACTO 4 · LA SALA =========================== */
+    .in-sala { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+    @media (min-width: 62rem) {
+      .in-sala {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .in-sala__card { margin-top: var(--bt-space-5); }
+    .in-cierre { margin-top: var(--bt-space-6); }
+    .in-cierre__line {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      font-size: clamp(2.2rem, 1.3rem + 3.4vw, 4rem);
+      line-height: 0.95;
+      letter-spacing: var(--bt-ls-display);
+      text-transform: uppercase;
+    }
+
+    /* ============================ COBERTURA ================================== */
+    .in-cob { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+    @media (min-width: 62rem) {
+      .in-cob {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .in-mapa {
+      position: relative;
+      aspect-ratio: 5 / 4;
+      width: 100%;
+      background: var(--bt-sky-200);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .in-mapa__rings { position: absolute; inset: 0; display: grid; place-items: center; }
+    .in-mapa__ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid color-mix(in srgb, var(--bt-navy-800) 45%, transparent);
+      border-radius: 50%;
+      aspect-ratio: 1;
+    }
+    .in-mapa__ring:nth-child(1) { width: 26%; }
+    .in-mapa__ring:nth-child(2) { width: 50%; }
+    .in-mapa__ring:nth-child(3) { width: 74%; }
+    .in-mapa__rings::before,
+    .in-mapa__rings::after {
+      content: "";
+      position: absolute;
+      background: color-mix(in srgb, var(--bt-navy-800) 25%, transparent);
+    }
+    .in-mapa__rings::before { top: 50%; left: 0; width: 100%; height: 2px; }
+    .in-mapa__rings::after { top: 0; left: 50%; width: 2px; height: 100%; }
+    .in-mapa__dot {
+      position: relative;
+      z-index: 1;
+      width: 22px;
+      height: 22px;
+      background: var(--bt-orange-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+    }
+    .in-mapa__tag {
+      position: absolute;
+      left: var(--bt-space-3);
+      top: var(--bt-space-3);
+      z-index: 1;
+      padding: 0.35rem 0.7rem;
+      background: var(--bt-paper-50);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+    }
+
+    /* ============================ CANALES ==================================== */
+    .in-canales {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+      grid-template-areas: "text" "bars";
+    }
+    @media (min-width: 62rem) {
+      .in-canales {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        grid-template-areas: "bars text";
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .in-canales__text { grid-area: text; }
+    .in-canales__bars { grid-area: bars; position: relative; }
+    .in-barras {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      height: clamp(120px, 16vw, 190px);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      overflow: hidden;
+      box-shadow: var(--bt-shadow-hard);
+    }
+    .in-barras span + span { border-inline-start: var(--bt-border-w-thick) solid var(--bt-border); }
+    .in-barras span:nth-child(1) { background: var(--bt-navy-800); }
+    .in-barras span:nth-child(2) { background: var(--bt-cobalt-600); }
+    .in-barras span:nth-child(3) { background: var(--bt-sky-400); }
+    .in-barras span:nth-child(4) { background: var(--bt-aqua-500); }
+    .in-barras span:nth-child(5) { background: var(--bt-yellow-400); }
+    .in-barras span:nth-child(6) { background: var(--bt-orange-500); }
+    .in-barras__90 {
+      position: absolute;
+      right: -0.5rem;
+      bottom: -1rem;
+      width: 92px;
+      height: 92px;
+      padding: var(--bt-space-2);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.1;
+    }
+
+    /* ============================ ATENCIÓN =================================== */
+    .in-atn { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+    @media (min-width: 62rem) {
+      .in-atn {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .in-atn__tel {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+      min-height: 48px;
+      margin-top: var(--bt-space-4);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.75rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--bt-brand);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .in-atn__tel:hover { color: var(--bt-cobalt-600); }
+    .in-atn__tel svg { width: 32px; height: 32px; flex: 0 0 auto; fill: currentColor; }
+    .in-atn__dl {
+      margin: var(--bt-space-5) 0 0;
+      display: grid;
+      gap: var(--bt-space-3);
+    }
+    .in-atn__row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.2rem 1rem;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed var(--bt-border-soft);
+      font-size: var(--bt-fs-sm);
+    }
+    .in-atn__row dt {
+      margin: 0;
+      font-weight: var(--bt-fw-bold);
+      color: var(--bt-brand);
+    }
+    .in-atn__row dd {
+      margin: 0;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .in-mails {
+      display: grid;
+      gap: var(--bt-space-2);
+      margin-top: var(--bt-space-4);
+    }
+    /* AA: el tag del sistema va blanco sobre naranja (3,0:1, falla a 12 px);
+       en esta pantalla va en tinta (6,56:1) sin tocar el sistema. */
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+    .in-mails code { font-size: 0.85em; }
+
+    /* ============================ PIE ======================================== */
+    .in-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .in-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .in-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    /* Deja libre la esquina del botón flotante cuando se llega al final. */
+    .in-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .in-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .in-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    /* El display:flex del sistema anula el [hidden] del navegador. */
+    .in-chat .bt-chat-panel[hidden] { display: none; }
+    .in-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .in-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    /* Áreas táctiles: atajos y salida a WhatsApp miden 44 px de alto. */
+    .in-chat .bt-chat-quick button,
+    .in-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .in-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="in-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="#acto-1" aria-current="page">Inicio</a></li>
+          <li><a href="#planes">Planes</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#cobertura">Cobertura</a></li>
+          <li><a href="#canales">Canales</a></li>
+          <li><a href="#atencion">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="in-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE (la semilla lo trae inactivo; aquí se
+     muestra encendido para revisar el diseño del componente)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container in-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       ACTO 1 · ÓRBITA
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy in-orbita" id="acto-1" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs in-orbita__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="in-hero">
+        <div>
+          <p class="bt-kicker">El Bagre, Antioquia · organización sin ánimo de lucro</p>
+          <h1 class="bt-display bt-display--valla in-hero__title" id="h-portada">
+            La señal viaja <span class="bt-brush">lejos.</span><br>
+            Aquí <span class="bt-brush bt-brush--orange">se queda.</span>
+          </h1>
+          <p class="bt-lead in-hero__lead">
+            Internet por fibra óptica y televisión por antena parabólica para las casas de
+            El Bagre y sus alrededores, por <b>$70.000 al mes</b>. Atención de gente del pueblo.
+          </p>
+
+          <ul class="bt-cluster in-hero__pills" role="list" aria-label="El plan en tres datos">
+            <li class="bt-pill bt-pill--sky">50 Mbps de descarga</li>
+            <li class="bt-pill bt-pill--aqua">90 canales SD + HD</li>
+            <li class="bt-pill bt-pill--sun">1 mes gratis</li>
+          </ul>
+
+          <div class="bt-cluster in-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="#planes">Ver planes</a>
+          </div>
+
+          <p class="in-hero__meta">
+            Lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. · WhatsApp y llamadas: 314&nbsp;718&nbsp;2506
+          </p>
+        </div>
+
+        <div class="in-index">
+          <p class="bt-kicker in-index__title">El viaje de la señal</p>
+          <nav aria-label="El viaje de la señal">
+          <ol class="in-viaje" role="list">
+            <li>
+              <a href="#acto-1">
+                <span class="in-viaje__num">01</span> Órbita
+                <span class="in-viaje__go" aria-hidden="true">↓</span>
+              </a>
+            </li>
+            <li>
+              <a href="#como-funciona">
+                <span class="in-viaje__num">02</span> Azotea
+                <span class="in-viaje__go" aria-hidden="true">↓</span>
+              </a>
+            </li>
+            <li>
+              <a href="#nosotros">
+                <span class="in-viaje__num">03</span> El barrio
+                <span class="in-viaje__go" aria-hidden="true">↓</span>
+              </a>
+            </li>
+            <li>
+              <a href="#planes">
+                <span class="in-viaje__num">04</span> La sala
+                <span class="in-viaje__go" aria-hidden="true">↓</span>
+              </a>
+            </li>
+          </ol>
+          </nav>
+          <span class="bt-sticker bt-sticker--aqua in-index__sticker">Sin ánimo de lucro</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ACTO 2 · AZOTEA
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper" id="como-funciona" aria-labelledby="h-azotea">
+    <div class="bt-container">
+      <div class="in-azotea">
+        <div class="in-antena">
+          <img
+            class="in-antena__img"
+            src="../../../public/brand/logo-icono-recorte.svg"
+            alt="Parabólica de Bajo Tigui"
+            width="480"
+            height="480"
+          >
+          <p class="in-antena__tag">Aquí va la parabólica 3D · Fase 3</p>
+        </div>
+
+        <div class="in-azotea__text">
+          <div>
+            <p class="bt-kicker">Acto 2 · La azotea</p>
+            <h2 class="bt-display bt-display--2xl" id="h-azotea">
+              Subimos al techo.<br>
+              <span class="bt-brush">Ahí llega.</span>
+            </h2>
+          </div>
+          <p class="bt-lead">
+            La parabólica se orienta, se fija y se prueba con usted adelante. Si algo no se ve,
+            se ajusta antes de bajar. Así de simple.
+          </p>
+
+          <ol class="in-steps" role="list">
+            <li class="bt-card in-step">
+              <span class="bt-sticker bt-sticker--sun bt-sticker--round in-step__num" aria-hidden="true">1</span>
+              <div class="in-step__body">
+                <h3 class="in-step__title">Llamas o escribes</h3>
+                <p class="in-step__text">
+                  Nos cuenta dónde vive y qué necesita. Le contestamos de lunes a viernes,
+                  de 7:00 a.&nbsp;m. a 5:00 p.&nbsp;m.
+                </p>
+              </div>
+            </li>
+            <li class="bt-card in-step">
+              <span class="bt-sticker bt-sticker--aqua bt-sticker--round in-step__num" aria-hidden="true">2</span>
+              <div class="in-step__body">
+                <h3 class="in-step__title">Vamos a su casa</h3>
+                <p class="in-step__text">
+                  Miramos dónde queda mejor la parabólica y por dónde entra la fibra.
+                  Le decimos lo que sí se puede, sin prometer de más.
+                </p>
+              </div>
+            </li>
+            <li class="bt-card in-step">
+              <span class="bt-sticker bt-sticker--navy bt-sticker--round in-step__num" aria-hidden="true">3</span>
+              <div class="in-step__body">
+                <h3 class="in-step__title">Queda funcionando</h3>
+                <p class="in-step__text">
+                  Probamos los canales y el internet con usted al frente.
+                  Si algo falla, se corrige en el momento.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              La instalación gratis todavía no está confirmada y no se anuncia como definitiva
+              hasta que la administración lo autorice.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ACTO 3 · EL BARRIO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken" id="nosotros" aria-labelledby="h-barrio">
+    <div class="bt-container">
+      <div class="in-barrio">
+        <div class="in-barrio__text">
+          <div>
+            <p class="bt-kicker">Acto 3 · El barrio</p>
+            <h2 class="bt-display bt-display--2xl" id="h-barrio">
+              Sin ánimo de lucro,<br>
+              con <span class="bt-brush bt-brush--orange">nombre y cara.</span>
+            </h2>
+          </div>
+          <p class="bt-lead">
+            Bajo Tigui es una organización sin ánimo de lucro de El Bagre. Aquí la gente se llama
+            <b>asociada</b>, no usuaria: nos conocemos, nos saludamos en la calle y el soporte lo
+            atiende gente del municipio.
+          </p>
+          <p>
+            Sin ánimo de lucro quiere decir que no hay utilidades para repartir entre dueños:
+            lo que se paga sostiene el servicio y el trabajo de quienes lo atienden. Por eso el
+            precio es uno solo: <b>$70.000 al mes</b>.
+          </p>
+          <ul class="bt-cluster in-barrio__pills" role="list" aria-label="Cómo es la organización">
+            <li class="bt-pill bt-pill--aqua">Asociados, no clientes</li>
+            <li class="bt-pill">Soporte local</li>
+            <li class="bt-pill bt-pill--navy">El Bagre, Antioquia</li>
+          </ul>
+        </div>
+
+        <figure class="in-lema">
+          <span class="bt-sticker bt-sticker--sun in-lema__sticker">El lema</span>
+          <blockquote>
+            <p class="in-lema__quote">
+              «Recuerde señor asociado: que me es cumplido, me es pago.»
+            </p>
+          </blockquote>
+          <figcaption>
+            La firma de la organización: lo que se promete, se cumple.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ACTO 4 · LA SALA
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper" id="planes" aria-labelledby="h-sala">
+    <div class="bt-container">
+      <div class="in-sala">
+        <div>
+          <p class="bt-kicker">Acto 4 · La sala</p>
+          <h2 class="bt-display bt-display--2xl" id="h-sala">
+            Un solo pago,<br>
+            <span class="bt-brush bt-brush--aqua">toda la casa.</span>
+          </h2>
+          <p class="bt-lead">
+            Internet por fibra óptica y televisión por antena parabólica en la misma cuenta.
+            El primer mes va por nuestra cuenta.
+          </p>
+
+          <div class="in-cierre">
+            <p class="bt-kicker">Fin del viaje</p>
+            <p class="in-cierre__line">
+              La señal<br>
+              <span class="bt-brush bt-brush--orange">ya llegó.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="in-sala__card">
+          <article class="bt-card-plan" aria-labelledby="plan-nombre">
+            <div class="bt-card-plan__badge">
+              <span class="bt-pill bt-pill--sun">1 mes gratis</span>
+            </div>
+
+            <header class="bt-card-plan__header">
+              <h3 class="bt-card-plan__title" id="plan-nombre">Plan Fibra + TV</h3>
+              <div class="bt-card-plan__price">
+                <span class="bt-card-plan__amount bt-tabular" aria-label="70.000 pesos colombianos">
+                  $70.000
+                </span>
+                <span class="bt-card-plan__period">COP / mes</span>
+              </div>
+              <p style="margin: 0; font-size: var(--bt-fs-sm); color: var(--bt-text-soft);">
+                Un solo pago mensual.
+              </p>
+            </header>
+
+            <ul class="bt-card-plan__features" aria-label="Características del plan">
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Internet por fibra óptica · <b>50 Mbps de descarga</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Televisión por antena parabólica · <b>90 canales SD + HD</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Sin interrupciones · <b>la señal se mantiene</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Atención de lunes a viernes, <b>7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</b>
+                </span>
+              </li>
+            </ul>
+
+            <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>
+                Instalación gratis y vigencia de la promoción: pendientes de confirmación
+                con la administración.
+              </span>
+            </div>
+
+            <div class="bt-card-plan__cta">
+              <a class="bt-btn bt-btn--wa bt-btn--lg bt-btn--block" href="tel:+573147182506"
+                 aria-label="Pedir el plan por WhatsApp o llamada al 314 718 2506">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+                </svg>
+                Quiero el plan
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FRANJA DE DATOS
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy in-franja" aria-labelledby="h-cifras">
+    <div class="bt-container">
+      <h2 class="bt-visually-hidden" id="h-cifras">El plan en cifras</h2>
+      <div class="in-facts">
+        <div class="in-fact">
+          <p class="in-fact__num">50 Mbps</p>
+          <p class="in-fact__lbl">de descarga por fibra óptica</p>
+        </div>
+        <div class="in-fact">
+          <p class="in-fact__num">90</p>
+          <p class="in-fact__lbl">canales SD + HD por antena parabólica</p>
+        </div>
+        <div class="in-fact">
+          <p class="in-fact__num">$70.000</p>
+          <p class="in-fact__lbl">al mes, un solo pago</p>
+        </div>
+        <div class="in-fact">
+          <p class="in-fact__num">1 mes</p>
+          <p class="in-fact__lbl">gratis al contratar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       COBERTURA (adelanto)
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section" id="cobertura" aria-labelledby="h-cob">
+    <div class="bt-container">
+      <div class="in-cob">
+        <div>
+          <p class="bt-kicker">Cobertura</p>
+          <h2 class="bt-display bt-display--2xl" id="h-cob">
+            ¿Llega a <span class="bt-brush bt-brush--sky">mi casa</span>&nbsp;?
+          </h2>
+          <p class="bt-lead">
+            Escríbanos con el barrio o la dirección. Le decimos si hay red en su sector.
+          </p>
+          <div class="bt-cluster" style="margin-top: var(--bt-space-5);">
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Consultar mi dirección
+            </a>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar" style="margin-top: var(--bt-space-5);">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Las zonas exactas de cobertura (barrios y veredas) y el mapa todavía no están
+              confirmados. El mapa de esta maqueta es un dibujo de referencia, no un polígono real.
+            </span>
+          </div>
+        </div>
+
+        <div class="in-mapa bt-chamfer" role="img" aria-label="Mapa de cobertura en construcción: dibujo de referencia con anillos de señal, no es un polígono real">
+          <div class="in-mapa__rings" aria-hidden="true">
+            <span class="in-mapa__ring"></span>
+            <span class="in-mapa__ring"></span>
+            <span class="in-mapa__ring"></span>
+          </div>
+          <span class="in-mapa__dot" aria-hidden="true"></span>
+          <span class="in-mapa__tag">Mapa en construcción</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CANALES (adelanto)
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy" id="canales" aria-labelledby="h-canales">
+    <div class="bt-container">
+      <div class="in-canales">
+        <div class="in-canales__text">
+          <p class="bt-kicker">Televisión</p>
+          <h2 class="bt-display bt-display--2xl" id="h-canales">
+            90 canales<br>
+            <span class="bt-brush bt-brush--sky">SD + HD</span>
+          </h2>
+          <p class="bt-lead" style="color: var(--bt-sky-200);">
+            Noventa canales SD y HD por antena parabólica. La parrilla —cuáles son y en qué
+            número— todavía no está cerrada.
+          </p>
+          <p style="color: var(--bt-sky-200);">
+            Cuando la administración la confirme, se publica completa. Mientras tanto, pregunte
+            y le decimos qué hay hoy.
+          </p>
+          <div class="bt-cluster" style="margin-top: var(--bt-space-4);">
+            <a class="bt-btn bt-btn--outline" href="#atencion">Preguntar por canales</a>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar" style="margin-top: var(--bt-space-5);">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>La parrilla real de los 90 canales.</span>
+          </div>
+        </div>
+
+        <div class="in-canales__bars">
+          <div class="in-barras" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <span class="bt-sticker bt-sticker--sun bt-sticker--round in-barras__90">
+            90<br>canales
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ATENCIÓN
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper" id="atencion" aria-labelledby="h-atencion">
+    <div class="bt-container">
+      <div class="in-atn">
+        <div>
+          <p class="bt-kicker">Atención al asociado</p>
+          <h2 class="bt-display bt-display--2xl" id="h-atencion">
+            Aquí contesta<br>
+            <span class="bt-brush">una persona.</span>
+          </h2>
+          <p class="bt-lead">
+            WhatsApp y llamadas al 314 718 2506. De lunes a viernes, en horario de oficina.
+            Sábados, domingos y festivos no hay atención.
+          </p>
+
+          <a class="in-atn__tel" href="tel:+573147182506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            314&nbsp;718&nbsp;2506
+          </a>
+
+          <dl class="in-atn__dl">
+            <div class="in-atn__row">
+              <dt>Horario</dt>
+              <dd>Lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. (hora de Colombia).</dd>
+            </div>
+            <div class="in-atn__row">
+              <dt>Sin atención</dt>
+              <dd>Sábados, domingos y festivos.</dd>
+            </div>
+            <div class="in-atn__row">
+              <dt>Fuera de horario</dt>
+              <dd>El mensaje queda y se responde cuando se abra.</dd>
+            </div>
+            <div class="in-atn__row">
+              <dt>Asistente</dt>
+              <dd>El chatbot de la esquina responde dudas básicas y siempre deja la salida a WhatsApp.</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div>
+          <h3 class="bt-display bt-display--lg">Correos por área</h3>
+          <p style="margin-top: var(--bt-space-3);">
+            Todavía no hay correos oficiales confirmados. Estos son marcadores de posición y
+            <b>no se publican</b>.
+          </p>
+          <div class="in-mails">
+            <div class="bt-por-confirmar" role="note" aria-label="Correo por confirmar, no publicable">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span><code>contacto@bajotigui.co</code> — placeholder no publicable.</span>
+            </div>
+            <div class="bt-por-confirmar" role="note" aria-label="Correo por confirmar, no publicable">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span><code>soporte@bajotigui.co</code> — placeholder no publicable.</span>
+            </div>
+            <div class="bt-por-confirmar" role="note" aria-label="Correo por confirmar, no publicable">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span><code>pagos@bajotigui.co</code> — placeholder no publicable.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="in-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list in-footer__list">
+          <li><a href="#planes">Plan $70.000 / mes</a></li>
+          <li><a href="#planes">Internet 50 Mbps de descarga</a></li>
+          <li><a href="#canales">TV 90 canales SD + HD</a></li>
+          <li><a href="#cobertura">Cobertura</a></li>
+          <li><a href="#atencion">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list in-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="#cobertura">¿Llega a mi casa?</a></li>
+          <li><a href="#planes">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="in-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="in-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT — botón flotante + panel (abre con JS en
+     producción; en la maqueta el panel vive cerrado y no hay JS)
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="in-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="in-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>

@@ -1227,7 +1227,53 @@ code {
 }
 
 /* ----------------------------------------------------------------
-   14. MODO LIGERO Y MOVIMIENTO REDUCIDO
+   14. UTILIDADES DE ACCESIBILIDAD
+   Añadidas al maquetar la pantalla «Inicio» (Etapa 2): el sistema no
+   tenía skip link ni texto solo para lectores de pantalla. El skip
+   link es obligatorio en todas las pantallas (WCAG 2.4.1) y se define
+   aquí para no repetir el CSS en cada maqueta. No redefine nada.
+   ---------------------------------------------------------------- */
+
+.bt-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.bt-skip-link {
+  position: fixed;
+  top: var(--bt-space-3);
+  left: var(--bt-space-3);
+  z-index: var(--bt-z-toast);
+  transform: translateY(-200%);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.65rem 1.2rem;
+  background: var(--bt-yellow-400);
+  color: var(--bt-ink-900);
+  border: var(--bt-border-w-thick) solid var(--bt-border);
+  border-radius: var(--bt-radius-pill);
+  box-shadow: var(--bt-shadow-hard);
+  font-weight: var(--bt-fw-bold);
+  text-decoration: none;
+}
+
+.bt-skip-link:focus,
+.bt-skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--bt-ink-900);
+}
+
+/* ----------------------------------------------------------------
+   15. MODO LIGERO Y MOVIMIENTO REDUCIDO
    ---------------------------------------------------------------- */
 
 [data-motion="lite"],
