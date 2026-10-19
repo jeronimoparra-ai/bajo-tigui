@@ -1,0 +1,197 @@
+/* ==========================================================================
+   Bajo Tigui — Tokens de diseño
+   Fase 1A · docs/diseno/tokens.css
+   --------------------------------------------------------------------------
+   Fuente de verdad: identidad-visual/marca/ (solo lectura).
+   La paleta se deriva de los flyers de marca; el logo aporta los acentos.
+   Contrastes WCAG verificados (ver sistema-de-diseno.md § 8).
+   Regla: los componentes NO usan primitivas en crudo, usan las semánticas.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---------------------------------------------------------------- 1. Primitivas */
+  /* Azules */
+  --bt-navy-900:   #001A4D; /* derivado · fondo oscuro profundo */
+  --bt-navy-800:   #002E84; /* OFICIAL flyer · navy principal */
+  --bt-navy-700:   #00317E; /* OFICIAL aviso · navy alterno */
+  --bt-cobalt-600: #0058B0; /* OFICIAL flyer · cobalto */
+  --bt-cobalt-500: #0A6ECC; /* OFICIAL flyer · cobalto claro */
+  --bt-sky-400:    #8FCCF0; /* OFICIAL logo · celeste */
+  --bt-sky-300:    #8FE4FE; /* OFICIAL flyer · celeste brillante */
+  --bt-sky-200:    #DEFAFA; /* OFICIAL logo · cian claro */
+  --bt-aqua-500:   #A1D9D4; /* OFICIAL logo · verde agua */
+  --bt-aqua-700:   #2F8C86; /* derivado · verde agua oscuro (texto) */
+  /* Acentos */
+  --bt-yellow-500: #FEDC01; /* OFICIAL flyer · amarillo */
+  --bt-yellow-400: #FFD806; /* OFICIAL flyer · amarillo */
+  --bt-yellow-200: #FEF3B0; /* derivado · fondo suave */
+  --bt-orange-500: #FE6301; /* OFICIAL flyer · naranja */
+  --bt-orange-400: #FF9900; /* OFICIAL logo · naranja */
+  /* Neutros */
+  --bt-cream-100:  #F7F4EC; /* derivado · papel */
+  --bt-paper-50:   #FBF8F1; /* derivado · papel claro */
+  --bt-grey-200:   #EDEDED; /* OFICIAL logo · gris */
+  --bt-grey-500:   #6B6B6B; /* derivado · texto secundario */
+  --bt-ink-900:    #0B0B0B; /* OFICIAL logo · contorno grueso */
+  --bt-white:      #FFFFFF;
+  /* WhatsApp (exclusivo del botón de WhatsApp) */
+  --bt-whatsapp-500: #25D366;
+  --bt-whatsapp-700: #075E54;
+
+  /* ---------------------------------------------------------------- 2. Semánticas (tema claro) */
+  --bt-bg:             var(--bt-cream-100);
+  --bt-bg-raised:      var(--bt-paper-50);
+  --bt-bg-sunken:      var(--bt-grey-200);
+  --bt-bg-inverse:     var(--bt-navy-800);
+  --bt-surface:        var(--bt-white);
+
+  --bt-text:           var(--bt-ink-900);
+  --bt-text-soft:      var(--bt-grey-500);
+  --bt-text-inverse:   var(--bt-white);
+  --bt-text-link:      var(--bt-cobalt-600);
+
+  --bt-border:         var(--bt-ink-900);
+  --bt-border-soft:    color-mix(in srgb, var(--bt-ink-900) 14%, transparent);
+  --bt-outline-focus:  var(--bt-orange-500);
+
+  --bt-brand:          var(--bt-navy-800);
+  --bt-brand-strong:   var(--bt-cobalt-600);
+  --bt-accent:         var(--bt-orange-500);
+  --bt-accent-soft:    var(--bt-yellow-400);
+  --bt-highlight:      var(--bt-sky-400);
+
+  --bt-state-ok:       #1F7A3D;
+  --bt-state-warn:     var(--bt-orange-500);
+  --bt-state-error:    #B42318;
+  --bt-state-info:     var(--bt-cobalt-600);
+
+  --bt-focus-ring: 0 0 0 3px var(--bt-bg), 0 0 0 6px var(--bt-outline-focus);
+
+  /* ---------------------------------------------------------------- 3. Tipografía */
+  --bt-font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --bt-font-body:    "Karla", system-ui, sans-serif;
+
+  --bt-fw-regular: 400;
+  --bt-fw-medium:  500;
+  --bt-fw-bold:    700;
+  --bt-fw-black:   800;
+
+  /* Escala fluida mobile-first (mín. móvil → máx. escritorio) */
+  --bt-fs-2xs: 0.75rem;
+  --bt-fs-xs:  0.875rem;
+  --bt-fs-sm:  1rem;
+  --bt-fs-md:  clamp(1.0625rem, 0.95rem + 0.5vw, 1.1875rem);
+  --bt-fs-lg:  clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem);
+  --bt-fs-xl:  clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  --bt-fs-2xl: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  --bt-fs-3xl: clamp(2.75rem, 1.6rem + 6vw, 5.5rem);
+  --bt-fs-4xl: clamp(3.5rem, 1.5rem + 10vw, 8.5rem); /* titulares de impacto */
+
+  --bt-lh-tight: 0.95;
+  --bt-lh-snug:  1.15;
+  --bt-lh-body:  1.6;
+  --bt-ls-display: -0.02em;
+  --bt-ls-caps:    0.08em;
+
+  /* ---------------------------------------------------------------- 4. Espacio y layout */
+  --bt-space-1: 0.25rem;
+  --bt-space-2: 0.5rem;
+  --bt-space-3: 0.75rem;
+  --bt-space-4: 1rem;
+  --bt-space-5: 1.5rem;
+  --bt-space-6: 2rem;
+  --bt-space-7: 3rem;
+  --bt-space-8: 4rem;
+  --bt-space-9: 6rem;
+
+  --bt-container: 76rem;
+  --bt-container-narrow: 44rem;
+  --bt-gutter: clamp(1rem, 0.5rem + 3vw, 2.5rem);
+  --bt-section-y: clamp(3.5rem, 2rem + 8vw, 8rem);
+  --bt-grid-columns: 12;
+
+  /* ---------------------------------------------------------------- 5. Formas, bordes, sombras */
+  --bt-radius-sm: 0.625rem;
+  --bt-radius-md: 1rem;
+  --bt-radius-lg: 1.5rem;
+  --bt-radius-pill: 999px;
+  --bt-corner: 1.125rem; /* esquina achaflanada (del aviso de marca) */
+
+  --bt-border-w: 2px;
+  --bt-border-w-thick: 3px;   /* contorno grueso del lenguaje gráfico */
+  --bt-stroke-icon: 2.25px;   /* trazo base de la iconografía propia */
+
+  --bt-shadow-hard: 6px 6px 0 var(--bt-ink-900);   /* sombra sólida tipo sticker */
+  --bt-shadow-soft: 0 18px 40px -24px rgb(11 11 11 / 0.35);
+
+  /* ---------------------------------------------------------------- 6. Movimiento */
+  --bt-dur-1: 120ms; /* hover / foco */
+  --bt-dur-2: 220ms; /* transición de componente */
+  --bt-dur-3: 420ms; /* entrada de sección */
+  --bt-dur-4: 800ms; /* recorrido de la señal */
+  --bt-ease-out:   cubic-bezier(0.2, 0.8, 0.2, 1);
+  --bt-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --bt-ease-signal: cubic-bezier(0.16, 1, 0.3, 1);  /* desaceleración tipo onda */
+  --bt-ease-snap:   cubic-bezier(0.34, 1.56, 0.64, 1); /* rebote de sticker */
+
+  /* ---------------------------------------------------------------- 7. Capas */
+  --bt-z-base: 0;
+  --bt-z-sticky: 100;
+  --bt-z-nav: 200;
+  --bt-z-chat: 400;
+  --bt-z-modal: 600;
+  --bt-z-toast: 800;
+}
+
+/* ---------------------------------------------------------------- Tema oscuro */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bt-bg:           var(--bt-navy-900);
+  --bt-bg-raised:    #00224F; /* derivado */
+  --bt-bg-sunken:    #001233; /* derivado */
+  --bt-bg-inverse:   var(--bt-cream-100);
+  --bt-surface:      #002A5C; /* derivado */
+
+  --bt-text:         var(--bt-sky-200);
+  --bt-text-soft:    var(--bt-sky-400);
+  --bt-text-inverse: var(--bt-navy-900);
+  --bt-text-link:    var(--bt-sky-300);
+
+  --bt-border:       var(--bt-sky-200);
+  --bt-border-soft:  color-mix(in srgb, var(--bt-sky-200) 22%, transparent);
+  --bt-outline-focus: var(--bt-yellow-400);
+
+  --bt-brand:        var(--bt-cobalt-600);
+  --bt-brand-strong: var(--bt-sky-400);
+  --bt-highlight:    var(--bt-aqua-500);
+
+  --bt-shadow-hard: 6px 6px 0 var(--bt-navy-900);
+  --bt-shadow-soft: 0 18px 50px -26px rgb(0 0 0 / 0.7);
+}
+
+/* ---------------------------------------------------------------- Utilidades de forma */
+.bt-chamfer {
+  --bt-corner: 1.125rem;
+  clip-path: polygon(
+    var(--bt-corner) 0, 100% 0, 100% calc(100% - var(--bt-corner)),
+    calc(100% - var(--bt-corner)) 100%, 0 100%, 0 var(--bt-corner)
+  );
+}
+.bt-stroke-text {
+  /* Contorno grueso del lenguaje gráfico (titulares/wordmark) */
+  -webkit-text-stroke: 6px var(--bt-ink-900);
+  paint-order: stroke fill;
+}
+
+/* ---------------------------------------------------------------- Modo ligero / movimiento reducido */
+[data-motion="lite"] {
+  --bt-dur-1: 0ms; --bt-dur-2: 0ms; --bt-dur-3: 0ms; --bt-dur-4: 0ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --bt-dur-1: 0.01ms; --bt-dur-2: 0.01ms; --bt-dur-3: 0.01ms; --bt-dur-4: 0.01ms;
+  }
+}
