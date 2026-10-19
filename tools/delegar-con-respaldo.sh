@@ -46,8 +46,20 @@ FE="${FE_DELEGATE:-$(command -v fe-delegate || echo "$HOME/.local/bin/fe-delegat
 SENTINELA="ORCA-DONE:$TAREA"
 
 mkdir -p "$LOGDIR"
+mkdir -p "$LOGDIR/estado"
 RESUMEN="$LOGDIR/$TAREA-resumen.txt"
 : > "$RESUMEN"
+
+# --- cortacircuitos ------------------------------------------------------------
+# Si un agente murió por CUOTA, no se reintenta en cada tarea: se salta durante
+# SKIP_MINUTOS. Con FORZAR_AGENTE=1 se ignora el cortacircuitos.
+SKIP_MINUTOS="${SKIP_MINUTOS:-360}"
+QUEDA_VIVO() {  # $1 = agente
+  local f="$LOGDIR/estado/$1.cuota" ahora ts
+  [ -f "$f" ] || return 1
+  ahora=$(date +%s); ts=$(stat -c %Y "$f")
+  [ $(( (ahora - ts) / 60 )) -lt "$SKIP_MINUTOS" ]
+}
 
 # --- CLI que cada agente necesita en el sistema -------------------------------
 declare -A CLI_QUE=(
@@ -119,6 +131,11 @@ intentar() {  # $1 = agente, $2 = modelo
     echo "NO_DISPONIBLE" > "$LOGDIR/$TAREA-$agente.estado"; return 3
   fi
 
+  if [ "${FORZAR_AGENTE:-0}" != "1" ] && QUEDA_VIVO "$agente"; then
+    echo "   SALTADO: '$agente' murió por cuota hace poco (se reintenta en $SKIP_MINUTOS min)" | tee -a "$RESUMEN"
+    echo "SALTADO_POR_CUOTA" > "$LOGDIR/$TAREA-$agente.estado"; return 3
+  fi
+
   DELEGATE_MODEL="$modelo" ORCA_CLI="$WRAP" FE_DELEGATE_AGENT="$agente" \
   FE_DELEGATE_TIMEOUT_MS="$SONDA_MS" \
     "$FE" "$RAIZ" "$TAREA" "$(cat "$BRIEF_EF")" > "$log" 2>&1
@@ -139,6 +156,7 @@ intentar() {  # $1 = agente, $2 = modelo
 
   echo "   veredicto: $v" | tee -a "$RESUMEN"
   echo "$v" > "$LOGDIR/$TAREA-$agente.estado"
+  [ "$v" = "CUOTA" ] && date +%s > "$LOGDIR/estado/$agente.cuota"
 
   if [ "$v" = "OK" ]; then
     [ -n "$disp" ] && timeout 60 "$ORCA" orchestration worker-stop --dispatch "$disp" --json >/dev/null 2>&1 || true
