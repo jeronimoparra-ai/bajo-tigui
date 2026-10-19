@@ -31,23 +31,44 @@ tools/delegar-con-respaldo.sh <tarea> <archivo-brief> [<cadena>]
 
 | Veredicto | Causa | Reacción |
 |---|---|---|
-| `OK` | `worker_done` o centinela | cierra el worker, imprime el `git diff --stat` y sale |
-| `CUOTA` | `quota reached` / `Resets in Nh` | cierra el worker y pasa al siguiente de la cadena |
+| `OK` | `worker_done` o marcador de cierre | cierra el worker, imprime el `git diff --stat` y sale |
+| `CUOTA` | `quota reached` / `Resets in Nh` | cierra el worker, anota el cortacircuitos y pasa al siguiente |
 | `MODO_INCOMPATIBLE` | `agent_not_in_foreground` | cierra el worker y pasa al siguiente |
 | `NO_DISPONIBLE` | falta el CLI del agente en el sistema | no wastea una delegación; pasa al siguiente |
+| `SIN_LOGIN` | el CLI responde «not logged in» | pasa al siguiente (tú lo arreglas con el login) |
 | `SIN_VEREDICTO` | el worker sigue vivo sin cerrar | sigue sondeando hasta agotar el tiempo |
+
+## 1.1 Las dos vías de ejecución
+
+**Vía Orca** (preferida): el agente corre como *worker supervisado* de Orca, con terminal propia,
+worktree de Orca y mensajería. Es la que usa `antigravity` y `opencode2`. Orca gestiona el
+worktree, el arranque y el `worker_done`.
+
+**Vía directa** (`EXEC_DIRECTO`): el CLI se lanza en modo **no interactivo** dentro de un
+worktree git propio. La usa `codex`, `claude`, `gemini`, `cursor` y `copilot`, porque su TUI no
+llega a estado *ready* cuando Orca la lanza en background (`stage: agent_readiness`,
+`lastError: timeout`).
+
+Motivos técnicos de la vía directa:
+- El marcador de cierre va **dentro** del worktree, porque el sandbox del agente solo escribe ahí.
+- `codex` corre con `--sandbox workspace-write`: puede editar su worktree, no el sistema.
+- Modos de permiso **conservadores**: `claude --permission-mode acceptEdits`,
+  `gemini --approval-mode auto_edit`. **No** se usa ningún flag de bypass
+  (`--force`, `--yolo`, `--dangerously-skip-permissions`).
+- Si el login falta, el CLI responde rápido y el runner pasa al siguiente agente.
+
 
 ## 2. Mapa de agentes (verificado en esta máquina, 2026-10-19)
 
-| Agente | CLI que necesita | Estado real | Para habilitarlo |
+| Agente | CLI | Estado real | Para habilitarlo |
 |---|---|---|---|
-| **antigravity** | `agy` 1.4.2 | ✅ funciona · **cuota agotada ~167 h** | nada, esperar la cuota. Modelos: `agy models` |
-| **opencode2** / opencode | `opencode` v2.0.32 | ✅ **arranca y responde** · no emite `worker_done` → se usa el centinela | nada |
-| **codex** | `codex` (no está instalado) | ❌ `agent_not_in_foreground` | instalar el CLI **y** cambiar en Orca el modo de las pestañas nuevas a *foreground* |
-| **cursor** | `cursor-agent` (no está; el IDE sí, en `/usr/share/cursor`) | ❌ sin CLI | instalar el CLI de agente de Cursor y hacer login |
-| **copilot** | `copilot` (no está; sí VS Code 1.142 y `~/.copilot/`) | ❌ sin CLI | instalar el CLI de Copilot y hacer login |
-| **claude** | `claude` | ❌ sin CLI ni cuenta en Orca | instalar + `orca account add` |
-| **gemini** | `gemini` | ❌ sin CLI (existe `~/.gemini/`, que usa Antigravity) | instalar el CLI de Gemini |
+| **antigravity** | `agy` 1.4.2 | ✅ funciona · **cuota agotada ~167 h** | esperar la cuota. Modelos: `agy models` |
+| **opencode2** | `opencode` v2.0.32 | ✅ **arranca y responde** · no emite `worker_done` → se usa el centinela | nada |
+| **codex** | `codex` 0.163.0 | ✅ **instalado y autenticado** (ChatGPT) · la TUI no llega a *ready* bajo Orca, pero `codex exec` funciona | nada |
+| **cursor** | `cursor-agent` 2026.10.16 | ⚠️ instalado, **sin login** | `agent login` |
+| **copilot** | `copilot` 1.0.98 | ⚠️ instalado, **sin login** | `copilot` → `/login` (o `gh auth login`) |
+| **claude** | `claude` 2.1.197 | ⚠️ instalado, **sin login** | `claude` → `/login` |
+| **gemini** | `gemini` 0.64.0 | ⚠️ instalado, **sin auth y carpeta no confiable** | método de auth en `~/.gemini/settings.json` (intocable: lo haces tú) y confiar la carpeta |
 | **zcode / droid / grok / kimi** | sus CLIs | ❌ sin CLI | instalar |
 
 Orca trae *hooks* para ~25 agentes (`amp, antigravity, claude, codex, copilot, cursor, devin,
@@ -59,37 +80,34 @@ qwen, zcode`): si instalas el CLI y haces login, el resto de la lista se activa 
 
 ### 2.1 Instaladores (verificados contra el registro npm y la doc oficial, 2026-10-19)
 
-**Son comandos TUYOS**: instalan paquetes en el sistema y requieren tu login. Yo no los ejecuto.
+**Ya instalados en esta máquina** (npm global bajo nvm + enlaces en `~/.local/bin`, que es lo
+único que ven los agentes de Orca; `node` también enlazado ahí porque los CLIs de npm son
+scripts con `#!/usr/bin/env node`):
+
+| CLI | Origen | Versión |
+|---|---|---|
+| `cursor-agent` / `agent` | instalador oficial `cursor.com/install` (sin sudo, a `~/.local/share/cursor-agent`) | 2026.10.16-e3cb207 |
+| `codex` | `npm i -g @openai/codex` | 0.163.0 |
+| `copilot` | `npm i -g @github/copilot` | 1.0.98 |
+| `claude` | `npm i -g @anthropic-ai/claude-code` | 2.1.197 |
+| `gemini` | `npm i -g @google/gemini-cli` | 0.64.0 |
+
+**Los logins son tuyos** (son credenciales; no las toco):
 
 ```bash
-# Cursor CLI (no está en npm; instalador oficial)
-curl https://cursor.com/install -fsS | bash        # instala cursor-agent
-
-# GitHub Copilot CLI  → npm @github/copilot 1.0.98
-npm install -g @github/copilot
-
-# OpenAI Codex CLI   → npm @openai/codex 0.163.0
-npm install -g @openai/codex
-
-# Claude Code        → npm @anthropic-ai/claude-code 2.1.303
-npm install -g @anthropic-ai/claude-code
-
-# Gemini CLI         → npm @google/gemini-cli 0.64.0
-npm install -g @google/gemini-cli
-```
-
-Después de cada uno, su `login` (el CLI te lo pide) y, si el agente es `claude` o `devin`,
-`orca account add`. Para comprobar qué ve Orca:
-
-```bash
-orca-ide account list --json | head -40
+agent login          # cursor
+copilot              # luego /login   (o: gh auth login)
+claude               # luego /login
+# gemini: método de auth en ~/.gemini/settings.json (intocable para mí)
 ```
 
 ### 2.2 Si instalas Cursor o Copilot
 
 Cursor y Copilot exigen **foreground**: si Orca los lanza en background fallan con
 `agent_not_in_foreground`. Es el ajuste «cómo corren las pestañas nuevas de agente» de la UI de
-Orca (§ 3). Sin ese ajuste, los dos quedan inutilizables desde la cadena.
+Orca (§ 3). Sin ese ajuste, los dos quedan inutilizables desde la vía de Orca; la **vía directa**
+(§ 1) sí les sirve, porque no usa el worker supervisado.
+
 
 
 ## 3. Los dos ajustes de Orca que NO tienen flag
