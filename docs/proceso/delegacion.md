@@ -57,6 +57,41 @@ qwen, zcode`): si instalas el CLI y haces login, el resto de la lista se activa 
 > En VS Code tienes además la extensión **Kilo Code** (`kilocode.kilo-code`), que no usa Orca
 > pero sirve para trabajar a mano en paralelo.
 
+### 2.1 Instaladores (verificados contra el registro npm y la doc oficial, 2026-10-19)
+
+**Son comandos TUYOS**: instalan paquetes en el sistema y requieren tu login. Yo no los ejecuto.
+
+```bash
+# Cursor CLI (no está en npm; instalador oficial)
+curl https://cursor.com/install -fsS | bash        # instala cursor-agent
+
+# GitHub Copilot CLI  → npm @github/copilot 1.0.98
+npm install -g @github/copilot
+
+# OpenAI Codex CLI   → npm @openai/codex 0.163.0
+npm install -g @openai/codex
+
+# Claude Code        → npm @anthropic-ai/claude-code 2.1.303
+npm install -g @anthropic-ai/claude-code
+
+# Gemini CLI         → npm @google/gemini-cli 0.64.0
+npm install -g @google/gemini-cli
+```
+
+Después de cada uno, su `login` (el CLI te lo pide) y, si el agente es `claude` o `devin`,
+`orca account add`. Para comprobar qué ve Orca:
+
+```bash
+orca-ide account list --json | head -40
+```
+
+### 2.2 Si instalas Cursor o Copilot
+
+Cursor y Copilot exigen **foreground**: si Orca los lanza en background fallan con
+`agent_not_in_foreground`. Es el ajuste «cómo corren las pestañas nuevas de agente» de la UI de
+Orca (§ 3). Sin ese ajuste, los dos quedan inutilizables desde la cadena.
+
+
 ## 3. Los dos ajustes de Orca que NO tienen flag
 
 El CLI lo dice explícitamente: *"How the worker runs follows the user's own setting for new agent
