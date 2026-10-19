@@ -9,7 +9,8 @@ Salidas:
   public/brand/logo-sobre-oscuro.svg color sobre placa crema (para fondos oscuros)
   public/brand/logo-horizontal.svg   ícono + wordmark (texto vivo, ver nota)
   public/brand/logo-vertical.svg     apilado (texto vivo, ver nota)
-  public/brand/favicon.svg           ícono sobre placa crema redondeada
+  public/brand/logo-icono-recorte.svg  SOLO la parabólica (recorte del componente de tinta)
+  public/brand/favicon.svg           el recorte sobre placa crema redondeada
   public/brand/favicon-32.png, apple-touch-icon.png (180), icon-512.png
   docs/diseno/assets/_variantes.png  montaje de revisión
 
@@ -43,20 +44,52 @@ def svg_header(vb, w, h, extra: str = "") -> str:
             f'width="{w}" height="{h}"{extra}>\n')
 
 
-def main() -> int:
-    potrace = vl.hallar_potrace()
-    if not potrace:
-        print("ERROR: falta potrace")
-        return 1
-    BRAND.mkdir(parents=True, exist_ok=True)
-    w, h, paths, fg, bbox = vl.generar(potrace, ESCALA, "lanczos", 1.0, 16, tmp_dir=TMP)
+def componente_mayor(mask: Image.Image):
+    """Devuelve (bbox, n_pixeles) del componente conexo más grande de una máscara "1".
 
-    x0, y0, x1, y1 = bbox
-    lado = max(x1 - x0, y1 - y0)
-    pad = lado * PAD_PCT
-    vb = (round(x0 - pad, 2), round(y0 - pad, 2), round((x1 - x0) + 2 * pad, 2), round((y1 - y0) + 2 * pad, 2))
+    Se usa conectividad de 8 (las líneas diagonales del trazo deben quedar unidas);
+    el componente grande es la parabólica con su soporte.
+    """
+    w, h = mask.size
+    px = mask.load()
+    visto = bytearray(w * h)
+    mejor_bbox, mejor_n = None, -1
+    vecinos = ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1))
+    for y0 in range(h):
+        fila = y0 * w
+        for x0 in range(w):
+            if not px[x0, y0] or visto[fila + x0]:
+                continue
+            cola = [(x0, y0)]
+            visto[fila + x0] = 1
+            n = 0
+            xmin = xmax = x0
+            ymin = ymax = y0
+            while cola:
+                x, y = cola.pop()
+                n += 1
+                if x < xmin:
+                    xmin = x
+                if x > xmax:
+                    xmax = x
+                if y < ymin:
+                    ymin = y
+                if y > ymax:
+                    ymax = y
+                for dx, dy in vecinos:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < w and 0 <= ny < h:
+                        idx = ny * w + nx
+                        if px[nx, ny] and not visto[idx]:
+                            visto[idx] = 1
+                            cola.append((nx, ny))
+            if n > mejor_n:
+                mejor_n = n
+                mejor_bbox = (xmin, ymin, xmax + 1, ymax + 1)
+    return mejor_bbox, mejor_n
 
-    # --- 1. ícono a color, recortado -------------------------------------------------
+
+def capas_svg(paths: dict[str, str]) -> list[str]:
     capas = []
     for nombre in vl.ORDEN:
         d = paths.get(nombre)
@@ -68,6 +101,24 @@ def main() -> int:
         else:
             capas.append(f'  <path fill="{color}" stroke="{color}" stroke-width="0.4" '
                          f'stroke-linejoin="round" d="{d}"/>')
+    return capas
+
+
+def main() -> int:
+    potrace = vl.hallar_potrace()
+    if not potrace:
+        print("ERROR: falta potrace")
+        return 1
+    BRAND.mkdir(parents=True, exist_ok=True)
+    w, h, paths, fg, bbox, masks = vl.generar(potrace, ESCALA, "lanczos", 1.0, 16, tmp_dir=TMP)
+
+    x0, y0, x1, y1 = bbox
+    lado = max(x1 - x0, y1 - y0)
+    pad = lado * PAD_PCT
+    vb = (round(x0 - pad, 2), round(y0 - pad, 2), round((x1 - x0) + 2 * pad, 2), round((y1 - y0) + 2 * pad, 2))
+
+    # --- 1. ícono a color, recortado -------------------------------------------------
+    capas = capas_svg(paths)
     grupo = (f'  <g transform="matrix({1 / ESCALA} 0 0 {-1 / ESCALA} 0 {h})">\n'
              + "\n".join(capas) + "\n  </g>\n")
     icono = (svg_header(vb, vb[2], vb[3], ' role="img" aria-label="Antena Parabólica Bajo Tigui"')
@@ -95,34 +146,40 @@ def main() -> int:
                     + grupo + "</svg>\n")
     (BRAND / "logo-sobre-oscuro.svg").write_text(sobre_oscuro)
 
-    # --- 4. favicon: traza ligera + placa crema redondeada --------------------------
-    # El ícono completo es muy detallado para 16-32 px: se usa una traza más gruesa
-    # (menos nodos) para que el archivo pese poco y se lea en tamaños pequeños.
-    w2, h2, paths2, _, bbox2 = vl.generar(potrace, 4, "lanczos", 2.0, 10, tmp_dir=TMP)
-    x0b, y0b, x1b, y1b = bbox2
-    lado2 = max(x1b - x0b, y1b - y0b)
-    pad2 = lado2 * PAD_PCT
-    vb2 = (round(x0b - pad2, 2), round(y0b - pad2, 2),
-           round((x1b - x0b) + 2 * pad2, 2), round((y1b - y0b) + 2 * pad2, 2))
-    placa2 = (round(x0b - pad2 * 2, 2), round(y0b - pad2 * 2, 2),
-              round((x1b - x0b) + 4 * pad2, 2), round((y1b - y0b) + 4 * pad2, 2))
-    capas2 = []
-    for nombre in vl.ORDEN:
-        d = paths2.get(nombre)
-        if not d:
-            continue
-        color = vl.COLORES[nombre]
-        if nombre == "tinta":
-            capas2.append(f'  <path fill="{color}" d="{d}"/>')
-        else:
-            capas2.append(f'  <path fill="{color}" stroke="{color}" stroke-width="0.4" '
-                          f'stroke-linejoin="round" d="{d}"/>')
-    fav = (svg_header(placa2, placa2[2], placa2[3],
+    # --- 4. recorte: SOLO la parabólica ---------------------------------------------
+    # El original arrastra bloques de color de fondo (formas planas superpuestas).
+    # Para el favicon se recorta al mayor componente de TINTA (la parabólica con su
+    # soporte) y se encuadra en un cuadrado centrado, con recorte redondeado.
+    bbox_dish, n_dish = componente_mayor(masks["tinta"])
+    dx0, dy0, dx1, dy1 = bbox_dish
+    cx, cy = (dx0 + dx1) / 2.0, (dy0 + dy1) / 2.0
+    lado_d = max(dx1 - dx0, dy1 - dy0)
+    lado_cuadro = lado_d * (1 + 2 * PAD_PCT)
+    vbc = (round(cx - lado_cuadro / 2, 2), round(cy - lado_cuadro / 2, 2),
+           round(lado_cuadro, 2), round(lado_cuadro, 2))
+
+    # recorte a color, fondo transparente (para usos sobre fondos claros)
+    recorte = (svg_header(vbc, vbc[2], vbc[3],
+                          ' role="img" aria-label="Antena Parabólica Bajo Tigui"')
+               + grupo + "</svg>\n")
+    (BRAND / "logo-icono-recorte.svg").write_text(recorte)
+
+    # favicon: mismo recorte con traza ligera + placa crema redondeada + clip redondeado
+    w2, h2, paths2, _, _bbox2, _m2 = vl.generar(potrace, 4, "lanczos", 2.0, 10, tmp_dir=TMP)
+    capas2 = capas_svg(paths2)
+    lado_placa = lado_cuadro * (1 + 2 * 0.03)
+    vbp = (round(cx - lado_placa / 2, 2), round(cy - lado_placa / 2, 2),
+           round(lado_placa, 2), round(lado_placa, 2))
+    r = round(lado_placa * 0.16, 2)
+    fav = (svg_header(vbp, vbp[2], vbp[3],
                       ' role="img" aria-label="Antena Parabólica Bajo Tigui"')
-           + f'  <rect x="{placa2[0]}" y="{placa2[1]}" width="{placa2[2]}" height="{placa2[3]}" '
-             f'rx="{round(lado2 * 0.14, 2)}" fill="#F7F4EC"/>\n'
+           + f'  <defs><clipPath id="placa"><rect x="{vbp[0]}" y="{vbp[1]}" width="{vbp[2]}" '
+             f'height="{vbp[3]}" rx="{r}" ry="{r}"/></clipPath></defs>\n'
+           + f'  <rect x="{vbp[0]}" y="{vbp[1]}" width="{vbp[2]}" height="{vbp[3]}" rx="{r}" ry="{r}" '
+             f'fill="#F7F4EC"/>\n'
+           + f'  <g clip-path="url(#placa)">\n'
            + f'  <g transform="matrix({1 / 4} 0 0 {-1 / 4} 0 {h2})">\n'
-           + "\n".join(capas2) + "\n  </g>\n</svg>\n")
+           + "\n".join(capas2) + "\n  </g>\n  </g>\n</svg>\n")
     (BRAND / "favicon.svg").write_text(fav)
 
     # --- 5. lockups con wordmark (texto vivo) ---------------------------------------
@@ -165,6 +222,8 @@ def main() -> int:
                         str(ASSETS / out)], check=False)
 
     render(BRAND / "logo-icono.svg", "white", "512x", "_v-icono.png")
+    render(BRAND / "logo-icono-recorte.svg", "white", "512x", "_v-recorte.png")
+    render(BRAND / "favicon.svg", "white", "512x", "_v-favicon.png")
     render(BRAND / "logo-mono-tinta.svg", "#F7F4EC", "512x", "_v-mono-tinta.png")
     render(BRAND / "logo-mono-blanco.svg", "#002E84", "512x", "_v-mono-blanco.png")
     render(BRAND / "logo-sobre-oscuro.svg", "#002E84", "512x", "_v-oscuro.png")
@@ -174,13 +233,17 @@ def main() -> int:
                                  ("_v-icono.png", "_v-mono-tinta.png", "_v-mono-blanco.png", "_v-oscuro.png")],
                     "-resize", "240x", "-background", "white", "-gravity", "center",
                     "-extent", "260x280", "+append", str(ASSETS / "_variantes.png")], check=False)
+    subprocess.run(["convert", "-strip", *[str(ASSETS / t) for t in
+                                 ("_v-recorte.png", "_v-favicon.png")],
+                    "-resize", "300x", "-background", "white", "-gravity", "center",
+                    "-extent", "320x340", "+append", str(ASSETS / "_favicon-recorte.png")], check=False)
     subprocess.run(["convert", "-strip", str(ASSETS / "_v-horizontal.png"), str(ASSETS / "_v-vertical.png"),
                     "-background", "white", "-gravity", "center", "-extent", "700x640", "+append",
                     str(ASSETS / "_v-lockups.png")], check=False)
     subprocess.run(["convert", "-strip", str(BRAND / "favicon-32.png"), "-scale", "900%",
                     "-background", "white", "-flatten", str(ASSETS / "_favicon-32-zoom.png")], check=False)
     for t in ("_v-icono.png", "_v-mono-tinta.png", "_v-mono-blanco.png", "_v-oscuro.png",
-              "_v-horizontal.png", "_v-vertical.png"):
+              "_v-horizontal.png", "_v-vertical.png", "_v-recorte.png", "_v-favicon.png"):
         (ASSETS / t).unlink(missing_ok=True)
 
     # comparaciones original vs trazo

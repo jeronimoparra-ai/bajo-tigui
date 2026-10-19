@@ -35,13 +35,18 @@ origen abajo). Compresión real: el ícono pasa de 77,7 KB a **15,3 KB en gzip**
 | `_variantes.png` | Ícono color · monocromo tinta · monocromo blanco sobre navy · logo sobre placa |
 | `_v-lockups.png` | Lockups horizontal y vertical |
 | `_favicon-32-zoom.png` | Favicon a 32 px ampliado 900 % (evidencia de legibilidad) |
+| `_favicon-recorte.png` | Recorte a la parabólica: fondo transparente \| con placa crema redondeada |
 
 ## Limitaciones conocidas (para tu decisión)
 
 1. **Es una traza automática de un PNG de 262×251 px.** La forma se conserva, pero los bordes
    anti-alias se aproximan; los microdetalles (tramas, guiones finos) se simplifican.
    Para impresión de gran formato conviene una versión vectorial de origen (no existe hoy).
-2. **Favicon de 32 px:** el logo completo es muy detallado a ese tamaño (ver `_favicon-32-zoom.png`).
-   Se entrega igual; si quieres, en la 1B se evalúa una versión recortada a la parabólica.
+2. **Favicon:** resuelto recortando al **mayor componente de tinta** (la parabólica con su soporte,
+   `bbox 47,16–237,222` de 262×251) y encuadrándolo en un cuadrado centrado con recorte redondeado.
+   Evidencia en `_favicon-recorte.png` y `_favicon-32-zoom.png`: a 32 px **todavía se lee como una
+   mancha azul/verde** (el trazo es muy denso para ese tamaño). Se entrega igual porque así lo pediste;
+   si quieres, en la 1B se prueba una marca simplificada (solo la parábola, sin puntos ni bloques)
+   para 16–32 px, manteniendo este recorte para 180/512 px.
 3. **Lockups:** el wordmark va como **texto vivo** (`font-family: Archivo`, 900 itálica real). Se hornea a
    paths/PNG en la 1B con Playwright, ya con la fuente real cargada.

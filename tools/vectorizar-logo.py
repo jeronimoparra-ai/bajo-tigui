@@ -113,11 +113,12 @@ def potrace_svg(potrace: str, pgm: Path, turdsize: int, opttol: float) -> str:
 
 def generar(potrace: str, escala: int = 8, interp: str = "lanczos", opttol: float = 1.0,
             turdsize: int = 16, tmp_dir: Path | None = None):
-    """Devuelve (w, h, paths, fg_mask, bbox).
+    """Devuelve (w, h, paths, fg_mask, bbox, masks).
 
     paths: dict nombre -> cadena de "d" (en espacio x ESCALA, con Y invertida).
     fg_mask: Image "1" a resolución nativa con la silueta (todo lo que no es lienzo).
     bbox: (x0, y0, x1, y1) de la silueta a resolución nativa.
+    masks: dict nombre -> Image "1" a resolución nativa (incluye "tinta").
     """
     tmp_dir = tmp_dir or RAIZ / "docs/diseno/assets"
     base = Image.open(SRC).convert("RGB")
@@ -138,6 +139,7 @@ def generar(potrace: str, escala: int = 8, interp: str = "lanczos", opttol: floa
 
     res = Image.NEAREST if interp == "nearest" else Image.LANCZOS
     paths: dict[str, str] = {}
+    masks: dict[str, Image.Image] = {}
     for nombre in ORDEN:
         mask = Image.new("1", (w0, h0), 0)
         mp = mask.load()
@@ -157,6 +159,7 @@ def generar(potrace: str, escala: int = 8, interp: str = "lanczos", opttol: floa
                     hay = True
         if not hay:
             continue
+        masks[nombre] = mask
         nivel = mask.convert("L")
         if nombre != "tinta":
             nivel = nivel.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
@@ -173,7 +176,7 @@ def generar(potrace: str, escala: int = 8, interp: str = "lanczos", opttol: floa
         pgm.with_suffix(".out.svg").unlink(missing_ok=True)
         if d:
             paths[nombre] = d
-    return w0, h0, paths, fg, fg.getbbox()
+    return w0, h0, paths, fg, fg.getbbox(), masks
 
 
 def svg_color(w: int, h: int, paths: dict[str, str], escala: int, viewbox=None, pad: float = 0.0) -> str:
@@ -233,8 +236,8 @@ def main() -> int:
         return 1
     salida = RAIZ / args.out
     salida.parent.mkdir(parents=True, exist_ok=True)
-    w, h, paths, fg, bbox = generar(potrace, args.escala, args.interp, args.opttol, args.turdsize,
-                                    tmp_dir=salida.parent)
+    w, h, paths, fg, bbox, _masks = generar(potrace, args.escala, args.interp, args.opttol,
+                                             args.turdsize, tmp_dir=salida.parent)
     salida.write_text(svg_color(w, h, paths, args.escala))
     print(f"{salida.name}: {len(paths)} capas · {salida.stat().st_size / 1024:.1f} KB · "
           f"escala={args.escala} interp={args.interp} opttol={args.opttol} turdsize={args.turdsize}")
