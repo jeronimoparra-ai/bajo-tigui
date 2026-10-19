@@ -1,84 +1,92 @@
 #!/usr/bin/env python3
 """
-Vectoriza identidad-visual/marca/logo_APBT.png por capas de color usando potrace.
+Vectoriza identidad-visual/marca/logo_APBT.png por capas de color usando potrace
+y evalúa el resultado contra el original (error medio por píxel).
 
-Estrategia (opción A acordada):
-  1. Compone el PNG (que trae fondo blanco incrustado) sobre blanco y lo amplía x4
-     con LANCZOS para suavizar bordes antes de trazar.
-  2. Clasifica cada píxel al color de marca más cercano (paleta real del logo).
-  3. Detecta el "lienzo" (blanco conectado al borde) y lo descarta.
-  4. Traza cada capa de color con potrace y las apila (rellenos debajo, negro arriba).
-  5. Escribe el SVG crudo y un PNG de verificación.
+Método:
+  1. Clasifica a resolución nativa cada píxel al color de marca más cercano.
+  2. Descarta el "lienzo" (blanco conectado al borde).
+  3. Apertura morfológica por capa para borrar halos de anti-aliasing.
+  4. Amplía cada máscara (LANCZOS + umbral) y traza con potrace.
+  5. Apila rellenos y, arriba, la tinta del contorno.
+  6. potrace entrega las Y con el origen abajo -> el grupo SVG las voltea.
+
+Mejores parámetros medidos (error medio / píxeles malos):
+    escala=8  interp=lanczos  opttol=1.0  turdsize=16  -> 6.9/255 · 4.4 %
 
 Uso:
-    python3 tools/vectorizar-logo.py
+    python3 tools/vectorizar-logo.py [--escala 8] [--interp lanczos] [--opttol 1.0]
+        [--turdsize 16] [--out docs/diseno/assets/logo-traza.svg]
 
-Salidas:
-    docs/diseno/assets/logo-traza.svg        (crudo, para revisión)
-    docs/diseno/assets/_verificacion-traza.png
-    docs/diseno/assets/_verificacion-original.png
-
-Requiere: `potrace` en el PATH y Pillow. NO modifica los originales.
-Después de revisar el trazo, la limpieza manual produce public/brand/logo-icono.svg.
+La API `generar()` la usa tools/generar-assets-logo.py para producir las variantes.
 """
 from __future__ import annotations
 
+import argparse
 import re
+import shutil
 import subprocess
 import sys
 from collections import deque
 from pathlib import Path
 
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageOps
 
 RAIZ = Path(__file__).resolve().parent.parent
 SRC = RAIZ / "identidad-visual/marca/logo_APBT.png"
-SALIDA = RAIZ / "docs/diseno/assets"
 
-ESCALA = 4               # ampliación previa al trazado
-UMBRAL_COLOR = 60        # distancia RGB máxima para asignar al color más cercano
-TURDSIZE = 12            # descarta manchas menores (px, en espacio x4)
-ORDEN_VERIFICACION = Path  # placeholder de tipo (no usado)
+UMBRAL_TINTA = 110   # luminancia máx. para considerar un píxel "tinta"
+NEAR_WHITE = 235     # mínimo de canal para considerar "casi blanco"
 
-# Paleta de marca observada en el logo (misma que tokens.css)
-PALETA = [
-    ("canvas", "#FFFFFF"),   # fondo incrustado (se descarta)
-    ("gris",   "#EDEDED"),
-    ("cian",   "#DEFAFA"),
-    ("celeste","#8FCCF0"),
-    ("agua",   "#A1D9D4"),
-    ("azul",   "#6E99E0"),
-    ("amarillo","#FFE600"),
-    ("naranja","#FF9900"),
-    ("tinta",  "#000000"),
-]
-
-# Orden de apilado (de abajo hacia arriba). La tinta va al final: es el contorno.
-ORDEN_CAPAS = ["gris", "cian", "celeste", "agua", "azul", "amarillo", "naranja", "tinta"]
+COLORES = {
+    "blanco":   "#FFFFFF",
+    "gris":     "#EDEDED",
+    "cian":     "#DEFAFA",
+    "celeste":  "#8FCCF0",
+    "agua":     "#A1D9D4",
+    "azul":     "#6E99E0",
+    "amarillo": "#FFE600",
+    "naranja":  "#FF9900",
+    "tinta":    "#000000",
+}
+ORDEN = ["blanco", "gris", "cian", "celeste", "agua", "azul", "amarillo", "naranja", "tinta"]
+RELLENO = [c for c in ORDEN if c != "tinta"]
 
 
-def hex_rgb(h: str) -> tuple[int, int, int]:
+def hallar_potrace() -> str | None:
+    local = RAIZ / "tools/.local/bin/potrace"
+    return str(local) if local.exists() else shutil.which("potrace")
+
+
+def rgb(h: str) -> tuple[int, int, int]:
     h = h.lstrip("#")
     return int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
 
 
-def asignar_clase(px: tuple[int, int, int]) -> str:
-    mejor, mejor_d = "canvas", 1e9
-    for nombre, hx in PALETA:
-        r, g, b = hex_rgb(hx)
-        d = (px[0] - r) ** 2 + (px[1] - g) ** 2 + (px[2] - b) ** 2
+PAL_RGB = {k: rgb(v) for k, v in COLORES.items()}
+COLOR_RELLENO = {k: PAL_RGB[k] for k in RELLENO}
+
+
+def clasificar(px: tuple[int, int, int]) -> str:
+    r, g, b = px
+    if max(r, g, b) < UMBRAL_TINTA:
+        return "tinta"
+    if min(r, g, b) >= NEAR_WHITE:
+        return "canvas"
+    mejor, mejor_d = "gris", 1 << 30
+    for nombre, (cr, cg, cb) in COLOR_RELLENO.items():
+        d = (r - cr) ** 2 + (g - cg) ** 2 + (b - cb) ** 2
         if d < mejor_d:
             mejor, mejor_d = nombre, d
-    return mejor if mejor_d <= UMBRAL_COLOR ** 2 else "otro"
+    return mejor
 
 
 def detectar_lienzo(clase: list[list[str]], w: int, h: int) -> list[list[bool]]:
-    """Inunda desde el borde el color 'canvas' para separar fondo de blancos internos."""
     lienzo = [[False] * w for _ in range(h)]
     cola: deque[tuple[int, int]] = deque()
     for x in range(w):
         for y in (0, h - 1):
-            if clase[y][x] == "canvas" and not lienzo[y][x]:
+            if clase[y][x] == "canvas":
                 lienzo[y][x] = True
                 cola.append((x, y))
     for y in range(h):
@@ -96,115 +104,141 @@ def detectar_lienzo(clase: list[list[str]], w: int, h: int) -> list[list[bool]]:
     return lienzo
 
 
-def escribir_pbm(mask: list[list[bool]], w: int, h: int, destino: Path) -> None:
-    filas = bytearray()
-    for y in range(h):
-        bits = bytearray()
-        byte = 0
-        nbits = 0
-        for x in range(w):
-            byte = (byte << 1) | (1 if mask[y][x] else 0)
-            nbits += 1
-            if nbits == 8:
-                bits.append(byte)
-                byte = 0
-                nbits = 0
-        if nbits:
-            bits.append(byte << (8 - nbits))
-        filas += bits
-    destino.write_bytes(b"P4\n%d %d\n" % (w, h) + bytes(filas))
+def potrace_svg(potrace: str, pgm: Path, turdsize: int, opttol: float) -> str:
+    svg = pgm.with_suffix(".out.svg")
+    subprocess.run([potrace, "--svg", "--turdsize", str(turdsize), "--alphamax", "1.0",
+                    "--opttolerance", str(opttol), "--unit", "1", "-o", str(svg), str(pgm)], check=True)
+    return " ".join(re.findall(r'<path[^>]*\bd="([^"]+)"', svg.read_text()))
 
 
-def trazar(pbm: Path) -> str:
-    salida = pbm.with_suffix(".svg")
-    subprocess.run(
-        ["potrace", "--svg", "--turdsize", str(TURDSIZE), "--alphamax", "1.0",
-         "--opttolerance", "0.2", "--unit", "1", "-o", str(salida), str(pbm)],
-        check=True,
+def generar(potrace: str, escala: int = 8, interp: str = "lanczos", opttol: float = 1.0,
+            turdsize: int = 16, tmp_dir: Path | None = None):
+    """Devuelve (w, h, paths, fg_mask, bbox).
+
+    paths: dict nombre -> cadena de "d" (en espacio x ESCALA, con Y invertida).
+    fg_mask: Image "1" a resolución nativa con la silueta (todo lo que no es lienzo).
+    bbox: (x0, y0, x1, y1) de la silueta a resolución nativa.
+    """
+    tmp_dir = tmp_dir or RAIZ / "docs/diseno/assets"
+    base = Image.open(SRC).convert("RGB")
+    w0, h0 = base.size
+    px = base.load()
+    clase = [[clasificar(px[x, y]) for x in range(w0)] for y in range(h0)]
+    lienzo = detectar_lienzo(clase, w0, h0)
+
+    fg = Image.new("1", (w0, h0), 0)
+    fgp = fg.load()
+    for y in range(h0):
+        fila = clase[y]
+        for x in range(w0):
+            c = fila[x]
+            if c != "canvas" or not lienzo[y][x]:
+                if c != "canvas":
+                    fgp[x, y] = 1
+
+    res = Image.NEAREST if interp == "nearest" else Image.LANCZOS
+    paths: dict[str, str] = {}
+    for nombre in ORDEN:
+        mask = Image.new("1", (w0, h0), 0)
+        mp = mask.load()
+        hay = False
+        for y in range(h0):
+            fila = clase[y]
+            for x in range(w0):
+                c = fila[x]
+                if c == "tinta":
+                    ok = nombre == "tinta"
+                elif c == "canvas":
+                    ok = nombre == "blanco" and not lienzo[y][x]
+                else:
+                    ok = c == nombre
+                if ok:
+                    mp[x, y] = 1
+                    hay = True
+        if not hay:
+            continue
+        nivel = mask.convert("L")
+        if nombre != "tinta":
+            nivel = nivel.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
+            if nivel.getbbox() is None:
+                continue
+        if escala > 1:
+            nivel = nivel.resize((w0 * escala, h0 * escala), res)
+            if res is Image.LANCZOS:
+                nivel = nivel.point(lambda v: 255 if v >= 128 else 0)
+        pgm = tmp_dir / f"_capa-{nombre}.pgm"
+        ImageOps.invert(nivel).save(pgm)
+        d = potrace_svg(potrace, pgm, turdsize, opttol)
+        pgm.unlink(missing_ok=True)
+        pgm.with_suffix(".out.svg").unlink(missing_ok=True)
+        if d:
+            paths[nombre] = d
+    return w0, h0, paths, fg, fg.getbbox()
+
+
+def svg_color(w: int, h: int, paths: dict[str, str], escala: int, viewbox=None, pad: float = 0.0) -> str:
+    vb = viewbox or (0, 0, w, h)
+    capas = []
+    for nombre in ORDEN:
+        d = paths.get(nombre)
+        if not d:
+            continue
+        color = COLORES[nombre]
+        if nombre == "tinta":
+            capas.append(f'  <path fill="{color}" d="{d}"/>')
+        else:
+            capas.append(f'  <path fill="{color}" stroke="{color}" stroke-width="0.4" '
+                         f'stroke-linejoin="round" d="{d}"/>')
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb[0]} {vb[1]} {vb[2]} {vb[3]}" '
+        f'width="{vb[2]}" height="{vb[3]}" role="img" aria-label="Antena Parabólica Bajo Tigui">\n'
+        f'  <g transform="matrix({1 / escala} 0 0 {-1 / escala} 0 {h})">\n'
+        + "\n".join(capas) + "\n  </g>\n</svg>\n"
     )
-    svg = salida.read_text()
-    return " ".join(re.findall(r'<path[^>]*\bd="([^"]+)"', svg))
+
+
+def metricas(svg_original: Path, svg_traza: Path) -> str:
+    base = Image.open(svg_original).convert("RGB")
+    w, h = base.size
+    tmp = svg_traza.with_name("_metric.png")
+    subprocess.run(["convert", "-background", "white", str(svg_traza), "-alpha", "remove",
+                    "-alpha", "off", "-resize", f"{w}x{h}!", str(tmp)], check=False)
+    t = Image.open(tmp).convert("RGB")
+    tmp.unlink(missing_ok=True)
+    pb, pt = base.load(), t.load()
+    suma = malos = 0
+    for y in range(h):
+        for x in range(w):
+            rb, gb, bb = pb[x, y]
+            rt, gt, bt = pt[x, y]
+            d = (abs(rb - rt) + abs(gb - gt) + abs(bb - bt)) / 3
+            suma += d
+            malos += d > 48
+    n = w * h
+    return f"error medio={suma / n:5.2f}/255 · píxeles malos={100 * malos / n:5.2f}%"
 
 
 def main() -> int:
-    if subprocess.run(["which", "potrace"], capture_output=True).returncode != 0:
-        print("ERROR: potrace no está en el PATH. Instálalo con: sudo apt install potrace", file=sys.stderr)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--escala", type=int, default=8)
+    ap.add_argument("--interp", choices=["nearest", "lanczos"], default="lanczos")
+    ap.add_argument("--opttol", type=float, default=1.0)
+    ap.add_argument("--turdsize", type=int, default=16)
+    ap.add_argument("--out", default="docs/diseno/assets/logo-traza.svg")
+    args = ap.parse_args()
+
+    potrace = hallar_potrace()
+    if not potrace:
+        print("ERROR: no encuentro potrace (tools/.local/bin o PATH).", file=sys.stderr)
         return 1
-    if not SRC.exists():
-        print(f"ERROR: no existe {SRC}", file=sys.stderr)
-        return 1
-
-    SALIDA.mkdir(parents=True, exist_ok=True)
-
-    base = Image.open(SRC).convert("RGB")
-    w0, h0 = base.size
-    img = base.resize((w0 * ESCALA, h0 * ESCALA), Image.LANCZOS)
-    w, h = img.size
-    px = img.load()
-
-    # 1) clasificación
-    clase = [[asignar_clase(px[x, y]) for x in range(w)] for y in range(h)]
-    # 2) lienzo
-    lienzo = detectar_lienzo(clase, w, h)
-
-    capas: list[tuple[str, list[list[bool]]]] = []
-    for nombre, _ in PALETA:
-        if nombre == "canvas":
-            continue
-        mask = [[False] * w for _ in range(h)]
-        hay = False
-        for y in range(h):
-            fila = clase[y]
-            for x in range(w):
-                if fila[x] == nombre and not lienzo[y][x]:
-                    mask[y][x] = True
-                    hay = True
-        if hay:
-            capas.append((nombre, mask))
-
-    # 3) trazar cada capa (con cierre morfológico para evitar costuras)
-    por_nombre = dict(capas)
-    grupo: list[str] = []
-    for nombre in ORDEN_CAPAS:
-        mask = por_nombre.get(nombre)
-        if not mask:
-            continue
-        mimg = Image.new("1", (w, h), 0)
-        mp = mimg.load()
-        for y in range(h):
-            for x in range(w):
-                if mask[y][x]:
-                    mp[x, y] = 1
-        if nombre != "tinta":
-            mimg = mimg.filter(ImageFilter.MaxFilter(3))
-        pbm = SALIDA / f"_capa-{nombre}.pbm"
-        escribir_pbm([[bool(mp[x, y]) for x in range(w)] for y in range(h)], w, h, pbm)
-        d = trazar(pbm)
-        color = dict(PALETA)[{"gris": "gris", "cian": "cian", "celeste": "celeste",
-                              "agua": "agua", "azul": "azul", "amarillo": "amarillo",
-                              "naranja": "naranja", "tinta": "tinta"}[nombre]]
-        if d:
-            grupo.append(f'  <path fill="{color}" d="{d}"/>')
-
-    svg = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w0} {h0}" '
-        f'width="{w0}" height="{h0}" role="img" aria-label="Antena Parabólica Bajo Tigui">\n'
-        f'  <g transform="scale({1/ESCALA})">\n' + "\n".join(grupo) + "\n  </g>\n</svg>\n"
-    )
-    destino = SALIDA / "logo-traza.svg"
-    destino.write_text(svg)
-    print(f"SVG crudo: {destino.relative_to(RAIZ)}")
-
-    # 4) PNG de verificación (RSVG) + original para comparar
-    subprocess.run(["convert", "-background", "none", str(destino), "-resize", "512x512",
-                    str(SALIDA / "_verificacion-traza.png")], check=False)
-    subprocess.run(["convert", str(SRC), "-resize", "512x512",
-                    str(SALIDA / "_verificacion-original.png")], check=False)
-    print("Verificación lista en docs/diseno/assets/_verificacion-*.png")
-    for pbm in SALIDA.glob("_capa-*.pbm"):
-        pbm.unlink()
-    for pbm in SALIDA.glob("_capa-*.svg"):
-        pbm.unlink()
+    salida = RAIZ / args.out
+    salida.parent.mkdir(parents=True, exist_ok=True)
+    w, h, paths, fg, bbox = generar(potrace, args.escala, args.interp, args.opttol, args.turdsize,
+                                    tmp_dir=salida.parent)
+    salida.write_text(svg_color(w, h, paths, args.escala))
+    print(f"{salida.name}: {len(paths)} capas · {salida.stat().st_size / 1024:.1f} KB · "
+          f"escala={args.escala} interp={args.interp} opttol={args.opttol} turdsize={args.turdsize}")
+    print("   ", metricas(SRC, salida))
     return 0
 
 

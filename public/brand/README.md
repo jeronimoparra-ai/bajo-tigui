@@ -1,24 +1,32 @@
 # public/brand — derivados del logo (uso en la web)
 
-Los originales están intactos en `identidad-visual/marca/`. Aquí solo van **derivados**.
+Los originales están intactos en `identidad-visual/marca/`. Aquí solo hay **derivados**
+generados por `tools/generar-assets-logo.py` a partir de la traza de `tools/vectorizar-logo.py`.
 
-## Variantes previstas
+## Entregado (Fase 1A)
 
-| Archivo | Uso | Estado |
+| Archivo | Peso (gzip) | Uso |
 |---|---|---|
-| `logo-icono.svg` | Ícono canónico (color), favicon, marca de agua | ⏳ pendiente de potrace |
-| `logo-mono-tinta.svg` | Silueta de un color (tinta) | ⏳ pendiente |
-| `logo-mono-blanco.svg` | Silueta de un color (blanco) | ⏳ pendiente |
-| `logo-horizontal.svg` | Ícono + "ANTENA PARABÓLICA / BAJO TIGUI" | ⏳ pendiente |
-| `logo-vertical.svg` | Apilado | ⏳ pendiente |
-| `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` | Navegador / iOS / PWA | ⏳ pendiente |
-| `og-1200x630.png` | Open Graph / WhatsApp | ⏳ pendiente (se hornea en la 1B con Playwright) |
+| `logo-icono.svg` | 77,7 KB (15,3 KB) | Ícono a color, recortado, fondo transparente. Cabecera, footer, contenido |
+| `logo-mono-tinta.svg` | 37,1 KB (8,6 KB) | Línea en tinta `#0B0B0B`. Sellos, grabados, fondos claros |
+| `logo-mono-blanco.svg` | 37,1 KB (8,6 KB) | Línea en blanco. Fondos navy/fotos oscuras |
+| `logo-sobre-oscuro.svg` | 77,8 KB (15,5 KB) | Ícono color sobre **placa crema** redondeada: tratamiento para fondos oscuros |
+| `logo-horizontal.svg` | 78,0 KB (15,5 KB) | Ícono + "ANTENA PARABÓLICA / BAJO TIGUI" |
+| `logo-vertical.svg` | 78,0 KB | Apilado |
+| `favicon.svg` | 56,6 KB (11,1 KB) | Favicon (traza más ligera, placa crema) |
+| `favicon-32.png`, `apple-touch-icon.png` (180), `icon-512.png` | 5 / 74 / 406 KB | Navegador, iOS, PWA |
 
-## Reglas
+## Reglas de uso
 
 - No deformar, no recolorear fuera de `docs/diseno/tokens.css`, no aplicar degradados.
-- **Sobre fondos oscuros** el logo va sobre una **placa crema** (`#F7F4EC`) o se usa la
-  versión monocroma: el contorno negro del logo desaparece sobre navy.
+- **Sobre fondos oscuros** el contorno negro desaparece: usar `logo-sobre-oscuro.svg`
+  (placa crema) o `logo-mono-blanco.svg`. **No** poner `logo-icono.svg` directo sobre navy.
 - Zona de protección: 25 % del ancho del ícono. Tamaño mínimo del ícono: 24 px digital.
-- El **wordmark** usa Bricolage Grotesque Black; en los SVG se entrega como texto con
-  `font-family` y se hornea a paths/PNG (Playwright) para OG, favicon y correos.
+- **No usar las caras de las familias** de los flyers en el sitio.
+
+## Pendiente (Fase 1B)
+
+- `og-1200x630.png` (Open Graph / WhatsApp) horneado con Playwright.
+- Lockups `logo-horizontal.svg` / `logo-vertical.svg` con el **wordmark convertido a paths**
+  (hoy va como texto vivo con la fuente Bricolage Grotesque).
+- Evalúa si se recorta el ícono para el favicon de 16–32 px.

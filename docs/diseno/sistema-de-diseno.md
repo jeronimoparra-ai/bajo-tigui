@@ -183,22 +183,29 @@ Set SVG propio, **no** un paquete genérico:
 
 ## 9. Sistema de logo y variantes
 
-`logo_APBT.png` es el **único símbolo canónico**. Plan de variantes (Fase 1A, `public/brand/`):
+`logo_APBT.png` es el **único símbolo canónico**. Vectorizado por capas con potrace
+(`tools/vectorizar-logo.py`, error medio 6,93/255 · píxeles malos 4,43 %) y exportado a
+`public/brand/` con `tools/generar-assets-logo.py`.
 
 | Variante | Archivo | Uso |
 |---|---|---|
-| Ícono solo | `logo-icono.svg` | Favicon, avatar, marca de agua |
-| Ícono + wordmark horizontal | `logo-horizontal.svg` | Cabecera, footer, correos |
+| Ícono solo | `logo-icono.svg` | Cabecera, contenido, marca de agua |
+| Línea monocroma tinta | `logo-mono-tinta.svg` | Sellos, grabados, fondos claros |
+| Línea monocroma blanco | `logo-mono-blanco.svg` | Fondos navy/fotos oscuras |
+| Ícono sobre placa crema | `logo-sobre-oscuro.svg` | **Tratamiento para fondos oscuros** (el contorno negro desaparece sobre navy) |
+| Horizontal con wordmark | `logo-horizontal.svg` | Cabecera, footer, correos |
 | Vertical apilado | `logo-vertical.svg` | OG, valla, presentaciones |
-| Sobres fijo claro / oscuro | `logo-claro.svg`, `logo-oscuro.svg` | Fondos crema y navy |
-| Monocromo | `logo-mono-tinta.svg`, `logo-mono-blanco.svg` | Un color, sellos, grabados |
-| Favicon | `favicon.svg` + PNG 32/180/512 | Navegador, iOS, PWA |
-| OG image | `og-1200x630.png` | Redes y WhatsApp |
+| Favicon | `favicon.svg` + `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png` | Navegador, iOS, PWA |
+| OG image | `og-1200x630.png` | **Fase 1B** (se hornea con Playwright) |
 
 Reglas: no deformar, no recolorear fuera de tokens, no aplicar degradados, no usar el símbolo sobre
 fotos sin placa de color, zona de protección = 25 % del ancho del ícono, tamaño mínimo del ícono 24 px
 (digital) / 12 mm (impreso). El **wordmark** "ANTENA PARABÓLICA / BAJO TIGUI" se compone con Bricolage
-Grotesque Black (según `sistema-de-diseno.md` § 2) y se hornea en paths.
+Grotesque Black (según § 2); en los lockups va hoy como texto vivo y en la 1B se hornea a paths/PNG.
+
+> **Pendientes declarados:** el ícono es una traza automática de un PNG de 262×251 px (no existe
+> original vectorial); el favicon completo es muy detallado a 16–32 px; los lockups necesitan el
+> horneado del wordmark. Detalle en `docs/diseno/assets/README.md`.
 
 ---
 

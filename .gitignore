@@ -18,6 +18,10 @@ build/
 # Identidad visual de referencia (terceros, no versionar)
 identidad-visual/referencia/
 
+# Herramientas compiladas localmente (potrace) y su código fuente
+tools/vendor/
+tools/.local/
+
 # Pruebas
 coverage/
 playwright-report/
