@@ -109,18 +109,22 @@ leer_terminal() {  # $1 = dispatch
 }
 
 veredicto_de() {  # $1 = log fe-delegate, $2 = transcripción del terminal
-  local texto="$1"
-  [ -f "$2" ] && texto="$texto
-$2"
-  # OJO: la cuota se mira PRIMERO. El texto del brief (con la instrucción de
+  # OJO 1: la cuota se mira PRIMERO. El texto del brief (con la instrucción de
   # cierre) se hace eco en la transcripción del terminal, así que buscar el
   # centinela en el texto daría falsos positivos.
-  if grep -qiE 'quota reached|Resets in [0-9]+h|insufficient_quota' "$texto"; then echo "CUOTA"; return; fi
-  if grep -qiE 'agent_not_in_foreground' "$texto"; then echo "MODO_INCOMPATIBLE"; return; fi
-  if grep -qiE 'agent_not_found|cli_not_found|ENOENT|command not found' "$texto"; then echo "NO_DISPONIBLE"; return; fi
-  if grep -qiE '"type": *"worker_done"' "$texto"; then echo "OK"; return; fi
+  # OJO 2: se lee el CONTENIDO del archivo ($2), no su ruta.
+  # OJO 3: se usa <<< y no "$texto" como argumento de grep: un texto de varias
+  # líneas pasado como argumento hace que grep trate cada línea como un
+  # archivo y falle en silencio.
+  local texto="$1"
+  [ -f "$2" ] && texto="$texto
+$(cat "$2")"
+  if grep -qiE 'quota reached|Resets in [0-9]+h|insufficient_quota' <<< "$texto"; then echo "CUOTA"; return; fi
+  if grep -qiE 'agent_not_in_foreground' <<< "$texto"; then echo "MODO_INCOMPATIBLE"; return; fi
+  if grep -qiE 'agent_not_found|cli_not_found|ENOENT|command not found' <<< "$texto"; then echo "NO_DISPONIBLE"; return; fi
+  if grep -qiE '"type": *"worker_done"' <<< "$texto"; then echo "OK"; return; fi
   if [ -f "$SENTINELA_FILE" ]; then echo "OK"; return; fi
-  local err; err="$(grep -oE '"lastError": *"[^"]+"' "$texto" | head -1 || true)"
+  local err; err="$(grep -oE '"lastError": *"[^"]+"' <<< "$texto" | head -1 || true)"
   [ -n "$err" ] && { echo "ERROR$err"; return; }
   echo "SIN_VEREDICTO"
 }
