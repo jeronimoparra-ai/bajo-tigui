@@ -43,7 +43,7 @@ SONDA_MS="${SONDA_MS:-240000}"
 LOGDIR="${LOGDIR:-/tmp/bajo-tegui-delegaciones}"
 ORCA="${ORCA_CLI:-orca-ide}"
 FE="${FE_DELEGATE:-$(command -v fe-delegate || echo "$HOME/.local/bin/fe-delegate")}"
-SENTINELA="ORCA-DONE:$TAREA"
+SENTINELA_FILE="/tmp/orca-done-$TAREA"
 
 mkdir -p "$LOGDIR"
 mkdir -p "$LOGDIR/estado"
@@ -76,9 +76,14 @@ BRIEF_EF="$(mktemp -d)/brief-$(basename "$BRIEF")"
   echo
   echo "═══════════════════════════════════════════════════════════════"
   echo "CIERRE DE TAREA (obligatorio)"
-  echo "Cuando tu trabajo esté terminado, la ÚLTIMA línea de tu respuesta"
-  echo "debe ser exactamente esta cadena, y nada más después:"
-  echo "  $SENTINELA"
+  echo "Cuando tu trabajo esté terminado:"
+  echo "  1) escribe un archivo VACÍO en:  $SENTINELA_FILE"
+  echo "     (es el único archivo fuera de tus rutas permitidas que puedes"
+  echo "      crear; si el sistema te pide permiso, pídelo y sigue cuando te"
+  echo "      lo aprueben)"
+  echo "  2) termina con una respuesta final que resuma lo hecho."
+  echo "Ese archivo es la señal de que terminaste. Sin él, el coordinador no"
+  echo "puede dar la tarea por terminada."
   echo "═══════════════════════════════════════════════════════════════"
 } > "$BRIEF_EF"
 
@@ -107,11 +112,14 @@ veredicto_de() {  # $1 = log fe-delegate, $2 = transcripción del terminal
   local texto="$1"
   [ -f "$2" ] && texto="$texto
 $2"
-  if grep -qF "$SENTINELA" "$texto"; then echo "OK"; return; fi
-  if grep -qiE '"type": *"worker_done"' "$texto"; then echo "OK"; return; fi
+  # OJO: la cuota se mira PRIMERO. El texto del brief (con la instrucción de
+  # cierre) se hace eco en la transcripción del terminal, así que buscar el
+  # centinela en el texto daría falsos positivos.
   if grep -qiE 'quota reached|Resets in [0-9]+h|insufficient_quota' "$texto"; then echo "CUOTA"; return; fi
   if grep -qiE 'agent_not_in_foreground' "$texto"; then echo "MODO_INCOMPATIBLE"; return; fi
   if grep -qiE 'agent_not_found|cli_not_found|ENOENT|command not found' "$texto"; then echo "NO_DISPONIBLE"; return; fi
+  if grep -qiE '"type": *"worker_done"' "$texto"; then echo "OK"; return; fi
+  if [ -f "$SENTINELA_FILE" ]; then echo "OK"; return; fi
   local err; err="$(grep -oE '"lastError": *"[^"]+"' "$texto" | head -1 || true)"
   [ -n "$err" ] && { echo "ERROR$err"; return; }
   echo "SIN_VEREDICTO"
@@ -136,9 +144,18 @@ intentar() {  # $1 = agente, $2 = modelo
     echo "SALTADO_POR_CUOTA" > "$LOGDIR/$TAREA-$agente.estado"; return 3
   fi
 
+  rm -f "$SENTINELA_FILE"
   DELEGATE_MODEL="$modelo" ORCA_CLI="$WRAP" FE_DELEGATE_AGENT="$agente" \
   FE_DELEGATE_TIMEOUT_MS="$SONDA_MS" \
-    "$FE" "$RAIZ" "$TAREA" "$(cat "$BRIEF_EF")" > "$log" 2>&1
+    "$FE" "$RAIZ" "$TAREA" "$(cat "$BRIEF_EF")" > "$log" 2>&1 &
+  local fe_pid=$!
+  # Si el agente escribe el marcador de cierre, no hace falta esperar a que
+  # fe-delegate agote la sonda: se corta la espera y se sigue.
+  while kill -0 "$fe_pid" 2>/dev/null; do
+    [ -f "$SENTINELA_FILE" ] && { kill "$fe_pid" 2>/dev/null; break; }
+    sleep 10
+  done
+  wait "$fe_pid" 2>/dev/null
 
   local disp; disp="$(grep -oE 'dispatch=ctx_[a-z0-9]+' "$log" | head -1 | cut -d= -f2 || true)"
   [ -n "$disp" ] && leer_terminal "$disp" > "$term"
