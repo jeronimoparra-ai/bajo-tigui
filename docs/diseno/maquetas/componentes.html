@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Componentes — Sistema de diseño Bajo Tigui</title>
+  <link rel="stylesheet" href="_base.css" />
+  <style>
+    /* Estilos únicamente para la página de muestra ─── no forman parte del sistema */
+    .demo-page {
+      padding-block: 2rem;
+    }
+    .demo-section {
+      padding-block: 3rem;
+      border-bottom: 3px solid var(--bt-border-soft);
+    }
+    .demo-section:last-child { border-bottom: none; }
+    .demo-label {
+      font-family: var(--bt-font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bt-grey-500);
+      margin-bottom: 0.5rem;
+    }
+    .demo-group {
+      margin-top: 2rem;
+    }
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+    .demo-card {
+      background: var(--bt-surface);
+      border: 3px solid var(--bt-border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 6px 6px 0 var(--bt-ink-900);
+    }
+    .demo-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        color-mix(in srgb, var(--bt-ink-900) 4%, transparent) 0 3px,
+        transparent 3px 14px
+      );
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+    }
+    .demo-chat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .demo-chat-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .demo-chat-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bt-grey-500);
+    }
+    .demo-signal-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    /* Evita que la demo del sticker giratorio corte el overflow */
+    .demo-sticker-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem 0;
+    }
+    /* Corrección de layout en la demo del fab flotante */
+    .demo-fab-wrap {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     1. NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════════ -->
+<nav class="bt-nav" aria-label="Navegación principal">
+  <div class="bt-container">
+    <div class="bt-nav__inner">
+      <a href="#" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+        <img
+          class="bt-nav__logo"
+          src="../../../public/brand/logo-horizontal.svg"
+          alt="Antena Parabólica Bajo Tigui"
+          width="220"
+          height="52"
+        />
+      </a>
+      <ul class="bt-nav__links">
+        <li><a href="#" aria-current="page">Inicio</a></li>
+        <li><a href="#">Planes</a></li>
+        <li><a href="#">Canales</a></li>
+        <li><a href="#">Cobertura</a></li>
+        <li><a href="#">Contáctenos</a></li>
+      </ul>
+      <div class="bt-nav__actions">
+        <a href="tel:3147182506" class="bt-btn bt-btn--accent bt-btn--sm">
+          Llamar
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     2. BANNER DE AVISO (estado activo)
+     ══════════════════════════════════════════════════════════════════ -->
+<div
+  class="bt-banner-aviso"
+  role="alert"
+  aria-live="polite"
+  data-state="active"
+>
+  <span class="bt-banner-aviso__tag">Aviso importante</span>
+  <div class="bt-banner-aviso__content">
+    Los servicios de parabólica pueden suspenderse con saldo superior a
+    <strong>$37.000 COP</strong>.
+    <span class="bt-banner-aviso__lema">
+      "Recuerde señor asociado: que me es cumplido, me es pago."
+    </span>
+  </div>
+  <button class="bt-banner-aviso__dismiss" type="button" aria-label="Cerrar aviso">
+    Entendido
+  </button>
+</div>
+
+<!-- Banner inactivo (referencia; no visible) -->
+<div
+  class="bt-banner-aviso"
+  data-state="inactive"
+  aria-hidden="true"
+>
+  <span class="bt-banner-aviso__tag">Aviso</span>
+  <div class="bt-banner-aviso__content">Este banner está inactivo.</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CONTENIDO PRINCIPAL — Especificación viva del sistema
+     ══════════════════════════════════════════════════════════════════ -->
+<main id="main" class="demo-page">
+  <div class="bt-container">
+    <div class="bt-stack">
+
+      <header style="padding-block: 2rem 1rem;">
+        <p class="bt-kicker">Especificación viva</p>
+        <h1 class="bt-display bt-display--valla" style="max-width: 18ch;">
+          Sistema de diseño<br>
+          <span class="bt-brush">Bajo Tigui</span>
+        </h1>
+        <p class="bt-lead" style="margin-top: 1rem;">
+          Todos los componentes <code>bt-*</code> derivados del lenguaje gráfico de los flyers de marca.
+          Sin CDN, sin dependencias remotas, compatible con <code>file://</code>.
+        </p>
+      </header>
+
+
+      <!-- ──────────────────────────────────────────────────────────
+           3. BOTONES
+           ────────────────────────────────────────────────────────── -->
+      <section class="demo-section" aria-labelledby="sec-botones">
+        <p class="bt-kicker">Componente 3</p>
+        <h2 id="sec-botones" class="bt-display bt-display--xl">Botones</h2>
+        <p style="margin-top: 0.5rem; color: var(--bt-text-soft); font-size: 0.95rem; max-width: 60ch;">
+          Todos los botones tienen <code>min-height: 44px</code>, sombra sólida de marca
+          y transición de desplazamiento en hover. Los ratios de contraste se verificaron con WCAG 2.1 AA.
+        </p>
+
+        <div class="demo-group">
+          <p class="demo-label">Variantes de color</p>
+          <div class="demo-row">
+            <button class="bt-btn bt-btn--primary" type="button">
+              Primario
+              <span style="font-size:0.7em; opacity:0.7;">(12.2:1 AAA)</span>
+            </button>
+            <button class="bt-btn bt-btn--accent" type="button">
+              Acento
+              <span style="font-size:0.7em; opacity:0.7;">(14.1:1 AAA)</span>
+            </button>
+            <button class="bt-btn bt-btn--outline" type="button">
+              Contorno
+            </button>
+            <button class="bt-btn bt-btn--ghost" type="button">
+              Fantasma
+            </button>
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506" data-wa="https://wa.me/573147182506" rel="noopener">
+              <!-- Ícono WhatsApp SVG inline (sin CDN) -->
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              WhatsApp
+              <span style="font-size:0.7em; opacity:0.7;">(9.92:1 AAA)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <p class="demo-label">Tamaños</p>
+          <div class="demo-row" style="align-items: center;">
+            <button class="bt-btn bt-btn--primary bt-btn--sm" type="button">Pequeño (sm)</button>
+            <button class="bt-btn bt-btn--primary" type="button">Base (md)</button>
+            <button class="bt-btn bt-btn--primary bt-btn--lg" type="button">Grande (lg)</button>
+          </div>
+        </div>
+
+        <div class="demo-group">
+          <p class="demo-label">Bloque + estados</p>
+          <div style="max-width: 400px; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+            <button class="bt-btn bt-btn--primary bt-btn--block" type="button">Bloque (100%)</button>
+            <button class="bt-btn bt-btn--accent bt-btn--block is-loading" type="button" aria-busy="true">
+              Cargando…
+            </button>
+            <button class="bt-btn bt-btn--outline bt-btn--block" type="button" disabled>
+              Deshabilitado
+            </button>
+          </div>
+        </div>
+
+        <!-- Botones dentro de fondo navy — prueba del fix de contraste (BUG A) -->
+        <div class="demo-group">
+          <p class="demo-label">Botones sobre fondo navy (verificación BUG A)</p>
+          <div class="bt-section--navy demo-stripe" style="border-radius: 1rem; margin-top: 0.75rem; padding: 1.5rem;">
+            <p style="color: var(--bt-sky-200); margin: 0 0 1rem; font-size: 0.9rem;">
+              Este es un <a href="#">enlace de texto</a> que sí recibe el celeste.<br>
+              Los botones a continuación deben mantener su color propio (no quedar en celeste):
+            </p>
+            <div class="demo-row">
+              <a class="bt-btn bt-btn--primary" href="#">Primario</a>
+              <a class="bt-btn bt-btn--accent" href="#">Acento</a>
+              <a class="bt-btn bt-btn--outline" href="#">Contorno</a>
+              <a class="bt-btn bt-btn--wa" href="#">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ──────────────────────────────────────────────────────────
+           4. PÍLDORAS
+           ────────────────────────────────────────────────────────── -->
+      <section class="demo-section" aria-labelledby="sec-pildoras">
+        <p class="bt-kicker">Componente 4</p>
+        <h2 id="sec-pildoras" class="bt-display bt-display--xl">Píldoras</h2>
+        <p style="margin-top: 0.5rem; color: var(--bt-text-soft); font-size: 0.95rem;">
+          Etiquetas de característica, estado de cobertura o beneficios del plan.
+        </p>
+
+        <div class="demo-row" style="margin-top: 1.25rem;">
+          <span class="bt-pill bt-pill--sky">
+            <svg class="bt-pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+            </svg>
+            Celeste (sky)
+          </span>
+          <span class="bt-pill bt-pill--aqua">Verde agua (aqua)</span>
+          <span class="bt-pill bt-pill--sun">
+            <svg class="bt-pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M2 12h2m16 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            Amarillo (sun)
+          </span>
+          <span class="bt-pill bt-pill--orange">Naranja (orange)</span>
+          <span class="bt-pill bt-pill--navy">Navy</span>
+          <!-- Píldora base con ícono -->
+          <span class="bt-pill">
+            <svg class="bt-pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Con ícono (bt-pill-icon)
+          </span>
+        </div>
+      </section>
+
+
+      <!-- ──────────────────────────────────────────────────────────
+           5. TARJETA DE PLAN
+           ────────────────────────────────────────────────────────── -->
+      <section class="demo-section" aria-labelledby="sec-plan">
+        <p class="bt-kicker">Componente 5</p>
+        <h2 id="sec-plan" class="bt-display bt-display--xl">Tarjeta de plan</h2>
+        <p style="margin-top: 0.5rem; color: var(--bt-text-soft); font-size: 0.95rem; max-width: 58ch;">
+          La característica de cada ítem usa <code>.bt-card-plan__feature-text</code> para que
+          el texto y el <code>&lt;b&gt;</code> no se partan en dos columnas flex (BUG B corregido).
+        </p>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem;">
+          <article class="bt-card-plan" aria-labelledby="plan-nombre">
+            <!-- Badge flotante -->
+            <div class="bt-card-plan__badge">
+              <span class="bt-pill bt-pill--sun">
+                <svg class="bt-pill-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round">
+                  <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+                </svg>
+                ¡Promo activa!
+              </span>
+            </div>
+
+            <header class="bt-card-plan__header">
+              <h3 id="plan-nombre" class="bt-card-plan__title">Plan Fibra + TV</h3>
+              <div class="bt-card-plan__price">
+                <span class="bt-card-plan__amount bt-tabular" aria-label="70.000 pesos colombianos al mes">
+                  $70.000
+                </span>
+                <span class="bt-card-plan__period">COP / mes</span>
+              </div>
+              <!-- 1 mes gratis confirmado -->
+              <span class="bt-pill bt-pill--aqua" style="font-size: 0.8rem;">
+                🎉 1 mes gratis al contratar
+              </span>
+            </header>
+
+            <ul class="bt-card-plan__features" aria-label="Características del plan">
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                </svg>
+                <!-- __feature-text agrupa todo el texto en un solo bloque flex (BUG B) -->
+                <span class="bt-card-plan__feature-text">
+                  Internet por fibra óptica · <b>50 Mbps de descarga</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="15" rx="2"/><path d="M17 7V5a2 2 0 00-2-2H9a2 2 0 00-2 2v2"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Televisión por antena parabólica · <b>90 canales SD + HD</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Sin interrupciones · <b>señal continua</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Para toda la familia · <b>hasta 5 dispositivos simultáneos</b>
+                </span>
+              </li>
+              <li class="bt-card-plan__feature-item">
+                <svg class="bt-card-plan__feature-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                <span class="bt-card-plan__feature-text">
+                  Cobertura · <b>El Bagre y municipios cercanos</b>
+                </span>
+              </li>
+            </ul>
+
+            <!-- POR CONFIRMAR: instalación gratis -->
+            <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>Instalación gratuita al contratar — pendiente de confirmación con la administración.</span>
+            </div>
+
+            <div class="bt-card-plan__cta">
+              <a
+                class="bt-btn bt-btn--primary bt-btn--lg bt-btn--block"
+                href="tel:+573147182506" data-wa="https://wa.me/573147182506"
+                rel="noopener"
+                aria-label="Contratar plan por WhatsApp al 314 718 2506"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width:22px;height:22px;fill:currentColor;flex:0 0 auto;">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+                </svg>
+                Contratar por WhatsApp
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- ──────────────────────────────────────────────────────────
+           6. WIDGET CHATBOT (4 estados)
+           ────────────────────────────────────────────────────────── -->
+      <section class="demo-section" aria-labelledby="sec-chatbot">
+        <p class="bt-kicker">Componente 6</p>
+        <h2 id="sec-chatbot" class="bt-display bt-display--xl">Widget de chatbot</h2>
+        <p style="margin-top: 0.5rem; color: var(--bt-text-soft); font-size: 0.95rem; max-width: 60ch;">
+          Cuatro estados: FAB cerrado, panel abierto con respuestas rápidas,
+          conversación activa, y fuera de horario (dot offline).
+        </p>
+
+        <div class="demo-chat-grid">
+
+          <!-- Estado 1: FAB cerrado -->
+          <div class="demo-chat-cell">
+            <p class="demo-chat-label">Estado 1 — FAB (cerrado)</p>
+            <div class="demo-fab-wrap">
+              <button class="bt-chat-fab" type="button" aria-label="Abrir asistente virtual">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:32px;height:32px;">
+                  <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+              </button>
+              <p style="font-size: 0.85rem; color: var(--bt-text-soft); align-self: center;">
+                Botón flotante · posición fija en producción (z-index: 400)
+              </p>
+            </div>
+          </div>
+
+          <!-- Estado 2: Panel abierto con respuestas rápidas -->
+          <div class="demo-chat-cell">
+            <p class="demo-chat-label">Estado 2 — Panel + respuestas rápidas</p>
+            <div class="bt-chat-panel" role="dialog" aria-label="Asistente virtual Bajo Tigui" aria-modal="true">
+              <div class="bt-chat-panel__head">
+                <div class="bt-chat-panel__identity">
+                  <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+                  <span>Asistente Bajo Tigui</span>
+                </div>
+                <button type="button" style="background:none;border:none;color:var(--bt-white);cursor:pointer;padding:0.25rem;" aria-label="Cerrar chat">✕</button>
+              </div>
+              <div class="bt-chat-panel__body">
+                <div class="bt-chat-msg bt-chat-msg--bot">
+                  ¡Hola! Soy el asistente de Bajo Tigui. ¿En qué le ayudo?
+                </div>
+                <div class="bt-chat-quick">
+                  <button type="button">¿Cuánto vale el plan?</button>
+                  <button type="button">¿Tienen cobertura aquí?</button>
+                  <button type="button">Quiero contratar</button>
+                  <button type="button">Hablar con asesor</button>
+                </div>
+              </div>
+              <div class="bt-chat-panel__foot">
+                <div class="bt-chat-panel__input-row">
+                  <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente" />
+                  <button class="bt-btn bt-btn--primary bt-btn--sm" type="submit" aria-label="Enviar mensaje">→</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado 3: Conversación activa -->
+          <div class="demo-chat-cell">
+            <p class="demo-chat-label">Estado 3 — Conversación activa</p>
+            <div class="bt-chat-panel" role="dialog" aria-label="Conversación con asistente" aria-modal="true">
+              <div class="bt-chat-panel__head">
+                <div class="bt-chat-panel__identity">
+                  <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+                  <span>Asistente Bajo Tigui</span>
+                </div>
+                <button type="button" style="background:none;border:none;color:var(--bt-white);cursor:pointer;padding:0.25rem;" aria-label="Cerrar chat">✕</button>
+              </div>
+              <div class="bt-chat-panel__body">
+                <div class="bt-chat-msg bt-chat-msg--system" role="status">
+                  Lunes 19 de octubre · 8:50 a. m.
+                </div>
+                <div class="bt-chat-msg bt-chat-msg--bot">
+                  Nuestro plan de fibra óptica tiene una velocidad de <strong>50 Mbps de descarga</strong>
+                  con TV de 90 canales por <strong>$70.000 COP/mes</strong>.
+                </div>
+                <div class="bt-chat-msg bt-chat-msg--user">
+                  ¿Tienen cobertura en el barrio La Manga?
+                </div>
+                <div class="bt-chat-msg bt-chat-msg--bot">
+                  Permítame un momento para verificar su zona de cobertura…
+                </div>
+              </div>
+              <div class="bt-chat-panel__foot">
+                <div class="bt-chat-panel__input-row">
+                  <input type="text" placeholder="Escriba aquí…" aria-label="Mensaje" />
+                  <button class="bt-btn bt-btn--primary bt-btn--sm" type="submit" aria-label="Enviar">→</button>
+                </div>
+                <a class="bt-chat-panel__wa-exit" href="tel:+573147182506" data-wa="https://wa.me/573147182506" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;fill:currentColor;flex:0 0 auto;">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+                  </svg>
+                  Continuar por WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado 4: Fuera de horario (dot offline) -->
+          <div class="demo-chat-cell">
+            <p class="demo-chat-label">Estado 4 — Fuera de horario (offline)</p>
+            <div class="bt-chat-panel" role="dialog" aria-label="Asistente fuera de horario" aria-modal="true">
+              <div class="bt-chat-panel__head">
+                <div class="bt-chat-panel__identity">
+                  <span class="bt-chat-panel__dot bt-chat-panel__dot--offline" aria-hidden="true"></span>
+                  <span>Asistente Bajo Tigui</span>
+                </div>
+                <button type="button" style="background:none;border:none;color:var(--bt-white);cursor:pointer;padding:0.25rem;" aria-label="Cerrar chat">✕</button>
+              </div>
+              <div class="bt-chat-panel__body">
+                <div class="bt-chat-msg bt-chat-msg--system" role="status">
+                  Fuera de horario de atención
+                </div>
+                <div class="bt-chat-msg bt-chat-msg--bot">
+                  Nuestro horario humano es <strong>lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</strong>
+                  (hora de Colombia). Puedes dejarnos un mensaje por WhatsApp y le respondemos cuando abramos.
+                </div>
+              </div>
+              <div class="bt-chat-panel__foot">
+                <a class="bt-chat-panel__wa-exit" href="tel:+573147182506" data-wa="https://wa.me/573147182506" rel="noopener">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;fill:currentColor;flex:0 0 auto;">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+                  </svg>
+                  Dejar mensaje por WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /demo-chat-grid -->
+      </section>
+
+
+      <!-- ──────────────────────────────────────────────────────────
+           7. LENGUAJE GRÁFICO
+           ────────────────────────────────────────────────────────── -->
+      <section class="demo-section" aria-labelledby="sec-grafico">
+        <p class="bt-kicker">Componente 7</p>
+        <h2 id="sec-grafico" class="bt-display bt-display--xl">Lenguaje gráfico</h2>
+        <p style="margin-top: 0.5rem; color: var(--bt-text-soft); font-size: 0.95rem; max-width: 60ch;">
+          Stickers con rotación, trazos de pincel orgánico (<code>.bt-brush</code>),
+          texto con contorno grueso (<code>.bt-outline-text</code>)
+          y arcos de señal SVG (<code>.bt-signal-arcs</code>).
+        </p>
+
+        <!-- Stickers -->
+        <div class="demo-group">
+          <p class="demo-label">Stickers</p>
+          <div class="demo-sticker-row">
+            <span class="bt-sticker" aria-label="Sticker naranja: Nuevo">Nuevo</span>
+            <span class="bt-sticker bt-sticker--sun" aria-label="Sticker amarillo: Oferta">Oferta</span>
+            <span class="bt-sticker bt-sticker--aqua" aria-label="Sticker verde agua: Fibra">Fibra</span>
+            <span class="bt-sticker bt-sticker--navy" aria-label="Sticker navy: TV HD">TV HD</span>
+            <span class="bt-sticker bt-sticker--round" aria-label="Sticker redondo: 50 Mbps" style="width: 80px; height: 80px; font-size: 0.9rem; text-align: center; line-height: 1.2;">50<br>Mbps</span>
+          </div>
+        </div>
+
+        <!-- Trazo de pincel -->
+        <div class="demo-group">
+          <p class="demo-label">bt-brush (trazo de pincel orgánico)</p>
+          <div style="margin-top: 0.75rem; font-size: clamp(1.5rem, 1rem + 3vw, 2.5rem); font-family: var(--bt-font-display); font-weight: 800; line-height: 1.3;">
+            Televisión
+            <span class="bt-brush">sin interrupciones</span>
+            para todos.
+          </div>
+          <div style="margin-top: 0.75rem; font-size: clamp(1.2rem, 0.9rem + 2vw, 2rem); font-family: var(--bt-font-display); font-weight: 700; line-height: 1.4;">
+            Internet de
+            <span class="bt-brush bt-brush--orange">alta velocidad</span>
+            en El Bagre.
+          </div>
+          <div style="margin-top: 0.75rem; font-size: clamp(1.2rem, 0.9rem + 2vw, 2rem); font-family: var(--bt-font-display); font-weight: 700; line-height: 1.4;">
+            Llega la
+            <span class="bt-brush bt-brush--aqua">fibra óptica</span>
+            a su municipio.
+          </div>
+          <div style="margin-top: 0.75rem; font-size: clamp(1.2rem, 0.9rem + 2vw, 2rem); font-family: var(--bt-font-display); font-weight: 700; line-height: 1.4;">
+            Señal
+            <span class="bt-brush bt-brush--sky">clara y estable</span>
+            todo el año.
+          </div>
+        </div>
+
+        <!-- Texto con contorno grueso -->
+        <div class="demo-group">
+          <p class="demo-label">bt-outline-text (contorno grueso)</p>
+          <div style="margin-top: 0.75rem;">
+            <p
+              class="bt-display bt-display--valla bt-outline-text"
+              style="color: var(--bt-yellow-400); font-size: clamp(2.5rem, 1.5rem + 5vw, 5rem);"
+            >
+              BAJO TIGUI
+            </p>
+          </div>
+        </div>
+
+        <!-- Arcos de señal -->
+        <div class="demo-group">
+          <p class="demo-label">bt-signal-arcs (ondas de señal SVG)</p>
+          <div class="demo-signal-wrap" style="margin-top: 1rem;">
+            <!-- Arcos concéntricos inspirados en las ondas del flyer -->
+            <svg
+              class="bt-signal-arcs"
+              viewBox="0 0 120 100"
+              width="120"
+              height="100"
+              aria-label="Ondas de señal parabólica"
+              role="img"
+              style="color: var(--bt-cobalt-600);"
+            >
+              <path d="M 60 80 L 60 65" stroke-linecap="round"/>
+              <path d="M 35 65 A 35 35 0 0 1 85 65" stroke-linecap="round"/>
+              <path d="M 18 50 A 55 55 0 0 1 102 50" stroke-linecap="round"/>
+              <path d="M 2 35 A 75 75 0 0 1 118 35" stroke-linecap="round"/>
+            </svg>
+            <svg
+              class="bt-signal-arcs"
+              viewBox="0 0 120 100"
+              width="120"
+              height="100"
+              aria-label="Ondas de señal — versión naranja"
+              role="img"
+              style="color: var(--bt-orange-500);"
+            >
+              <path d="M 60 80 L 60 65" stroke-linecap="round"/>
+              <path d="M 35 65 A 35 35 0 0 1 85 65" stroke-linecap="round"/>
+              <path d="M 18 50 A 55 55 0 0 1 102 50" stroke-linecap="round"/>
+              <path d="M 2 35 A 75 75 0 0 1 118 35" stroke-linecap="round"/>
+            </svg>
+            <svg
+              class="bt-signal-arcs"
+              viewBox="0 0 120 100"
+              width="120"
+              height="100"
+              aria-label="Ondas de señal — versión aqua"
+              role="img"
+              style="color: var(--bt-aqua-500);"
+            >
+              <path d="M 60 80 L 60 65" stroke-linecap="round"/>
+              <path d="M 35 65 A 35 35 0 0 1 85 65" stroke-linecap="round"/>
+              <path d="M 18 50 A 55 55 0 0 1 102 50" stroke-linecap="round"/>
+              <path d="M 2 35 A 75 75 0 0 1 118 35" stroke-linecap="round"/>
+            </svg>
+            <p style="font-size: 0.85rem; color: var(--bt-text-soft); max-width: 28ch;">
+              SVG con <code>stroke: currentColor</code> — heredan el color del contenedor.
+            </p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ──────────────────────────────────────────────────────────
+           8. POR CONFIRMAR
+           ────────────────────────────────────────────────────────── -->
+      <section class="demo-section" aria-labelledby="sec-confirmar">
+        <p class="bt-kicker">Componente 8</p>
+        <h2 id="sec-confirmar" class="bt-display bt-display--xl">Elemento POR CONFIRMAR</h2>
+        <p style="margin-top: 0.5rem; color: var(--bt-text-soft); font-size: 0.95rem; max-width: 60ch;">
+          Marca visualmente datos que aún no han sido confirmados por la administración.
+          Se usa durante maquetación y se retira cuando el dato se confirma.
+        </p>
+
+        <div class="bt-stack" style="margin-top: 1.5rem; max-width: 600px;">
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Instalación gratuita al contratar — pendiente de confirmación con la administración
+              (posible valor: $0 o costo único variable).
+            </span>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Correo oficial de contacto: <code>contacto@bajotigui.co</code>
+              (placeholder no publicable hasta verificación).
+            </span>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Zonas exactas de cobertura: barrios y veredas de El Bagre y municipios cercanos
+              (pendiente de polígono oficial).
+            </span>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Dato por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Vigencia de la promoción «1 mes gratis» y condiciones de cierre.
+            </span>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /bt-stack -->
+  </div><!-- /bt-container -->
+
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       10A. SECCIÓN NAVY — fondo inverso
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy" aria-labelledby="sec-navy">
+    <div class="bt-container">
+      <p class="bt-kicker">Componente 10 · Fondo Navy</p>
+      <h2 id="sec-navy" class="bt-display bt-display--xl" style="max-width: 22ch; margin-block: var(--bt-space-3) var(--bt-space-5);">
+        Sección sobre fondo<br>
+        <span class="bt-brush bt-brush--sky">Navy #002E84</span>
+      </h2>
+      <p class="bt-lead" style="color: var(--bt-sky-200); margin-bottom: var(--bt-space-5);">
+        Los <a href="#">enlaces de texto</a> reciben celeste (<code>#8FE4FE</code>).<br>
+        Los botones mantienen su propio color de texto (BUG A corregido).
+      </p>
+      <div class="bt-cluster">
+        <a class="bt-btn bt-btn--accent" href="#">Contratar ahora</a>
+        <a class="bt-btn bt-btn--outline" href="#">Ver cobertura</a>
+        <a class="bt-btn bt-btn--wa" href="tel:+573147182506" data-wa="https://wa.me/573147182506" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px;fill:currentColor;flex:0 0 auto;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+          </svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       10B. SECCIÓN PAPER — fondo papel
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper" aria-labelledby="sec-paper">
+    <div class="bt-container">
+      <p class="bt-kicker">Componente 10 · Fondo Paper</p>
+      <h2 id="sec-paper" class="bt-display bt-display--xl" style="max-width: 22ch; margin-block: var(--bt-space-3) var(--bt-space-5);">
+        Sección sobre fondo<br>
+        <span class="bt-brush">papel crema</span>
+      </h2>
+      <p class="bt-lead" style="margin-bottom: var(--bt-space-5);">
+        Fondo <code>#FBF8F1</code> (bt-bg-raised). Ideal para zonas de contenido
+        secundario, beneficios o paso a paso.
+      </p>
+      <div class="bt-cluster">
+        <span class="bt-pill bt-pill--sky">
+          <svg class="bt-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
+            <path d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+          </svg>
+          Internet fibra
+        </span>
+        <span class="bt-pill bt-pill--sun">TV 90 canales</span>
+        <span class="bt-pill bt-pill--aqua">El Bagre</span>
+        <span class="bt-pill bt-pill--navy">Sin ánimo de lucro</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ══════════════════════════════════════════════════════════════════
+     9. FOOTER
+     ══════════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <!-- Col 1: Marca + lema -->
+      <div>
+        <a href="#" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui"
+           style="filter: brightness(0) invert(1); opacity: 0.9; margin-bottom: 0.5rem; display: inline-block;">
+          <img
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="180"
+            height="44"
+            loading="lazy"
+          />
+        </a>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+        <p style="margin-top: 0.75rem; font-size: 0.875rem; color: var(--bt-sky-400);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+      </div>
+
+      <!-- Col 2: Servicios -->
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list">
+          <li><a href="#">Internet por fibra óptica</a></li>
+          <li><a href="#">Televisión parabólica</a></li>
+          <li><a href="#">90 canales SD + HD</a></li>
+          <li><a href="#">Plan $70.000 / mes</a></li>
+          <li><a href="#">Zona de cobertura</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Contacto -->
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list">
+          <li>
+            <a href="tel:+573147182506" data-wa="https://wa.me/573147182506" rel="noopener" aria-label="WhatsApp 314 718 2506">
+              WhatsApp / llamadas: 314 718 2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00&nbsp;p.&nbsp;m.</li>
+          <li>
+            <!-- Correos marcados como placeholders no publicables -->
+            <span class="bt-footer__placeholder-mail" title="Placeholder — no publicar">
+              contacto@bajotigui.co (POR CONFIRMAR)
+            </span>
+          </li>
+          <li>
+            <span class="bt-footer__placeholder-mail" title="Placeholder — no publicar">
+              soporte@bajotigui.co (POR CONFIRMAR)
+            </span>
+          </li>
+          <li>
+            <span class="bt-footer__placeholder-mail" title="Placeholder — no publicar">
+              pagos@bajotigui.co (POR CONFIRMAR)
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div><!-- /bt-footer__grid -->
+
+    <div class="bt-footer__bottom">
+      <p>© 2025 Antena Parabólica Bajo Tigui. Todos los derechos reservados.</p>
+      <nav aria-label="Pie de página">
+        <a href="#" style="margin-inline: 0.5rem;">Política de privacidad</a>
+        <a href="#" style="margin-inline: 0.5rem;">Términos y condiciones</a>
+        <a href="#" style="margin-inline: 0.5rem;">Política de reembolsos</a>
+      </nav>
+      <p>Sistema de diseño v1 · <code>bt-*</code> · Archivo + Karla (fuentes locales)</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
