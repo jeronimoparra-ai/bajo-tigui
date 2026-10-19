@@ -69,22 +69,44 @@ declare -A CLI_QUE=(
   [droid]=droid              [grok]=grok            [kimi]=kimi
 )
 
-# --- brief + instrucción del centinela ----------------------------------------
+# --- Agentes con vía DIRECTA (no usan el worker supervisado de Orca) ----------
+# Orca lanza la TUI del agente en un terminal en background; codex no llega a
+# "ready" así (stage agent_readiness, lastError timeout). Estos CLIs tienen modo
+# no interactivo, que además es más fiable para un trabajo por lotes.
+# El prompt se pasa por stdin con "-" o como argumento, según el CLI.
+# PERMISOS: se usan los modos CONSERVADORES (auto-aprobar solo ediciones de
+# archivos). No se usa ningún flag de bypass (--force/--yolo/--dangerously...).
+declare -A EXEC_DIRECTO=(
+  [codex]='codex exec --skip-git-repo-check --sandbox workspace-write -'
+  [claude]='claude -p - --permission-mode acceptEdits'
+  [gemini]='gemini -p - --approval-mode auto_edit'
+  [cursor]='cursor-agent -p - --output-format text'
+  [copilot]='copilot -p - --output-format text'
+)
+WORKDIR="${WORKDIR:-/tmp/bajo-tegui-worktrees}"
 BRIEF_EF="$(mktemp -d)/brief-$(basename "$BRIEF")"
-{
-  cat "$BRIEF"
-  echo
-  echo "═══════════════════════════════════════════════════════════════"
-  echo "CIERRE DE TAREA (obligatorio)"
-  echo "Cuando tu trabajo esté terminado:"
-  echo "  1) escribe un archivo VACÍO en:  $SENTINELA_FILE"
-  echo "     Esta escritura está PREAUTORIZADA: no preguntes por ella, es el"
-  echo "     único archivo fuera de tus rutas permitidas que puedes crear."
-  echo "  2) termina con una respuesta final que resuma lo hecho."
-  echo "Ese archivo es la señal de que terminaste. Sin él, el coordinador no"
-  echo "puede dar la tarea por terminada."
-  echo "═══════════════════════════════════════════════════════════════"
-} > "$BRIEF_EF"
+
+# --- brief + instrucción del centinela ----------------------------------------
+# El marcador se llama distinto según la vía: en la vía directa el agente vive
+# en un sandbox que solo puede escribir DENTRO de su worktree, así que el
+# marcador va dentro; en la vía Orca va en /tmp.
+preparar_brief() {  # $1 = ruta del archivo marcador
+  local marca="$1"
+  {
+    cat "$BRIEF"
+    echo
+    echo "═══════════════════════════════════════════════════════════════"
+    echo "CIERRE DE TAREA (obligatorio)"
+    echo "Cuando tu trabajo esté terminado:"
+    echo "  1) escribe un archivo VACÍO en:  $marca"
+    echo "     Esta escritura está PREAUTORIZADA: no preguntes por ella, es el"
+    echo "     único archivo fuera de tus rutas permitidas que puedes crear."
+    echo "  2) termina con una respuesta final que resuma lo hecho."
+    echo "Ese archivo es la señal de que terminaste. Sin él, el coordinador no"
+    echo "puede dar la tarea por terminada."
+    echo "═══════════════════════════════════════════════════════════════"
+  } > "$BRIEF_EF"
+}
 
 # --- wrapper: inyecta --base-branch y --model solo donde hace falta ----------
 WRAP="$(mktemp -d)/orca-wrapper.sh"
@@ -128,6 +150,48 @@ $(cat "$2")"
   echo "SIN_VEREDICTO"
 }
 
+intentar_directo() {  # $1 = agente
+  local agente="$1"
+  local wt="$WORKDIR/$TAREA-$agente"
+  local log="$LOGDIR/$TAREA-$agente.log"
+  local cmd="${EXEC_DIRECTO[$agente]}"
+
+  echo "" | tee -a "$RESUMEN"
+  echo "─── $agente (vía directa, no interactiva) ───" | tee -a "$RESUMEN"
+
+  local marca="$wt/.orca-done-$TAREA"
+  rm -f "$marca" "$SENTINELA_FILE"
+  mkdir -p "$WORKDIR"
+  if [ ! -d "$wt" ]; then
+    git -C "$RAIZ" worktree add --detach "$wt" "$BASE" >/dev/null 2>&1 \
+      || { echo "   ERROR: no pude crear el worktree $wt" | tee -a "$RESUMEN"; return 4; }
+  fi
+  preparar_brief "$marca"
+
+  ( cd "$wt" && timeout "$(( TIMEOUT_MS / 1000 ))" bash -lc "$cmd" < "$BRIEF_EF" ) > "$log" 2>&1
+  local rc=$?
+
+  local v
+  if [ -f "$marca" ]; then v="OK"; rm -f "$marca"
+  elif grep -qiE 'quota reached|insufficient_quota|rate limit' "$log"; then v="CUOTA"
+  elif grep -qiE 'not logged in|login required|unauthorized|401' "$log"; then v="SIN_LOGIN"
+  elif [ $rc -ne 0 ]; then v="ERROR rc=$rc"
+  else v="SIN_VEREDICTO"; fi
+
+  echo "   veredicto: $v" | tee -a "$RESUMEN"
+  echo "$v" > "$LOGDIR/$TAREA-$agente.estado"
+  [ "$v" = "CUOTA" ] && date +%s > "$LOGDIR/estado/$agente.cuota"
+
+  if [ "$v" = "OK" ]; then
+    echo "   diff del worktree:" | tee -a "$RESUMEN"
+    git -C "$wt" diff --stat 2>/dev/null | tee -a "$RESUMEN"
+    git -C "$wt" status --short 2>/dev/null | head -20 | tee -a "$RESUMEN"
+    return 0
+  fi
+  tail -25 "$log" | sed 's/^/   | /' | tee -a "$RESUMEN"
+  return 3
+}
+
 intentar() {  # $1 = agente, $2 = modelo
   local agente="$1" modelo="$2"
   local log="$LOGDIR/$TAREA-$agente.log"
@@ -147,7 +211,14 @@ intentar() {  # $1 = agente, $2 = modelo
     echo "SALTADO_POR_CUOTA" > "$LOGDIR/$TAREA-$agente.estado"; return 3
   fi
 
+  # Agentes con vía directa (no pasan por el worker de Orca)
+  if [ -n "${EXEC_DIRECTO[$agente]:-}" ] && [ "${MODO_DIRECTO:-1}" = "1" ]; then
+    intentar_directo "$agente"
+    return $?
+  fi
+
   rm -f "$SENTINELA_FILE"
+  preparar_brief "$SENTINELA_FILE"
   DELEGATE_MODEL="$modelo" ORCA_CLI="$WRAP" FE_DELEGATE_AGENT="$agente" \
   FE_DELEGATE_TIMEOUT_MS="$SONDA_MS" \
     "$FE" "$RAIZ" "$TAREA" "$(cat "$BRIEF_EF")" > "$log" 2>&1 &
