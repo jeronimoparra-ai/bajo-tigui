@@ -28,5 +28,5 @@ generados por `tools/generar-assets-logo.py` a partir de la traza de `tools/vect
 
 - `og-1200x630.png` (Open Graph / WhatsApp) horneado con Playwright.
 - Lockups `logo-horizontal.svg` / `logo-vertical.svg` con el **wordmark convertido a paths**
-  (hoy va como texto vivo con la fuente Bricolage Grotesque).
+  (hoy va como texto vivo con la fuente Archivo 900 itálica).
 - Evalúa si se recorta el ícono para el favicon de 16–32 px.

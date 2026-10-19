@@ -13,8 +13,8 @@ Salidas:
   public/brand/favicon-32.png, apple-touch-icon.png (180), icon-512.png
   docs/diseno/assets/_variantes.png  montaje de revisión
 
-Nota: los lockups llevan el wordmark como TEXTO con font-family "Bricolage Grotesque".
-Se hornean a paths/PNG en la Fase 1B (Playwright), donde la fuente real está disponible.
+Nota: los lockups llevan el wordmark como TEXTO con font-family "Archivo" (900, itálica real;
+Bricolage Grotesque NO tiene itálica). Se hornean a paths/PNG en la Fase 1B (Playwright).
 """
 from __future__ import annotations
 
@@ -133,9 +133,9 @@ def main() -> int:
                   + f'  <g transform="translate(4,12) scale({ic_s:.4f})">\n'
                     f'    <g transform="matrix({1 / ESCALA} 0 0 {-1 / ESCALA} 0 {h})">\n'
                   + "\n".join(capas) + "\n    </g>\n  </g>\n"
-                  + '  <g font-family="\'Bricolage Grotesque\', system-ui, sans-serif" fill="#0B0B0B">\n'
+                  + '  <g font-family="\'Archivo\', system-ui, sans-serif" fill="#0B0B0B">\n'
                   + '    <text x="278" y="112" font-size="44" font-weight="700" letter-spacing="1.5">ANTENA PARABÓLICA</text>\n'
-                  + '    <text x="276" y="196" font-size="82" font-weight="800" font-style="oblique" '
+                  + '    <text x="276" y="196" font-size="82" font-weight="900" font-style="italic" '
                     'letter-spacing="-1" fill="#002E84">BAJO TIGUI</text>\n'
                   + '  </g>\n</svg>\n')
     (BRAND / "logo-horizontal.svg").write_text(horizontal)
@@ -148,20 +148,20 @@ def main() -> int:
                 + f'  <g transform="translate({icx:.1f},8) scale({icv_s:.4f})">\n'
                   f'    <g transform="matrix({1 / ESCALA} 0 0 {-1 / ESCALA} 0 {h})">\n'
                 + "\n".join(capas) + "\n    </g>\n  </g>\n"
-                + '  <g font-family="\'Bricolage Grotesque\', system-ui, sans-serif" text-anchor="middle">\n'
+                + '  <g font-family="\'Archivo\', system-ui, sans-serif" text-anchor="middle">\n'
                 + '    <text x="210" y="420" font-size="32" font-weight="700" letter-spacing="1.5" fill="#0B0B0B">ANTENA PARABÓLICA</text>\n'
-                + '    <text x="210" y="492" font-size="56" font-weight="800" font-style="oblique" fill="#002E84">BAJO TIGUI</text>\n'
+                + '    <text x="210" y="492" font-size="56" font-weight="900" font-style="italic" fill="#002E84">BAJO TIGUI</text>\n'
                 + '  </g>\n</svg>\n')
     (BRAND / "logo-vertical.svg").write_text(vertical)
 
     # --- 6. rasterizados + artefactos de revisión -----------------------------------
     exports = [("favicon-32.png", 32), ("apple-touch-icon.png", 180), ("icon-512.png", 512)]
     for archivo, tam in exports:
-        subprocess.run(["convert", "-background", "none", str(BRAND / "favicon.svg"),
+        subprocess.run(["convert", "-strip", "-background", "none", str(BRAND / "favicon.svg"),
                         "-resize", f"{tam}x{tam}", str(BRAND / archivo)], check=False)
 
     def render(svg: Path, bg: str, ancho: str, out: str):
-        subprocess.run(["convert", "-background", bg, str(svg), "-resize", ancho, "-flatten",
+        subprocess.run(["convert", "-strip", "-background", bg, str(svg), "-resize", ancho, "-flatten",
                         str(ASSETS / out)], check=False)
 
     render(BRAND / "logo-icono.svg", "white", "512x", "_v-icono.png")
@@ -170,34 +170,34 @@ def main() -> int:
     render(BRAND / "logo-sobre-oscuro.svg", "#002E84", "512x", "_v-oscuro.png")
     render(BRAND / "logo-horizontal.svg", "#F7F4EC", "700x", "_v-horizontal.png")
     render(BRAND / "logo-vertical.svg", "#F7F4EC", "320x", "_v-vertical.png")
-    subprocess.run(["convert", *[str(ASSETS / t) for t in
+    subprocess.run(["convert", "-strip", *[str(ASSETS / t) for t in
                                  ("_v-icono.png", "_v-mono-tinta.png", "_v-mono-blanco.png", "_v-oscuro.png")],
                     "-resize", "240x", "-background", "white", "-gravity", "center",
                     "-extent", "260x280", "+append", str(ASSETS / "_variantes.png")], check=False)
-    subprocess.run(["convert", str(ASSETS / "_v-horizontal.png"), str(ASSETS / "_v-vertical.png"),
+    subprocess.run(["convert", "-strip", str(ASSETS / "_v-horizontal.png"), str(ASSETS / "_v-vertical.png"),
                     "-background", "white", "-gravity", "center", "-extent", "700x640", "+append",
                     str(ASSETS / "_v-lockups.png")], check=False)
-    subprocess.run(["convert", str(BRAND / "favicon-32.png"), "-scale", "900%",
+    subprocess.run(["convert", "-strip", str(BRAND / "favicon-32.png"), "-scale", "900%",
                     "-background", "white", "-flatten", str(ASSETS / "_favicon-32-zoom.png")], check=False)
     for t in ("_v-icono.png", "_v-mono-tinta.png", "_v-mono-blanco.png", "_v-oscuro.png",
               "_v-horizontal.png", "_v-vertical.png"):
         (ASSETS / t).unlink(missing_ok=True)
 
     # comparaciones original vs trazo
-    subprocess.run(["convert", str(vl.SRC), "-background", "white", "-alpha", "remove", "-alpha", "off",
+    subprocess.run(["convert", "-strip", str(vl.SRC), "-background", "white", "-alpha", "remove", "-alpha", "off",
                     "-resize", "560x", str(ASSETS / "_o.png")], check=False)
-    subprocess.run(["convert", "-background", "white", str(ASSETS / "logo-traza.svg"), "-alpha", "remove",
+    subprocess.run(["convert", "-strip", "-background", "white", str(ASSETS / "logo-traza.svg"), "-alpha", "remove",
                     "-alpha", "off", "-resize", "560x", str(ASSETS / "_t.png")], check=False)
     for base in ("_o", "_t"):
-        subprocess.run(["convert", str(ASSETS / f"{base}.png"), "-bordercolor", "#bbbbbb",
+        subprocess.run(["convert", "-strip", str(ASSETS / f"{base}.png"), "-bordercolor", "#bbbbbb",
                         "-border", "3", str(ASSETS / f"{base}b.png")], check=False)
-    subprocess.run(["convert", str(ASSETS / "_ob.png"), str(ASSETS / "_tb.png"), "+append",
+    subprocess.run(["convert", "-strip", str(ASSETS / "_ob.png"), str(ASSETS / "_tb.png"), "+append",
                     str(ASSETS / "_comparacion.png")], check=False)
     subprocess.run(["composite", "-dissolve", "50", str(ASSETS / "_o.png"), str(ASSETS / "_t.png"),
                     str(ASSETS / "_ov.png")], check=False)
-    subprocess.run(["convert", str(ASSETS / "_ov.png"), "-bordercolor", "#bbbbbb", "-border", "3",
+    subprocess.run(["convert", "-strip", str(ASSETS / "_ov.png"), "-bordercolor", "#bbbbbb", "-border", "3",
                     str(ASSETS / "_ovb.png")], check=False)
-    subprocess.run(["convert", str(ASSETS / "_ob.png"), str(ASSETS / "_tb.png"), str(ASSETS / "_ovb.png"),
+    subprocess.run(["convert", "-strip", str(ASSETS / "_ob.png"), str(ASSETS / "_tb.png"), str(ASSETS / "_ovb.png"),
                     "+append", str(ASSETS / "_overlay.png")], check=False)
     for t in ("_o.png", "_t.png", "_ob.png", "_tb.png", "_ov.png", "_ovb.png",
               "_verificacion-original.png", "_verificacion-traza.png", "_triple.png"):

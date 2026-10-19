@@ -48,12 +48,15 @@ Derivada de los flyers de marca (fuente de verdad) + acentos del logo. Tokens en
 
 | Rol | Fuente | Por qué |
 |---|---|---|
-| Titulares, wordmark, cifras | **Bricolage Grotesque** (`wght 400–800`, `wdth 75–100`, `opsz 12–96`) | Grotesca **con carácter propio** (formas ligeramente irregulares, no neutra), con ejes variables de **peso y ancho** que permiten el mismo ADN en un titular de 8 rem que en una píldora. Aguanta el contorno grueso y la sombra sólida del lenguaje gráfico. No es Inter/Roboto/Arial ni la típica Poppins/Montserrat |
-| Cuerpo, UI, formularios | **Karla** (`wght 400–800`, itálica) | Humanista con detalles que la hacen reconocible (la "g" de un solo piso, hombros irregulares) y **muy legible en pantallas pequeñas**. Contraste tipográfico con la display sin competirle |
+| Titulares, wordmark, cifras | **Archivo** (`wght 100–900`, `wdth 62–125`, `ital`) | Grotesca con **itálica real** (requisito de marca: "Bajo Tigui" es pesada e itálica, y **no se permite oblicua sintética**). Su eje de **ancho** cubre el display compacto tipo flyer (≈105) y el expandido tipo **valla/sticker** (≈122) con el mismo archivo; el rango 100–900 resuelve toda la jerarquía con **una sola familia variable** |
+| Cuerpo, UI, formularios | **Karla** (`wght 400–800`, itálica) | Humanista con detalles reconocibles (la "g" de un solo piso) y **más contraste interno en tamaños pequeños** que una grotesca display: se lee mejor en móvil. Contraste tipográfico con Archivo sin competirle |
 
-- La display **no tiene eje itálico**: la "itálica" del wordmark "Bajo Tigui" se logra con un
-  **sesgo controlado** (`font-style: oblique 8deg` / `transform: skewX(-8deg)`) y se hornea en los
-  paths del SVG. Se documenta como decisión, no como descuido.
+- **Verificado, no supuesto:** Bricolage Grotesque **no tiene itálica** (la API devuelve 0 caras
+  `font-style: italic`), por eso quedó descartada. Prueba y capturas en
+  [`tipografia/comparacion.md`](./tipografia/comparacion.md) y [`tipografia/prueba-tipografica.html`](./tipografia/prueba-tipografica.html).
+- **Uso de los ejes:** `wdth` ≈ **100** en titulares de sección, ≈ **108** en el wordmark,
+  ≈ **122** en bloques tipo valla/sticker. Nunca se aplica `skewX` ni `font-style: oblique`:
+  la itálica es la de la fuente.
 - **Cifras:** precios y contadores usan `font-variant-numeric: tabular-nums` para que no bailen.
 - **Nunca** se usan Inter, Roboto, Arial ni fuentes de sistema como display.
 
@@ -200,8 +203,8 @@ Set SVG propio, **no** un paquete genérico:
 
 Reglas: no deformar, no recolorear fuera de tokens, no aplicar degradados, no usar el símbolo sobre
 fotos sin placa de color, zona de protección = 25 % del ancho del ícono, tamaño mínimo del ícono 24 px
-(digital) / 12 mm (impreso). El **wordmark** "ANTENA PARABÓLICA / BAJO TIGUI" se compone con Bricolage
-Grotesque Black (según § 2); en los lockups va hoy como texto vivo y en la 1B se hornea a paths/PNG.
+(digital) / 12 mm (impreso). El **wordmark** "ANTENA PARABÓLICA / BAJO TIGUI" se compone con Archivo
+900 itálica (según § 2); en los lockups va hoy como texto vivo y en la 1B se hornea a paths/PNG.
 
 > **Pendientes declarados:** el ícono es una traza automática de un PNG de 262×251 px (no existe
 > original vectorial); el favicon completo es muy detallado a 16–32 px; los lockups necesitan el
@@ -230,7 +233,8 @@ Tailwind (Fase 3) se mapea a estos tokens en `tailwind.config` (`theme.extend`),
 ## 12. POR CONFIRMAR
 
 1. **Instalación gratis** (no mostrar como definitiva hasta tu confirmación).
-2. **Aprobación del par tipográfico** Bricolage Grotesque + Karla.
+2. **Par tipográfico:** Archivo (display) + Karla (cuerpo) — recomendado con capturas en
+   `tipografia/comparacion.md`; pendiente de tu visto bueno.
 3. **Correos oficiales** (placeholders no publicables), zonas exactas de cobertura y **parrilla real** de canales.
 4. **Vigencia de la promoción** y fecha del aviso de suspensión.
 5. **Significado de "tigüí"** para el acto 3 del relato.

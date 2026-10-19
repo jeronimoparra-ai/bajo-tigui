@@ -70,8 +70,13 @@
   --bt-focus-ring: 0 0 0 3px var(--bt-bg), 0 0 0 6px var(--bt-outline-focus);
 
   /* ---------------------------------------------------------------- 3. Tipografía */
-  --bt-font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --bt-font-display: "Archivo", system-ui, sans-serif;
   --bt-font-body:    "Karla", system-ui, sans-serif;
+
+  /* Ejes variables de Archivo (ver sistema-de-diseno.md § 2) */
+  --bt-display-wdth-titular: 100;
+  --bt-display-wdth-valla:   122;
+  --bt-display-wdth-wordmark: 108;
 
   --bt-fw-regular: 400;
   --bt-fw-medium:  500;

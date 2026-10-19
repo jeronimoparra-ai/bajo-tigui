@@ -1010,8 +1010,8 @@ l12 0 6 6 c6 5 6 7 6 10 0 3 0 5 -6 10 l-6 6 -8 0 -9 0 -4 -4z M714 1518 c-3 -2 -3
 3 18 0 20 -2 3 -634 3 -636 0z"/>
     </g>
   </g>
-  <g font-family="'Bricolage Grotesque', system-ui, sans-serif" fill="#0B0B0B">
+  <g font-family="'Archivo', system-ui, sans-serif" fill="#0B0B0B">
     <text x="278" y="112" font-size="44" font-weight="700" letter-spacing="1.5">ANTENA PARABÓLICA</text>
-    <text x="276" y="196" font-size="82" font-weight="800" font-style="oblique" letter-spacing="-1" fill="#002E84">BAJO TIGUI</text>
+    <text x="276" y="196" font-size="82" font-weight="900" font-style="italic" letter-spacing="-1" fill="#002E84">BAJO TIGUI</text>
   </g>
 </svg>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bajo Tigui — prueba tipográfica: Bricolage vs Archivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#002E84; --cobalt:#0058B0; --sky:#8FCCF0; --aqua:#A1D9D4;
+    --yellow:#FFD806; --orange:#FE6301; --cream:#F7F4EC; --ink:#0B0B0B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:"Karla",system-ui,sans-serif;padding:clamp(16px,4vw,48px)}
+  h1{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-style:italic;color:var(--navy);
+     font-size:clamp(28px,5vw,44px);margin:0 0 8px}
+  .lead{max-width:70ch;color:#3a3a3a}
+  .nota{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:14px 18px;margin:18px 0 30px;font-size:15px}
+  .nota strong{color:var(--navy)}
+  section{margin:0 0 44px}
+  .rotulo{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:13px;
+          letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin:0 0 14px}
+  .muestra{background:#fff;border:2px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);
+           padding:22px 24px;margin:0 0 18px}
+  .etiqueta{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6B6B6B;margin:0 0 10px}
+  .etiqueta b{color:var(--orange)}
+  /* --- candidatas display --- */
+  .wm{line-height:.95;margin:0}
+  .wm.bric{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-variation-settings:"wdth" 100,"opsz" 96;font-size:clamp(40px,9vw,92px);color:var(--navy)}
+  .wm.bric-obl{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-variation-settings:"wdth" 100,"opsz" 96;font-size:clamp(40px,9vw,92px);color:var(--navy);transform:skewX(-10deg);transform-origin:left bottom}
+  .wm.arch{font-family:"Archivo",system-ui,sans-serif;font-weight:900;font-style:italic;font-variation-settings:"wdth" 110;font-size:clamp(40px,9vw,92px);color:var(--navy)}
+  .wm.arch-w{font-family:"Archivo",system-ui,sans-serif;font-weight:900;font-style:italic;font-variation-settings:"wdth" 125;font-size:clamp(40px,9vw,92px);color:var(--navy)}
+  /* --- titulares de plan --- */
+  .plan{font-size:clamp(26px,6vw,58px);line-height:1;margin:0;letter-spacing:-.02em}
+  .plan.bric{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-variation-settings:"wdth" 100,"opsz" 96;color:var(--ink)}
+  .plan.arch{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-style:normal;font-variation-settings:"wdth" 100;color:var(--ink)}
+  .plan.arch-i{font-family:"Archivo",system-ui,sans-serif;font-weight:800;font-style:italic;color:var(--ink)}
+  .plan .dato{color:var(--orange)}
+  .plan .tv{background:var(--yellow);padding:0 .12em;box-decoration-break:clone}
+  /* --- cuerpo --- */
+  .cuerpo{font-size:17px;line-height:1.6;margin:0;max-width:62ch}
+  .cuerpo.karla{font-family:"Karla",system-ui,sans-serif}
+  .cuerpo.bric{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:400}
+  .chips{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font:700 14px/1 Karla,sans-serif;border:2px solid var(--ink);border-radius:999px;padding:8px 14px;background:var(--sky)}
+  .chip.o{background:var(--orange);color:#fff}
+  .veredicto{border-left:6px solid var(--orange);padding:6px 0 6px 14px;margin:26px 0 0;font-size:15px;color:#3a3a3a}
+</style>
+</head>
+<body>
+  <h1>Prueba tipográfica — Bricolage Grotesque vs. Archivo</h1>
+  <p class="lead">Regla de la marca: la display debe ser <b>pesada e itálica</b> para «Bajo Tigui», y los titulares de plan deben leerse con fuerza en móvil. Karla se mantiene para el cuerpo.</p>
+
+  <p class="nota"><strong>Verificación previa:</strong> Bricolage Grotesque <b>no tiene itálica real</b> (Google Fonts solo publica pesos 200–800 upright; la API ignora el eje <code>ital</code>). Cualquier «itálica» con Bricolage sería <b>oblicua sintética</b> (deformación por software), que engorda los trazos y daña las curvas. Archivo <b>sí</b> trae itálica real (pesos 100–900 + eje de ancho 62–125).</p>
+
+  <section>
+    <span class="rotulo">A · «Bajo Tigui»</span>
+    <div class="muestra">
+      <p class="etiqueta">1 · Bricolage Grotesque 800 · upright</p>
+      <p class="wm bric">BAJO TIGUI</p>
+    </div>
+    <div class="muestra">
+      <p class="etiqueta">2 · Bricolage Grotesque 800 + <b>oblicua sintética (prohibida)</b></p>
+      <p class="wm bric-obl">BAJO TIGUI</p>
+    </div>
+    <div class="muestra">
+      <p class="etiqueta">3 · Archivo 900 · <b>itálica real</b> · ancho 110</p>
+      <p class="wm arch">BAJO TIGUI</p>
+    </div>
+    <div class="muestra">
+      <p class="etiqueta">4 · Archivo 900 · itálica real · ancho 125 (expandida)</p>
+      <p class="wm arch-w">BAJO TIGUI</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="rotulo">B · Titular de plan</span>
+    <div class="muestra">
+      <p class="etiqueta">1 · Bricolage Grotesque 800</p>
+      <p class="plan bric">50 MEGAS <span class="dato">+</span> <span class="tv">TV 90 CANALES</span></p>
+    </div>
+    <div class="muestra">
+      <p class="etiqueta">2 · Archivo 800 · upright</p>
+      <p class="plan arch">50 MEGAS <span class="dato">+</span> <span class="tv">TV 90 CANALES</span></p>
+    </div>
+    <div class="muestra">
+      <p class="etiqueta">3 · Archivo 800 · itálica real</p>
+      <p class="plan arch-i">50 MEGAS <span class="dato">+</span> <span class="tv">TV 90 CANALES</span></p>
+    </div>
+  </section>
+
+  <section>
+    <span class="rotulo">C · Cuerpo de texto</span>
+    <div class="muestra">
+      <p class="etiqueta">1 · Karla 400 (a mantener)</p>
+      <p class="cuerpo karla">Llamamos a tu casa, revisamos dónde queda mejor la parabólica y te dejamos todo funcionando. Sin letra menuda: el precio es el precio y el mes gratis es un mes gratis.</p>
+    </div>
+    <div class="muestra">
+      <p class="etiqueta">2 · Bricolage Grotesque 400 (descartada para cuerpo)</p>
+      <p class="cuerpo bric">Llamamos a tu casa, revisamos dónde queda mejor la parabólica y te dejamos todo funcionando. Sin letra menuda: el precio es el precio y el mes gratis es un mes gratis.</p>
+    </div>
+    <div class="chips">
+      <span class="chip">Internet de alta velocidad</span>
+      <span class="chip o">1 mes gratis</span>
+      <span class="chip">Sin interrupciones</span>
+    </div>
+  </section>
+
+  <p class="veredicto">La comparación completa, las capturas y la recomendación están en <b>docs/diseno/tipografia/comparacion.md</b>.</p>
+</body>
+</html>

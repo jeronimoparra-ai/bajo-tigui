@@ -43,5 +43,5 @@ origen abajo). Compresión real: el ícono pasa de 77,7 KB a **15,3 KB en gzip**
    Para impresión de gran formato conviene una versión vectorial de origen (no existe hoy).
 2. **Favicon de 32 px:** el logo completo es muy detallado a ese tamaño (ver `_favicon-32-zoom.png`).
    Se entrega igual; si quieres, en la 1B se evalúa una versión recortada a la parabólica.
-3. **Lockups:** el wordmark va como **texto vivo** (`font-family: Bricolage Grotesque`). Se hornea a
+3. **Lockups:** el wordmark va como **texto vivo** (`font-family: Archivo`, 900 itálica real). Se hornea a
    paths/PNG en la 1B con Playwright, ya con la fuente real cargada.
