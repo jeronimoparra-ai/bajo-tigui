@@ -25,6 +25,24 @@ El **descenso** es literal: los elementos de cada sección caen de la anterior (
 es el borde del techo del acto 2, el cable del acto 2 se vuelve el tendido de fibra del acto 3,
 la fibra entra a la sala en el acto 4). El scroll es una **bajada de señal**, no una lista de bloques.
 
+### Versión corta (modo ligero)
+
+Cuando la página entra en **modo ligero** (`[data-motion="lite"]`) o el equipo no puede con 3D, el
+relato **no desaparece**: se cuenta igual, sin el aparato. Las mismas cuatro estaciones son
+**secciones normales**, una debajo de otra, con el mismo texto y el mismo orden.
+
+| Acto | Cómo se cuenta en modo ligero |
+|---|---|
+| **1 · Órbita** | Sección navy de cabecera: titular, subtítulo y el dato del plan. Sin parallax ni campo de estrellas |
+| **2 · Azotea** | Sección crema con **una imagen fija** de la antena (ícono SVG ≤ 480 px, nunca agrandado) y los pasos de instalación |
+| **3 · El barrio** | Sección con el bloque de "sin ánimo de lucro", cobertura y contacto. Sin valla animada |
+| **4 · Sala** | Sección de plan y CTA: 50 Mbps de descarga + 90 canales SD/HD, $70.000/mes, 1 mes gratis |
+
+Reglas de la versión corta: **una sección por acto, en orden**; sin scroll narrativo largo, sin
+3D, sin estática de cambio de canal, sin la "línea de señal" persistente (queda como un borde
+estático que separa secciones). Se conserva **todo** el contenido y **todos** los CTA: no hay nada
+que solo exista en la versión con movimiento.
+
 > **Nombre de la marca:** *Bajo Tigui*, sin diéresis ni tilde, en todos los documentos y pantallas.
 > No se le asigna ningún significado. Si más adelante se confirma el origen del nombre, se ajusta el
 > relato; mientras tanto el acto 3 se titula **"El barrio"** y es un título neutro.
@@ -54,6 +72,10 @@ la fibra entra a la sala en el acto 4). El scroll es una **bajada de señal**, n
 la órbita, baja por la azotea, cruza el barrio, atraviesa la puerta de la casa y termina en la
 pantalla. Esa línea es **el hilo de scroll**: se ilumina a medida que se avanza y marca dónde
 está el usuario en el viaje. Ningún template de IA tiene un hilo narrativo; tienen secciones.
+
+En la azotea, la antena no es el logo agrandado: es una **parabólica 3D propia** que el usuario
+orienta (detalle y topes en [`hero-3d.md`](./hero-3d.md)). En modo ligero, esa sección queda con
+una imagen fija (§ Versión corta).
 
 ## Tono y voz
 

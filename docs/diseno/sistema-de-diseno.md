@@ -129,15 +129,28 @@ Con estados `default · hover · focus-visible · active · disabled · cargando
 - La "línea de señal" que progresa con el scroll (hilo narrativo).
 - La parabólica de portada que sigue el cursor / giroscopio (3D útil: muestra cómo se orienta).
 - El dial de sintonía al elegir plan; el medidor de señal en el mapa de cobertura.
-- Cambio de sección como **"cambio de canal"** (≤200 ms de estática + barrido), solo una vez por sección.
+- Cambio de sección como **"cambio de canal"**: ver la ficha de abajo.
+- La parabólica de portada: **3D propio** (no el logo agrandado). Detalle en
+  [`hero-3d.md`](./hero-3d.md).
+
+**Ficha · Estática de "cambio de canal"** (detalle aprobado, con topes duros)
+
+| Regla | Valor |
+|---|---|
+| Duración total | **≤ 250 ms** (`--bt-dur-canal`), nunca más |
+| Destellos | **máx. 1 por transición** y **nunca más de 3 destellos por segundo** en toda la página |
+| Dónde | Solo en **2–3 transiciones** elegidas (p. ej. Inicio→Planes, entrada al portal, 404). No en cada scroll |
+| Cómo | Grano/nieve + barrido de un fotograma, sin cambios de brillo bruscos ni pantalla completa en blanco |
+| Apagado | **`prefers-reduced-motion: reduce`** y **modo ligero** (`[data-motion="lite"]`): `--bt-dur-canal: 0ms`, no se dibuja |
+| Epilepsia fotosensible | Prohibido pasar de 3 destellos/s (límite WCAG 2.3.1), sin parpadeos rojo/verde alternos |
 
 **Qué NO se anima**
 - El texto de lectura: nunca parpadea, no entra letra por letra.
 - Nada que compita con el CTA de WhatsApp.
 - Nada automático en bucle infinito salvo el ícono "activo" (respeta `prefers-reduced-motion`).
 
-**Parámetros** (`tokens.css` § 6): 120 / 220 / 420 / 800 ms; easings `out`, `inout`, `signal`
-(desaceleración de onda) y `snap` (rebote de sticker). Movimiento de entrada ≤ 24 px, nunca más.
+**Parámetros** (`tokens.css` § 6): 120 / 220 / 420 / 800 / **250 (canal)** ms; easings `out`, `inout`,
+`signal` (desaceleración de onda) y `snap` (rebote de sticker). Movimiento de entrada ≤ 24 px, nunca más.
 
 **Reducción:** `prefers-reduced-motion: reduce` y el interruptor **modo ligero** (`[data-motion="lite"]`)
 llevan todas las duraciones a ~0 y eliminan 3D, parallax y la estática de "cambio de canal".
@@ -192,23 +205,26 @@ Set SVG propio, **no** un paquete genérico:
 
 | Variante | Archivo | Uso |
 |---|---|---|
-| Ícono solo | `logo-icono.svg` | Cabecera, contenido, marca de agua |
+| Ícono solo | `logo-icono.svg` | Cabecera, contenido, marca de agua (**≤ 480 px**) |
+| Recorte solo la parabólica | `logo-icono-recorte.svg` | Recorte del componente de tinta, fondo transparente (≥ 180 px) |
 | Línea monocroma tinta | `logo-mono-tinta.svg` | Sellos, grabados, fondos claros |
 | Línea monocroma blanco | `logo-mono-blanco.svg` | Fondos navy/fotos oscuras |
 | Ícono sobre placa crema | `logo-sobre-oscuro.svg` | **Tratamiento para fondos oscuros** (el contorno negro desaparece sobre navy) |
 | Horizontal con wordmark | `logo-horizontal.svg` | Cabecera, footer, correos |
 | Vertical apilado | `logo-vertical.svg` | OG, valla, presentaciones |
-| Favicon | `favicon.svg` + `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png` | Navegador, iOS, PWA |
+| Favicon | `favicon.svg` (recorte de la parabólica) + `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png` | Navegador, iOS, PWA |
 | OG image | `og-1200x630.png` | **Fase 1B** (se hornea con Playwright) |
 
 Reglas: no deformar, no recolorear fuera de tokens, no aplicar degradados, no usar el símbolo sobre
 fotos sin placa de color, zona de protección = 25 % del ancho del ícono, tamaño mínimo del ícono 24 px
-(digital) / 12 mm (impreso). El **wordmark** "ANTENA PARABÓLICA / BAJO TIGUI" se compone con Archivo
+(digital) / 12 mm (impreso). **Tamaño máximo del vectorizado: 480 px de ancho** (es una traza
+automática de un PNG de 262×251 px; a partir de ~600 px se ven los bordes ondulados —
+[`hero-3d.md`](./hero-3d.md)). El **wordmark** "ANTENA PARABÓLICA / BAJO TIGUI" se compone con Archivo
 900 itálica (según § 2); en los lockups va hoy como texto vivo y en la 1B se hornea a paths/PNG.
 
 > **Pendientes declarados:** el ícono es una traza automática de un PNG de 262×251 px (no existe
-> original vectorial); el favicon completo es muy detallado a 16–32 px; los lockups necesitan el
-> horneado del wordmark. Detalle en `docs/diseno/assets/README.md`.
+> original vectorial); el favicon recortado aún se lee como mancha a 16–32 px; los lockups necesitan
+> el horneado del wordmark. Detalle en `docs/diseno/assets/README.md` e `docs/diseno/inventario.md` § 5.
 
 ---
 
@@ -217,6 +233,10 @@ fotos sin placa de color, zona de protección = 25 % del ancho del ícono, tama�
 - Detección por `navigator.connection.saveData` / `effectiveType`, `prefers-reduced-motion`,
   hardware modesto (`deviceMemory`, `hardwareConcurrency`) o interruptor manual visible en el footer.
 - `[data-motion="lite"]` desactiva 3D, parallax y transiciones; el hilo narrativo queda como línea estática.
+- **El relato se conserva:** los cuatro actos se muestran como **secciones normales, en orden**,
+  con el mismo texto y los mismos CTA (versión corta descrita en
+  [`concepto.md` § Versión corta](./concepto.md)). Nunca hay contenido que exista solo con movimiento.
+- La estática de "cambio de canal" **no se dibuja** en modo ligero (§ 6).
 - Imágenes WebP/AVIF con `sizes`, `loading="lazy"`, LCP sin `lazy` (fuentes autoalojadas con `next/font`).
 - Regla: **todos** los contenidos y CTAs funcionan igual sin 3D.
 
@@ -239,4 +259,8 @@ Tailwind (Fase 3) se mapea a estos tokens en `tailwind.config` (`theme.extend`),
 4. **Vigencia de la promoción** y fecha del aviso de suspensión.
 5. **Origen del nombre** (la marca se escribe *Bajo Tigui*, sin diéresis ni tilde, y no se le asigna
    significado; el acto 3 se titula "El barrio" hasta que se confirme).
-6. Estilo de la "estática" de cambio de canal: ¿la quieres o preferís saltar ese detalle sensorial?
+6. **Hero 3D:** nivel de detalle de la antena y si gira sola al entrar (ver
+   [`hero-3d.md` § 4](./hero-3d.md)).
+7. **Estática de "cambio de canal":** *aprobada* como detalle, con los topes de § 6
+   (≤ 250 ms, ≤ 1 destello por transición y ≤ 3/s, solo en 2–3 transiciones, apagada en modo ligero
+   y con movimiento reducido). Falta elegir **cuáles** 2–3 transiciones.

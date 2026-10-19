@@ -136,6 +136,7 @@
   --bt-dur-2: 220ms; /* transición de componente */
   --bt-dur-3: 420ms; /* entrada de sección */
   --bt-dur-4: 800ms; /* recorrido de la señal */
+  --bt-dur-canal: 250ms; /* estática de "cambio de canal" (tope; ver sistema-de-diseno.md § 6) */
   --bt-ease-out:   cubic-bezier(0.2, 0.8, 0.2, 1);
   --bt-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
   --bt-ease-signal: cubic-bezier(0.16, 1, 0.3, 1);  /* desaceleración tipo onda */
@@ -194,9 +195,11 @@
 /* ---------------------------------------------------------------- Modo ligero / movimiento reducido */
 [data-motion="lite"] {
   --bt-dur-1: 0ms; --bt-dur-2: 0ms; --bt-dur-3: 0ms; --bt-dur-4: 0ms;
+  --bt-dur-canal: 0ms; /* la estática de "cambio de canal" se apaga en modo ligero */
 }
 @media (prefers-reduced-motion: reduce) {
   :root {
     --bt-dur-1: 0.01ms; --bt-dur-2: 0.01ms; --bt-dur-3: 0.01ms; --bt-dur-4: 0.01ms;
+    --bt-dur-canal: 0.01ms; /* y también con movimiento reducido */
   }
 }
