@@ -192,7 +192,7 @@ echo "Repo:     $RAIZ"
 echo "Rama:     $BASE"
 echo "Cadena:   $CADENA"
 echo "Logs:     $LOGDIR"
-echo "Brief:    $BRIEF  (+ centinela $SENTINELA)"
+echo "Brief:    $BRIEF  (+ marcador de cierre: $SENTINELA_FILE)"
 
 GANADOR=""
 for item in ${CADENA//,/ }; do
