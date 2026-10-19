@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inicio — Antena Parabólica Bajo Tigui</title>
+<meta name="description" content="Internet por fibra óptica y televisión por antena parabólica en El Bagre, Antioquia. 50 Mbps de descarga + 90 canales SD y HD, $70.000 al mes y 1 mes gratis.">
+<link rel="stylesheet" href="_base.css">
+<link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- ---------------------------------------------------------------- sprite de iconos propios -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/><path d="M8.6 8.4c.5-.7 1.5-.3 1.7.3l.4 1.1c.1.4 0 .7-.3 1l-.6.6c.5 1 1.3 1.8 2.3 2.3l.6-.6c.3-.3.6-.4 1-.3l1.1.4c.6.2 1 1.2.3 1.7-1.5 1.1-3.1.6-4.6-.6s-2.5-3-1.9-4.9Z" fill="currentColor"/></symbol>
+    <symbol id="i-signal" viewBox="0 0 24 24"><path d="M5 19a14 14 0 0 1 14-14" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><path d="M5 14a9 9 0 0 1 9-9" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><path d="M5 9a4 4 0 0 1 4-4" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><circle cx="5.5" cy="19.5" r="2.2" fill="currentColor"/></symbol>
+    <symbol id="i-dish" viewBox="0 0 24 24"><path d="M3 9c0-3.3 2.7-6 6-6 .6 3.3-1.2 6-3.4 7.4" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/><path d="M8.6 10.4 20 21" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><path d="M4.6 10.4 13 4" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/></symbol>
+    <symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.25"/><path d="m8 3 3 3M16 3l-3 3" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M3 9a13 13 0 0 1 18 0" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><path d="M6.5 12.5a8.5 8.5 0 0 1 11 0" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><path d="M10 16a4 4 0 0 1 4 0" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><circle cx="12" cy="19" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" fill="none" stroke="currentColor" stroke-width="2.25"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2.25"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4.4 3.6V15H6.5A2.5 2.5 0 0 1 4 12.5v-7Z" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.3" fill="currentColor"/><circle cx="12" cy="9" r="1.3" fill="currentColor"/><circle cx="15" cy="9" r="1.3" fill="currentColor"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.3A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7 3.1C19 15.6 12 20 12 20Z" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arc" viewBox="0 0 200 200" fill="none"><g stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M10 100a90 90 0 0 1 90-90"/><path d="M10 100a65 65 0 0 1 65-65"/><path d="M10 100a40 40 0 0 1 40-40"/></g></symbol>
+  </defs>
+</svg>
+
+<a class="mq-visually-hidden" href="#contenido">Saltar al contenido</a>
+
+<!-- ---------------------------------------------------------------- cabecera -->
+<header class="mq-nav">
+  <div class="mq-container mq-nav__inner">
+    <a href="inicio.html" aria-label="Bajo Tigui — inicio">
+      <img class="mq-nav__logo" src="../../../public/brand/logo-horizontal.svg" alt="Antena Parabólica Bajo Tigui" width="190" height="56">
+    </a>
+    <nav class="mq-nav__links" aria-label="Principal">
+      <a href="planes.html">Planes</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#cobertura">Cobertura</a>
+      <a href="#canales">Canales</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+    <div class="mq-nav__cta">
+      <a class="mq-btn mq-btn--wa" href="https://wa.me/573147182506">
+        <svg class="mq-icon" aria-hidden="true"><use href="#i-wa"/></svg>
+        314 718 2506
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <!-- ============================================================ ACTO 1 · Órbita + ACTO 2 · Azotea -->
+  <section class="mq-section" aria-labelledby="h-portada">
+    <svg class="mq-arcs mq-arcs--tr" aria-hidden="true" style="color:var(--bt-sky-400)"><use href="#i-arc"/></svg>
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-a mq-stack">
+          <p class="mq-kicker">El Bagre, Antioquia · organización sin ánimo de lucro</p>
+          <h1 id="h-portada" class="mq-display mq-display--portada">
+            La señal viaja lejos.<br>
+            <span class="mq-brush">Aquí se queda.</span>
+          </h1>
+          <p class="mq-lead">Internet por fibra óptica y televisión por antena parabólica para las familias del
+            Bajo Cauca. Instalamos, respondemos y cobramos justo.</p>
+
+          <ul class="mq-pills" role="list">
+            <li class="mq-pill mq-pill--sky"><svg class="mq-icon" aria-hidden="true"><use href="#i-wifi"/></svg> 50 Mbps de descarga</li>
+            <li class="mq-pill mq-pill--aqua"><svg class="mq-icon" aria-hidden="true"><use href="#i-tv"/></svg> 90 canales SD + HD</li>
+            <li class="mq-pill mq-pill--sun">1 mes gratis</li>
+          </ul>
+
+          <div class="mq-pills">
+            <a class="mq-btn mq-btn--wa mq-btn--lg" href="https://wa.me/573147182506">
+              <svg class="mq-icon" aria-hidden="true"><use href="#i-wa"/></svg>
+              Escríbenos por WhatsApp
+            </a>
+            <a class="mq-btn mq-btn--ghost mq-btn--lg" href="planes.html">Ver planes</a>
+          </div>
+
+          <p class="mq-note"><strong>POR CONFIRMAR:</strong> la <b>instalación gratis</b> no se anuncia todavía; en la
+            maqueta va solo como texto de borrador hasta que la confirmes.</p>
+        </div>
+
+        <div class="mq-b">
+          <div class="mq-3d">
+            <img src="../../../public/brand/logo-icono-recorte.svg" alt="Parabólica de Bajo Tigui" width="300" height="300">
+            <span class="mq-3d__tag">Aquí va la parabólica 3D (Fase 3)</span>
+          </div>
+          <p class="mq-note mq-note--info mq-mt-6"><strong>Respaldo seguro:</strong> si no hay WebGL, modo ligero o
+            <code>prefers-reduced-motion</code>, se muestra este recorte del logo (≤ 480 px) — nunca el vectorizado
+            agrandado (ver <code>hero-3d.md</code>).</p>
+        </div>
+      </div>
+
+      <div class="mq-grid mq-mt-7">
+        <div class="mq-wide" style="display:flex; flex-wrap:wrap; gap:var(--bt-space-4); align-items:center; justify-content:space-between">
+          <span class="mq-sticker mq-sticker--sun">$70.000 al mes</span>
+          <span class="mq-sticker">1 mes gratis</span>
+          <span class="mq-sticker mq-sticker--aqua">Sin interrupciones</span>
+          <p class="mq-kicker" style="margin:0">Lunes a viernes · 7:00 a. m. – 5:00 p. m.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ franja de datos reales -->
+  <section class="mq-section mq-section--navy" style="padding-block:var(--bt-space-7)" aria-label="Datos del plan principal">
+    <div class="mq-container">
+      <div class="mq-facts" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+        <div>
+          <p class="mq-fact__num">50 Mbps</p>
+          <p class="mq-fact__lbl">de descarga por fibra óptica</p>
+        </div>
+        <div>
+          <p class="mq-fact__num">90</p>
+          <p class="mq-fact__lbl">canales SD y HD por antena</p>
+        </div>
+        <div>
+          <p class="mq-fact__num">$70.000</p>
+          <p class="mq-fact__lbl">al mes, sin sorpresas</p>
+        </div>
+        <div>
+          <p class="mq-fact__num">1 mes</p>
+          <p class="mq-fact__lbl">gratis para nuevos asociados</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ ACTO 3 · El barrio -->
+  <section class="mq-section" id="nosotros" aria-labelledby="h-barrio">
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-c">
+          <h2 id="h-barrio" class="mq-display mq-display--xl">El <span class="mq-brush mq-brush--orange">barrio</span> también es dueño</h2>
+        </div>
+        <div class="mq-d mq-stack">
+          <p>Bajo Tigui es una organización <b>sin ánimo de lucro</b> de El Bagre. No hay oficina en Bogotá ni
+            centro de llamadas: hay asociados, vecinos y un técnico que sube al techo cuando toca.</p>
+          <p>Por eso el precio se sostiene y la palabra se cumple. <em>«Recuerde señor asociado: que me es
+            cumplido, me es pago.»</em></p>
+          <ul class="mq-pills" role="list">
+            <li class="mq-pill"><svg class="mq-icon" aria-hidden="true"><use href="#i-heart"/></svg> Sin ánimo de lucro</li>
+            <li class="mq-pill">Asociados, no clientes</li>
+            <li class="mq-pill">Soporte local</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ cómo funciona -->
+  <section class="mq-section mq-section--paper" id="como-funciona" aria-labelledby="h-como">
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-wide">
+          <p class="mq-kicker">Cómo funciona</p>
+          <h2 id="h-como" class="mq-display mq-display--xl">Tres pasos y la señal está en tu casa</h2>
+        </div>
+        <div class="mq-c"><div class="mq-card mq-card--flat"><p class="mq-fact__num">1</p><h3 class="mq-display" style="font-size:var(--bt-fs-lg)">Llamas o escribes</h3><p>Nos dices dónde vives y qué necesitas. Sin formularios eternos.</p></div></div>
+        <div class="mq-c"><div class="mq-card mq-card--flat"><p class="mq-fact__num">2</p><h3 class="mq-display" style="font-size:var(--bt-fs-lg)">Vamos a tu casa</h3><p>Revisamos dónde queda mejor la parabólica y el tendido de fibra.</p></div></div>
+        <div class="mq-c"><div class="mq-card mq-card--flat"><p class="mq-fact__num">3</p><h3 class="mq-display" style="font-size:var(--bt-fs-lg)">Queda funcionando</h3><p>Probamos canales e internet contigo al frente y te dejamos el contacto directo.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ ACTO 4 · Sala: el plan -->
+  <section class="mq-section" aria-labelledby="h-plan">
+    <svg class="mq-arcs mq-arcs--bl" aria-hidden="true" style="color:var(--bt-aqua-500)"><use href="#i-arc"/></svg>
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-c mq-stack">
+          <p class="mq-kicker">El plan de la casa</p>
+          <h2 id="h-plan" class="mq-display mq-display--xl">Todo en uno, un solo pago</h2>
+          <p class="mq-lead">Internet por fibra y televisión por antena en la misma cuenta.</p>
+          <p class="mq-kicker">El primer mes va por nuestra cuenta.</p>
+        </div>
+        <div class="mq-d">
+          <article class="mq-card">
+            <div style="display:flex; justify-content:space-between; align-items:start; gap:var(--bt-space-4); flex-wrap:wrap">
+              <div>
+                <h3 class="mq-display" style="font-size:var(--bt-fs-xl); margin:0">Plan Bajo Tigui</h3>
+                <p class="mq-kicker" style="margin-top:var(--bt-space-2)">Internet + TV</p>
+              </div>
+              <span class="mq-sticker mq-sticker--sun">1 mes gratis</span>
+            </div>
+            <p class="mq-display mq-nums" style="font-size:var(--bt-fs-3xl); margin:var(--bt-space-4) 0 0">$70.000<span style="font-size:.32em; font-weight:var(--bt-fw-bold)"> /mes</span></p>
+            <ul class="mq-stack" role="list" style="list-style:none; padding:0; margin-top:var(--bt-space-5)">
+              <li><span class="mq-check">✓</span> Internet por fibra óptica · <b>50 Mbps de descarga</b></li>
+              <li><span class="mq-check">✓</span> Televisión por antena · <b>90 canales SD + HD</b></li>
+              <li><span class="mq-check">✓</span> Sin interrupciones ni cobros escondidos</li>
+              <li><span class="mq-check">✓</span> Soporte de gente del Bajo Cauca</li>
+            </ul>
+            <div class="mq-pills mq-mt-6">
+              <a class="mq-btn mq-btn--wa mq-btn--block" href="https://wa.me/573147182506">
+                <svg class="mq-icon" aria-hidden="true"><use href="#i-wa"/></svg> Quiero el plan
+              </a>
+            </div>
+            <p class="mq-note mq-mt-6">El precio y el mes gratis están <b>confirmados</b>. La <b>instalación</b> y las
+              <b>condiciones de la promoción</b> siguen <strong>POR CONFIRMAR</strong>.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ cobertura -->
+  <section class="mq-section mq-section--sunken" id="cobertura" aria-labelledby="h-cob">
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-d">
+          <p class="mq-kicker">Cobertura</p>
+          <h2 id="h-cob" class="mq-display mq-display--xl">¿Llega a mi casa?</h2>
+          <p class="mq-lead">Escríbenos con tu dirección y te decimos en el mismo día si hay red en tu sector.
+            Sin dejar tus datos en un formulario.</p>
+          <div class="mq-pills">
+            <a class="mq-btn mq-btn--wa" href="https://wa.me/573147182506">
+              <svg class="mq-icon" aria-hidden="true"><use href="#i-map"/></svg> Consultar mi dirección
+            </a>
+          </div>
+          <p class="mq-note mq-mt-6"><strong>POR CONFIRMAR:</strong> barrios, veredas y polígono exacto del mapa.
+            La maqueta muestra una zona de referencia, no datos reales.</p>
+        </div>
+        <div class="mq-c">
+          <div class="mq-card mq-card--flat" style="aspect-ratio:4/3; display:grid; place-items:center; background:var(--bt-sky-200)">
+            <span class="mq-pill"><svg class="mq-icon" aria-hidden="true"><use href="#i-map"/></svg> Mapa de cobertura (borrador)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ canales -->
+  <section class="mq-section" id="canales" aria-labelledby="h-can">
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-wide">
+          <p class="mq-kicker">Televisión</p>
+          <h2 id="h-can" class="mq-display mq-display--xl">90 canales para hacer zapping</h2>
+          <p class="mq-lead mq-tight">Redes nacionales, deportes, novelas y películas. La parrilla real se publica
+            cuando quede confirmada.</p>
+          <ul class="mq-pills mq-mt-6" role="list">
+            <li class="mq-pill mq-pill--sky">Nacionales</li>
+            <li class="mq-pill mq-pill--aqua">Deportes</li>
+            <li class="mq-pill mq-pill--sun">Infantil</li>
+            <li class="mq-pill">Películas</li>
+            <li class="mq-pill">Noticias</li>
+            <li class="mq-pill mq-pill--orange">HD</li>
+          </ul>
+          <p class="mq-note mq-mt-6"><strong>POR CONFIRMAR:</strong> la parrilla real de los 90 canales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ atención -->
+  <section class="mq-section mq-section--navy" aria-labelledby="h-ate">
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-wide">
+          <p class="mq-kicker">Atención al asociado</p>
+          <h2 id="h-ate" class="mq-display mq-display--xl">Hablamos como vecinos</h2>
+        </div>
+        <div class="mq-c mq-stack">
+          <div class="mq-pill mq-pill--sky"><svg class="mq-icon" aria-hidden="true"><use href="#i-wa"/></svg> WhatsApp y llamadas: 314 718 2506</div>
+          <div class="mq-pill mq-pill--aqua"><svg class="mq-icon" aria-hidden="true"><use href="#i-clock"/></svg> Lunes a viernes, 7:00 a. m. – 5:00 p. m.</div>
+          <div class="mq-pill"><svg class="mq-icon" aria-hidden="true"><use href="#i-chat"/></svg> Chatbot en la esquina: responde dudas básicas</div>
+        </div>
+        <div class="mq-d">
+          <div class="mq-card mq-card--navy">
+            <h3 class="mq-display" style="font-size:var(--bt-fs-lg)">Correos por área</h3>
+            <p>Están <b>POR CONFIRMAR</b>: en la maqueta van como marcadores no publicables.</p>
+            <ul role="list" style="list-style:none; padding:0; opacity:.75">
+              <li>contacto@bajotigui.co · <em>placeholder no publicable</em></li>
+              <li>soporte@bajotigui.co · <em>placeholder no publicable</em></li>
+              <li>pagos@bajotigui.co · <em>placeholder no publicable</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ---------------------------------------------------------------- pie -->
+<footer class="mq-footer">
+  <div class="mq-container">
+    <div class="mq-footer__grid">
+      <div>
+        <img src="../../../public/brand/logo-horizontal.svg" alt="Antena Parabólica Bajo Tigui" width="210" height="62" style="background:var(--bt-cream-100); border-radius:var(--bt-radius-md); padding:6px 10px">
+        <p style="margin-top:var(--bt-space-4); max-width:34ch">Organización sin ánimo de lucro de El Bagre, Antioquia.
+          Televisión por antena parabólica e internet por fibra óptica.</p>
+      </div>
+      <nav aria-label="Producto">
+        <p class="mq-kicker" style="color:var(--bt-sky-400)">Producto</p>
+        <ul role="list" style="list-style:none; padding:0; display:grid; gap:var(--bt-space-2)">
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#cobertura">Cobertura</a></li>
+          <li><a href="#canales">Canales</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Contacto y legal">
+        <p class="mq-kicker" style="color:var(--bt-sky-400)">Contacto</p>
+        <ul role="list" style="list-style:none; padding:0; display:grid; gap:var(--bt-space-2)">
+          <li><a href="https://wa.me/573147182506">WhatsApp 314 718 2506</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#">Política de privacidad</a> · <a href="#">Términos</a></li>
+          <li><a href="#">Portal del asociado</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p style="margin-top:var(--bt-space-6); font-size:var(--bt-fs-xs); color:var(--bt-sky-400)">
+      Tratamos tus datos según la Ley 1581 de 2012. No guardamos datos de tarjetas. © 2026 Antena Parabólica Bajo Tigui.
+    </p>
+  </div>
+</footer>
+
+<!-- ---------------------------------------------------------------- widget del chatbot -->
+<aside class="mq-widget" aria-label="Asistente de Bajo Tigui">
+  <div class="mq-widget__panel" id="panel" hidden>
+    <div class="mq-widget__head">
+      <span class="mq-widget__dot" aria-hidden="true"></span>
+      <b>Asistente Bajo Tigui</b>
+    </div>
+    <div class="mq-widget__body" role="log" aria-live="polite">
+      <p class="mq-msg mq-msg--sys">Este asistente responde con datos reales y, cuando algo no está confirmado, te pasa con una persona.</p>
+      <p class="mq-msg mq-msg--bot">¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesitas saber?</p>
+      <div class="mq-quick">
+        <button type="button">¿Cuánto vale?</button>
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">Pagar mi factura</button>
+      </div>
+      <p class="mq-msg mq-msg--me">¿Cuánto vale el plan?</p>
+      <p class="mq-msg mq-msg--bot">El plan va en <b>$70.000 al mes</b>: internet por fibra con <b>50 Mbps de descarga</b>
+        y TV con <b>90 canales SD + HD</b>. El primer mes es <b>gratis</b>.</p>
+      <p class="mq-msg mq-msg--bot">Si quieres, te comunico con una persona por WhatsApp para revisar tu dirección.</p>
+    </div>
+    <form class="mq-widget__foot" onsubmit="return false">
+      <label class="mq-visually-hidden" for="wa-msg">Escribe tu mensaje</label>
+      <input id="wa-msg" type="text" placeholder="Escribe tu mensaje…" autocomplete="off">
+      <button class="mq-btn mq-btn--accent" type="submit" aria-label="Enviar">→</button>
+    </form>
+  </div>
+  <button class="mq-fab" type="button" aria-label="Abrir el asistente de Bajo Tigui" aria-expanded="false">
+    <svg aria-hidden="true"><use href="#i-chat"/></svg>
+  </button>
+</aside>
+
+</body>
+</html>

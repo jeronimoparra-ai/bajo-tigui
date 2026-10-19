@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Widget del chatbot — Antena Parabólica Bajo Tigui</title>
+<meta name="description" content="Estados y reglas del asistente de Bajo Tigui: responde con datos confirmados y, cuando no sabe, pasa con una persona.">
+<link rel="stylesheet" href="_base.css">
+<link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/><path d="M8.6 8.4c.5-.7 1.5-.3 1.7.3l.4 1.1c.1.4 0 .7-.3 1l-.6.6c.5 1 1.3 1.8 2.3 2.3l.6-.6c.3-.3.6-.4 1-.3l1.1.4c.6.2 1 1.2.3 1.7-1.5 1.1-3.1.6-4.6-.6s-2.5-3-1.9-4.9Z" fill="currentColor"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H10l-4.4 3.6V15H6.5A2.5 2.5 0 0 1 4 12.5v-7Z" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.3" fill="currentColor"/><circle cx="12" cy="9" r="1.3" fill="currentColor"/><circle cx="15" cy="9" r="1.3" fill="currentColor"/></symbol>
+    <symbol id="i-arc" viewBox="0 0 200 200" fill="none"><g stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M10 100a90 90 0 0 1 90-90"/><path d="M10 100a65 65 0 0 1 65-65"/><path d="M10 100a40 40 0 0 1 40-40"/></g></symbol>
+  </defs>
+</svg>
+
+<header class="mq-nav">
+  <div class="mq-container mq-nav__inner">
+    <a href="inicio.html" aria-label="Bajo Tigui — inicio">
+      <img class="mq-nav__logo" src="../../../public/brand/logo-horizontal.svg" alt="Antena Parabólica Bajo Tigui" width="190" height="56">
+    </a>
+    <nav class="mq-nav__links" aria-label="Principal">
+      <a href="planes.html">Planes</a>
+      <a href="inicio.html#como-funciona">Cómo funciona</a>
+      <a href="inicio.html#cobertura">Cobertura</a>
+      <a href="inicio.html#canales">Canales</a>
+      <a href="inicio.html#nosotros">Nosotros</a>
+    </nav>
+    <div class="mq-nav__cta">
+      <a class="mq-btn mq-btn--wa" href="https://wa.me/573147182506">
+        <svg class="mq-icon" aria-hidden="true"><use href="#i-wa"/></svg> 314 718 2506
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+  <section class="mq-section" aria-labelledby="h-chat">
+    <svg class="mq-arcs mq-arcs--tr" aria-hidden="true" style="color:var(--bt-sky-400)"><use href="#i-arc"/></svg>
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-a mq-stack">
+          <p class="mq-kicker">Widget del chatbot · maqueta de estados</p>
+          <h1 id="h-chat" class="mq-display mq-display--portada">El asistente que <span class="mq-brush mq-brush--orange">no inventa</span></h1>
+          <p class="mq-lead">Aparece en la esquina de todas las pantallas públicas. Responde con <b>datos confirmados</b>
+            y, cuando algo no está claro, no adivina: pasa con una persona o abre el buzón.</p>
+          <ul class="mq-pills" role="list">
+            <li class="mq-pill mq-pill--sky">Datos confirmados solamente</li>
+            <li class="mq-pill mq-pill--aqua">Deriva a WhatsApp</li>
+            <li class="mq-pill mq-pill--sun">Registra en el buzón</li>
+          </ul>
+        </div>
+        <div class="mq-b">
+          <div class="mq-card mq-card--sun">
+            <h2 class="mq-display" style="font-size:var(--bt-fs-lg); margin-top:0">Lo que el bot puede decir</h2>
+            <ul role="list" style="padding-left:1.1rem; margin:0">
+              <li>Plan: 50 Mbps de descarga + 90 canales SD/HD</li>
+              <li>Precio: $70.000 al mes</li>
+              <li>1 mes gratis</li>
+              <li>Horario: lunes a viernes, 7:00 a. m. – 5:00 p. m.</li>
+              <li>WhatsApp: 314 718 2506</li>
+            </ul>
+          </div>
+          <p class="mq-note mq-note--info mq-mt-6"><strong>Lo que NO puede decir:</strong> que la instalación es
+            gratis, cobertura en una dirección específica, correos oficiales, parrilla de canales ni fechas de la
+            promoción. Si se lo piden, deriva a una persona.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ estados -->
+  <section class="mq-section mq-section--paper" aria-labelledby="h-estados">
+    <div class="mq-container">
+      <p class="mq-kicker">Cuatro estados</p>
+      <h2 id="h-estados" class="mq-display mq-display--xl">Cerrado, abierto, derivando y sin conexión</h2>
+
+      <div class="mq-states mq-mt-7">
+
+        <!-- 1 · cerrado -->
+        <article class="mq-state">
+          <p class="mq-kicker">1 · Cerrado</p>
+          <div class="mq-widget mq-widget--static">
+            <button class="mq-fab" type="button" aria-label="Abrir el asistente de Bajo Tigui" aria-expanded="false">
+              <svg aria-hidden="true"><use href="#i-chat"/></svg>
+            </button>
+          </div>
+          <p class="mq-state__note">Burbuja de 62 px, ≥ 44 px de área táctil, esquina inferior derecha. Con
+            <b>3 destellos como máximo por segundo</b> cuando hay un mensaje nuevo, y apagada con
+            <code>prefers-reduced-motion</code>.</p>
+        </article>
+
+        <!-- 2 · abierto -->
+        <article class="mq-state">
+          <p class="mq-kicker">2 · Abierto</p>
+          <div class="mq-widget mq-widget--static">
+            <div class="mq-widget__panel">
+              <div class="mq-widget__head">
+                <span class="mq-widget__dot" aria-hidden="true"></span>
+                <b>Asistente Bajo Tigui</b>
+              </div>
+              <div class="mq-widget__body">
+                <p class="mq-msg mq-msg--sys">Respondo con datos reales. Si algo no está confirmado, te paso con una persona.</p>
+                <p class="mq-msg mq-msg--bot">¡Hola! Soy el asistente de Bajo Tigui. ¿En qué te ayudo?</p>
+                <div class="mq-quick">
+                  <button type="button">¿Cuánto vale?</button>
+                  <button type="button">¿Llega a mi casa?</button>
+                  <button type="button">Pagar mi factura</button>
+                </div>
+              </div>
+              <form class="mq-widget__foot" onsubmit="return false">
+                <label class="mq-visually-hidden" for="c1">Escribe tu mensaje</label>
+                <input id="c1" type="text" placeholder="Escribe tu mensaje…">
+                <button class="mq-btn mq-btn--accent" type="submit" aria-label="Enviar">→</button>
+              </form>
+            </div>
+          </div>
+          <p class="mq-state__note">Saludo corto + <b>tres respuestas rápidas</b>. El usuario no tiene que pensar
+            cómo preguntar. El aviso de "no invento" se muestra una sola vez, no en cada mensaje.</p>
+        </article>
+
+        <!-- 3 · derivando -->
+        <article class="mq-state">
+          <p class="mq-kicker">3 · Derivando a una persona</p>
+          <div class="mq-widget mq-widget--static">
+            <div class="mq-widget__panel">
+              <div class="mq-widget__head">
+                <span class="mq-widget__dot" aria-hidden="true"></span>
+                <b>Asistente Bajo Tigui</b>
+              </div>
+              <div class="mq-widget__body">
+                <p class="mq-msg mq-msg--me">¿Llega a mi casa? Vivo en el barrio El Poblado</p>
+                <p class="mq-msg mq-msg--bot">Eso depende del tendido en tu sector y <b>no lo puedo confirmar yo</b>.
+                  Te paso con una persona del equipo por WhatsApp para revisarlo.</p>
+                <p class="mq-msg mq-msg--sys">Abriendo WhatsApp con tu mensaje listo…</p>
+                <div class="mq-quick">
+                  <button type="button">Abrir WhatsApp</button>
+                  <button type="button">Dejar mi caso en el buzón</button>
+                </div>
+              </div>
+              <form class="mq-widget__foot" onsubmit="return false">
+                <label class="mq-visually-hidden" for="c2">Escribe tu mensaje</label>
+                <input id="c2" type="text" placeholder="Escribe tu mensaje…">
+                <button class="mq-btn mq-btn--accent" type="submit" aria-label="Enviar">→</button>
+              </form>
+            </div>
+          </div>
+          <p class="mq-state__note">La derivación es explícita y con dos salidas: WhatsApp (en vivo) o buzón
+            (cuando no hay horario). Nunca deja al usuario sin camino.</p>
+        </article>
+
+        <!-- 4 · sin conexión -->
+        <article class="mq-state">
+          <p class="mq-kicker">4 · Sin conexión o fuera de horario</p>
+          <div class="mq-widget mq-widget--static">
+            <div class="mq-widget__panel">
+              <div class="mq-widget__head">
+                <span class="mq-widget__dot" style="background:var(--bt-state-warn); box-shadow:0 0 0 3px color-mix(in srgb,var(--bt-state-warn) 30%,transparent)" aria-hidden="true"></span>
+                <b>Asistente Bajo Tigui</b>
+              </div>
+              <div class="mq-widget__body">
+                <p class="mq-msg mq-msg--sys">Estamos fuera de horario: lunes a viernes, 7:00 a. m. – 5:00 p. m.</p>
+                <p class="mq-msg mq-msg--bot">No puedo responder ahora mismo, pero tu mensaje no se pierde.
+                  Déjalo en el buzón y te llamamos el próximo día hábil.</p>
+                <div class="mq-quick">
+                  <button type="button">Dejar mi caso</button>
+                  <button type="button">Ver preguntas frecuentes</button>
+                </div>
+              </div>
+              <form class="mq-widget__foot" onsubmit="return false">
+                <label class="mq-visually-hidden" for="c3">Escribe tu mensaje</label>
+                <input id="c3" type="text" placeholder="Escribe tu mensaje…">
+                <button class="mq-btn mq-btn--accent" type="submit" aria-label="Enviar">→</button>
+              </form>
+            </div>
+          </div>
+          <p class="mq-state__note">Honesto: si no hay servicio o no hay horario, se dice. El buzón queda como
+            red de seguridad y el aviso de "sin atención 24/7" evita expectativas falsas.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ reglas -->
+  <section class="mq-section" aria-labelledby="h-reglas">
+    <div class="mq-container">
+      <div class="mq-grid">
+        <div class="mq-c">
+          <p class="mq-kicker">Reglas de construcción</p>
+          <h2 id="h-reglas" class="mq-display mq-display--xl">Cómo se comporta</h2>
+        </div>
+        <div class="mq-d">
+          <table class="mq-table">
+            <caption class="mq-visually-hidden">Reglas del asistente</caption>
+            <thead><tr><th scope="col">Regla</th><th scope="col">Detalle</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Fuente de datos</th><td>Solo lee precios, planes y avisos guardados en la base de datos (los administra el panel). Si un dato está en <i>por confirmar</i>, no lo dice</td></tr>
+              <tr><th scope="row">Modelo</th><td>API de Claude desde el backend de Next.js. La clave vive en el servidor, nunca en el navegador</td></tr>
+              <tr><th scope="row">Accesibilidad</th><td><code>role="log"</code> con <code>aria-live="polite"</code>, foco al abrir, cierre con <kbd>Esc</kbd>, área táctil ≥ 44 px, contraste AA</td></tr>
+              <tr><th scope="row">Abuso</th><td>Rate limiting por IP + Turnstile/hCaptcha antes de dejar el buzón. Límite de longitud y de mensajes por sesión</td></tr>
+              <tr><th scope="row">Datos personales</th><td>Consentimiento y aviso de la Ley 1581 de 2012 antes de guardar nombre, teléfono o dirección. No se piden datos de tarjeta nunca</td></tr>
+              <tr><th scope="row">Movimiento</th><td>Grano/estática de "cambio de canal" ≤ 250 ms al abrir, máximo un destello; apagada con <code>prefers-reduced-motion</code> y en modo ligero</td></tr>
+              <tr><th scope="row">Respaldo</th><td>Si el chatbot falla, queda siempre visible el botón de WhatsApp. El asistente no es el único camino</td></tr>
+            </tbody>
+          </table>
+          <p class="mq-note mq-mt-6"><strong>POR CONFIRMAR:</strong> longitud y tono exactos de las respuestas
+            (¿tuteo o usted?), y si el buzón permite envío anónimo como en la página Buzón.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="mq-footer">
+  <div class="mq-container">
+    <p style="margin:0; font-size:var(--bt-fs-xs); color:var(--bt-sky-400)">
+      Maqueta de estados del widget · Fase 1B-i · Antena Parabólica Bajo Tigui · El Bagre, Antioquia
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
