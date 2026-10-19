@@ -102,6 +102,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  overflow-x: clip; /* guarda sistémica: bloquea desborde horizontal sin crear nuevo scroll-container */
 }
 
 body {
@@ -168,7 +169,21 @@ button, input, textarea, select {
 
 .bt-display--valla {
   font-variation-settings: "wdth" var(--bt-display-wdth-valla);
-  font-size: var(--bt-fs-4xl);
+  /*
+   * CÁLCULO ANTI-DESBORDE (corr. overflow-móvil):
+   * Archivo Black wdth=122, "Bajo Tigui" medido en browser: span.width=473 px a font-size=63 px
+   *   → factor efectivo = 473/63 = 7.508 px/px de fs; más .bt-brush::before derecha (+0.16em):
+   *   → factor total = 7.508 + 0.16 = 7.668 px/px de fs.
+   * Gutter = clamp(1rem, 0.5rem+3vw, 2.5rem):
+   *   a 390 px de vp → gutter=19.7 px → ancho disponible = 370.3 px → fs_máx = 370.3/7.668 = 48.3 px
+   *   a 320 px de vp → gutter=17.6 px → ancho disponible = 302.4 px → fs_máx = 302.4/7.668 = 39.4 px
+   * Fórmula: clamp(2.3rem, -0.14rem + 12.3vw, 8.5rem)
+   *   320 px → max(2.3rem=36.8px, -2.24+39.36=37.1px) = 37.1 px ≤ 39.4 px ✓
+   *   390 px → -2.24+47.97 = 45.7 px ≤ 48.3 px ✓ (margen 2.6 px)
+   *   1440 px → -2.24+177.1=174.9 → clamped 8.5rem=136 px (=igual que antes) ✓
+   * El token --bt-fs-4xl se reemplaza aquí; para pantallas ≥ xl el máx coincide exactamente.
+   */
+  font-size: clamp(2.3rem, -0.14rem + 12.3vw, 8.5rem);
   line-height: var(--bt-lh-tight);
   text-transform: uppercase;
   letter-spacing: var(--bt-ls-display);
