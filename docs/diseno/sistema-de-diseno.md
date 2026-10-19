@@ -237,5 +237,6 @@ Tailwind (Fase 3) se mapea a estos tokens en `tailwind.config` (`theme.extend`),
    `tipografia/comparacion.md`; pendiente de tu visto bueno.
 3. **Correos oficiales** (placeholders no publicables), zonas exactas de cobertura y **parrilla real** de canales.
 4. **Vigencia de la promoción** y fecha del aviso de suspensión.
-5. **Significado de "tigüí"** para el acto 3 del relato.
+5. **Origen del nombre** (la marca se escribe *Bajo Tigui*, sin diéresis ni tilde, y no se le asigna
+   significado; el acto 3 se titula "El barrio" hasta que se confirme).
 6. Estilo de la "estática" de cambio de canal: ¿la quieres o preferís saltar ese detalle sensorial?

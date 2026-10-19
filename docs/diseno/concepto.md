@@ -18,16 +18,16 @@ El sitio se comporta como un **receptor**: se recorre, se sintoniza y se ajusta.
 |---|---|---|---|
 | **1 · Órbita** | Espacio, silencio, casi negro | Expectativa, precisión | La señal existe, viene de lejos y es estable |
 | **2 · Azotea** | Techo de una casa de El Bagre, cielo turquesa | El clic, "llegó" | La parabólica recibe; nosotros instalamos y damos soporte |
-| **3 · Bajo el tigüí** *(barrio)* | Calle, sombra, vecinos, sticker y valla | Cercanía, confianza | Organización **sin ánimo de lucro**, asociados, cobertura local |
+| **3 · El barrio** | Calle, sombra, vecinos, sticker y valla | Cercanía, confianza | Organización **sin ánimo de lucro**, asociados, cobertura local |
 | **4 · Sala** | Interior, TV encendida, celular con wifi | Recompensa | El plan: 50 Mbps de descarga + 90 canales SD/HD, $70.000/mes, 1 mes gratis |
 
 El **descenso** es literal: los elementos de cada sección caen de la anterior (la onda del acto 1
 es el borde del techo del acto 2, el cable del acto 2 se vuelve el tendido de fibra del acto 3,
 la fibra entra a la sala en el acto 4). El scroll es una **bajada de señal**, no una lista de bloques.
 
-> **POR CONFIRMAR:** "tigüí" se usa aquí como nombre propio del lugar. Si la palabra tiene un
-> significado local que quieras honrar (un árbol, una sombra, un sitio), dímelo y ajusto la metáfora
-> del acto 3. **No invento ese significado.**
+> **Nombre de la marca:** *Bajo Tigui*, sin diéresis ni tilde, en todos los documentos y pantallas.
+> No se le asigna ningún significado. Si más adelante se confirma el origen del nombre, se ajusta el
+> relato; mientras tanto el acto 3 se titula **"El barrio"** y es un título neutro.
 
 ## Cómo se ve (y cómo NO se ve)
 
