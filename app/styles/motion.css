@@ -1,0 +1,216 @@
+/* ----------------------------------------------------------------
+   19. MOVIMIENTO (señal de TV)
+   Todo el movimiento es CSS: si el JS falla, la página sigue viéndose.
+   `prefers-reduced-motion` y `[data-motion="lite"]` lo apagan por completo.
+   ---------------------------------------------------------------- */
+
+/* --- revelado al hacer scroll --- */
+.bt-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--bt-dur-3) var(--bt-ease-out),
+    transform var(--bt-dur-3) var(--bt-ease-out);
+  will-change: opacity, transform;
+}
+.bt-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- hero animado de señal --- */
+.hero-senal {
+  position: relative;
+  border-radius: var(--bt-radius-lg);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+}
+.hero-senal__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Ondas de la parábola: pulsan hacia fuera */
+.hero-senal__ondas path {
+  opacity: 0.25;
+  transform-origin: 196px 214px;
+  animation: hs-onda 3.2s var(--bt-ease-out) infinite;
+}
+@keyframes hs-onda {
+  0% { opacity: 0.15; transform: scale(0.86); }
+  35% { opacity: 0.9; }
+  70% { opacity: 0.2; transform: scale(1.08); }
+  100% { opacity: 0.15; transform: scale(0.86); }
+}
+
+/* La parábola gira despacio, como si buscara la señal */
+.hero-senal__p-dish {
+  transform-origin: 244px 214px;
+  animation: hs-dish 9s ease-in-out infinite alternate;
+}
+@keyframes hs-dish {
+  0% { transform: rotate(-7deg); }
+  100% { transform: rotate(7deg); }
+}
+
+/* El haz se desliza hacia la pantalla */
+.hero-senal__haz {
+  animation: hs-haz 3.2s var(--bt-ease-inout) infinite;
+}
+@keyframes hs-haz {
+  0% { opacity: 0.15; transform: translateX(-40px); }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.15; transform: translateX(40px); }
+}
+
+/* Barra de escaneo de la pantalla */
+.hero-senal__scan {
+  animation: hs-scan 3.6s linear infinite;
+}
+@keyframes hs-scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(122px); }
+}
+
+/* Medidor de señal: las barras suben y bajan */
+.hero-senal__barras rect {
+  transform-origin: center bottom;
+  animation: hs-barra 1.8s var(--bt-ease-inout) infinite alternate;
+}
+.hero-senal__barras rect:nth-child(1) { animation-delay: 0s; }
+.hero-senal__barras rect:nth-child(2) { animation-delay: 0.15s; }
+.hero-senal__barras rect:nth-child(3) { animation-delay: 0.3s; }
+.hero-senal__barras rect:nth-child(4) { animation-delay: 0.45s; }
+@keyframes hs-barra {
+  0% { transform: scaleY(0.45); }
+  100% { transform: scaleY(1); }
+}
+
+/* Pulso del cable de fibra */
+.hero-senal__cable {
+  animation: hs-cable 2.4s linear infinite;
+}
+@keyframes hs-cable {
+  to { stroke-dashoffset: -44; }
+}
+
+/* Distintivo EN VIVO */
+.hero-senal__vivo {
+  position: absolute;
+  top: var(--bt-space-3);
+  right: var(--bt-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.25em 0.6em;
+  background: var(--bt-orange-500);
+  color: #0B0B0B;
+  font-family: var(--bt-font-mono);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.hero-senal__vivo i {
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: #0B0B0B;
+  animation: bt-blink 1.4s steps(1, end) infinite;
+}
+@keyframes bt-blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0.2; }
+}
+
+/* --- transiciones de sección: "cambio de canal" --- */
+.bt-seccion {
+  position: relative;
+}
+.bt-seccion::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--bt-sky-400), var(--bt-aqua-500), transparent);
+  opacity: 0.55;
+}
+
+/* --- menú de capítulos (índice de la página) --- */
+.bt-capitulos {
+  position: sticky;
+  top: 0;
+  z-index: var(--bt-z-sticky);
+  background: color-mix(in srgb, var(--bt-bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--bt-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.bt-capitulos::-webkit-scrollbar { display: none; }
+.bt-capitulos__lista {
+  display: flex;
+  gap: var(--bt-space-1);
+  list-style: none;
+  margin: 0;
+  padding: var(--bt-space-2) 0;
+  white-space: nowrap;
+}
+.bt-capitulos a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--bt-radius-pill);
+  color: var(--bt-text-soft);
+  font-family: var(--bt-font-mono);
+  font-size: var(--bt-fs-2xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color var(--bt-dur-1) ease, background-color var(--bt-dur-1) ease;
+}
+.bt-capitulos a:hover {
+  color: var(--bt-text);
+  background: color-mix(in srgb, var(--bt-sky-400) 16%, transparent);
+}
+
+/* --- acento al enfocar un módulo (parpadeo de canal) --- */
+.bt-foco-modulo {
+  animation: bt-canal 0.45s steps(2, end);
+}
+@keyframes bt-canal {
+  0% { transform: translateY(6px); filter: brightness(1.5); }
+  50% { filter: brightness(0.85); }
+  100% { transform: none; filter: none; }
+}
+
+/* ----------------------------------------------------------------
+   Apagado total del movimiento
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .bt-reveal { opacity: 1; transform: none; transition: none; }
+  .hero-senal__ondas path,
+  .hero-senal__p-dish,
+  .hero-senal__haz,
+  .hero-senal__scan,
+  .hero-senal__barras rect,
+  .hero-senal__cable,
+  .hero-senal__vivo i {
+    animation: none !important;
+  }
+  .bt-foco-modulo { animation: none; }
+}
+[data-motion="lite"] .bt-reveal { opacity: 1; transform: none; transition: none; }
+[data-motion="lite"] .hero-senal__ondas path,
+[data-motion="lite"] .hero-senal__p-dish,
+[data-motion="lite"] .hero-senal__haz,
+[data-motion="lite"] .hero-senal__scan,
+[data-motion="lite"] .hero-senal__barras rect,
+[data-motion="lite"] .hero-senal__cable,
+[data-motion="lite"] .hero-senal__vivo i {
+  animation: none !important;
+}
+[data-motion="lite"] .bt-foco-modulo { animation: none; }

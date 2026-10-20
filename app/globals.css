@@ -1,6 +1,7 @@
 /* Sistema de diseño Bajo Tigui — portado desde docs/diseno/maquetas/_base.css + tokens.css */
 @import "./styles/tokens.css";
 @import "./styles/base.css";
+@import "./styles/motion.css";
 
 /* Utilidades mínimas para el portal/admin (Tailwind aporta el resto). */
 :root {
