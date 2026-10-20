@@ -37,6 +37,11 @@ xdg-open docs/diseno/maquetas/componentes.html
 
 # capturas nuevas con Playwright
 npm run maquetas:capturar
+
+# verificar una pantalla: desborde real (fuerza overflow-x: visible), contraste AA
+# con alfa y pseudo-elementos, un solo h1, jerarquía, alt, red remota y movimiento.
+# Sale con código 1 si hay cualquier fallo (sirve para el gate de cada pantalla).
+node tools/verificar-maqueta.mjs docs/diseno/maquetas/inicio.html
 ```
 
 ## Pendiente de la 1B (screens aún sin diseñar)

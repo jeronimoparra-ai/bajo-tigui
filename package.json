@@ -4,7 +4,8 @@
   "private": true,
   "description": "Sitio web y aplicativo de Antena Parabólica Bajo Tigui (El Bagre, Antioquia)",
   "scripts": {
-    "maquetas:capturar": "node tools/capturar-maquetas.mjs"
+    "maquetas:capturar": "node tools/capturar-maquetas.mjs",
+    "maquetas:verificar": "node tools/verificar-maqueta.mjs"
   },
   "devDependencies": {
     "playwright": "^1.56.0"
