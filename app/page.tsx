@@ -6,7 +6,9 @@ import { DialSintonia } from "@/components/sections/DialSintonia";
 export default function Home() {
   return (
     <main id="contenido" tabIndex={-1}>
-      <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
+      <div className="bt-escena-bloque" data-escena="poste">
+        <div className="bt-escena-bloque__fondo" aria-hidden="true"></div>
+        <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
         <div className="bt-container">
           <p className="bt-kicker bt-kicker--ch">CH 01 · Inicio, El Bagre, Antioquia</p>
           <div style={{ marginTop: "var(--bt-space-2)" }}>
@@ -33,6 +35,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </div>
 
       <section className="bt-section bt-section--paper" id="dial" aria-labelledby="h-dial">
         <div className="bt-container">

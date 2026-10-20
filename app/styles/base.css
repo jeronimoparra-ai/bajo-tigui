@@ -1545,6 +1545,19 @@ body[data-theme="dark"]::after {
   box-shadow: inset 0 2px 0 -1px var(--bt-border);
 }
 
+/* Chatbot: contenedor flotante (siempre visible en la esquina inferior derecha). */
+.bt-chat {
+  position: fixed;
+  right: max(var(--bt-space-4), env(safe-area-inset-right));
+  bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+  z-index: var(--bt-z-chat);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--bt-space-3);
+  max-width: calc(100vw - 2 * var(--bt-space-4));
+}
+.bt-chat .bt-chat-panel[hidden] { display: none; }
 /* Chatbot. */
 [data-theme="dark"] .bt-chat-fab {
   border: 0;

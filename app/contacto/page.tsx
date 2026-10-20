@@ -6,7 +6,9 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 export default function Contacto() {
   return (
     <main id="contenido" tabIndex={-1}>
-      <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
+      <div className="bt-escena-bloque" data-escena="poste">
+        <div className="bt-escena-bloque__fondo" aria-hidden="true"></div>
+        <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
         <div className="bt-container">
           <p className="bt-kicker bt-kicker--ch">CH 01 · Atención, El Bagre, Antioquia</p>
           <h1 className="bt-display" id="h-portada" style={{ marginTop: "var(--bt-space-3)" }}>
@@ -28,6 +30,7 @@ export default function Contacto() {
           </div>
         </div>
       </section>
+      </div>
 
       <section className="bt-section bt-section--paper" id="aviso" aria-labelledby="h-aviso">
         <div className="bt-container">

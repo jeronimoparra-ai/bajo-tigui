@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/Button";
 export default function Mantenimiento() {
   return (
     <main id="contenido" tabIndex={-1}>
-      <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
+      <div className="bt-escena-bloque" data-escena="poste">
+        <div className="bt-escena-bloque__fondo" aria-hidden="true"></div>
+        <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
         <div className="bt-container">
           <p className="bt-kicker bt-kicker--ch">CH 01 · Mantenimiento, El Bagre, Antioquia</p>
           <h1 className="bt-display" id="h-portada" style={{ marginTop: "var(--bt-space-3)" }}>
@@ -23,6 +25,7 @@ export default function Mantenimiento() {
           </div>
         </div>
       </section>
+      </div>
     </main>
   );
 }

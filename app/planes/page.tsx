@@ -5,7 +5,9 @@ import { Pill } from "@/components/ui/Pill";
 export default function Planes() {
   return (
     <main id="contenido" tabIndex={-1}>
-      <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
+      <div className="bt-escena-bloque" data-escena="poste">
+        <div className="bt-escena-bloque__fondo" aria-hidden="true"></div>
+        <section className="bt-section bt-section--navy" id="portada" aria-labelledby="h-portada">
         <div className="bt-container">
           <p className="bt-kicker bt-kicker--ch">CH 01 · Planes, El Bagre, Antioquia</p>
           <h1 className="bt-display" id="h-portada" style={{ marginTop: "var(--bt-space-3)" }}>
@@ -13,6 +15,7 @@ export default function Planes() {
           </h1>
         </div>
       </section>
+      </div>
 
       <section className="bt-section bt-section--paper" id="plan" aria-labelledby="h-plan">
         <div className="bt-container">
