@@ -1,0 +1,1197 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atención — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="WhatsApp y llamadas al 314 718 2506, de lunes a viernes, 7:00 a. m. – 5:00 p. m. Qué tener a mano antes de escribir y qué puede resolver con Bajo Tigui en El Bagre, Antioquia.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Atención» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .at-section[id] { scroll-margin-top: 5.5rem; }
+    /* AA sobre el gris del sistema: el kicker pequeño va en navy. */
+    .at-section--sunken .bt-kicker { color: var(--bt-brand); }
+
+    /* --- navegación: los siete enlaces necesitan 64rem para no apretarse --- */
+    .at-nav .bt-nav__brand { min-height: 44px; }
+    .at-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .at-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .at-nav .bt-nav__links { display: flex; }
+    }
+    .at-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    /* A 360 px el logo + botón con texto no caben: el botón queda con ícono
+       y el enlace conserva su aria-label. */
+    @media (max-width: 23rem) {
+      .at-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .at-aviso { padding-top: var(--bt-space-4); }
+    /* AA: el texto pequeño del tag no puede ir blanco sobre naranja (3,0:1). */
+    .at-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .at-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .at-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -8rem;
+      right: -10rem;
+      width: min(46rem, 112vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.16;
+    }
+    .at-hero__grid {
+      display: grid;
+      gap: clamp(2.75rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .at-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4.5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .at-hero__title {
+      font-size: clamp(2.25rem, 1.1rem + 4.6vw, 3.9rem);
+      line-height: 0.94;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .at-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .at-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+    }
+    .at-hero__ctas { margin-top: var(--bt-space-6); }
+    .at-hero__meta {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+
+    /* Tarjeta de horario: rotada y con sombra naranja, como el aviso del flyer. */
+    .at-schedule {
+      position: relative;
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      padding: clamp(1.35rem, 4vw, 2.25rem);
+      box-shadow: 10px 10px 0 var(--bt-orange-500);
+      transform: rotate(-1.6deg);
+      max-width: 26rem;
+    }
+    @media (min-width: 62rem) {
+      .at-schedule { justify-self: end; }
+    }
+    .at-schedule__title { color: var(--bt-sky-400); }
+    .at-schedule__time {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--bt-yellow-400);
+      font-variant-numeric: tabular-nums;
+    }
+    .at-schedule__time span {
+      display: block;
+      font-size: 0.62em;
+      color: var(--bt-white);
+    }
+    .at-days {
+      display: flex;
+      gap: var(--bt-space-2);
+      list-style: none;
+      margin: var(--bt-space-4) 0 0;
+      padding: 0;
+    }
+    .at-days li {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: color-mix(in srgb, var(--bt-sky-400) 14%, transparent);
+      border: 2px solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-sm);
+      color: var(--bt-sky-200);
+      font-weight: var(--bt-fw-bold);
+      font-size: var(--bt-fs-sm);
+    }
+    .at-schedule__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .at-schedule__sticker {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-5));
+      right: var(--bt-space-4);
+    }
+
+    /* ====================== CANALES OFICIALES (banda oscura) ================= */
+    .at-canales__grid {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .at-canales__grid {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .at-canales__intro .bt-lead { color: var(--bt-sky-200); }
+    .at-canales__list {
+      display: grid;
+      gap: var(--bt-space-4);
+    }
+    .at-canal {
+      position: relative;
+      display: grid;
+      gap: var(--bt-space-1);
+      min-height: 44px;
+      padding: var(--bt-space-5);
+      background: var(--bt-navy-900);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-md);
+      color: var(--bt-sky-200);
+      text-decoration: none;
+      box-shadow: 6px 6px 0 var(--bt-ink-900);
+      transition: transform var(--bt-dur-1) var(--bt-ease-snap),
+                  box-shadow var(--bt-dur-1) var(--bt-ease-out);
+    }
+    .at-canal:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--bt-orange-500);
+      color: var(--bt-sky-200);
+    }
+    .at-canal__tag {
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      color: var(--bt-yellow-400);
+    }
+    .at-canal__title {
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-xl);
+      line-height: 1.05;
+      color: var(--bt-white);
+    }
+    .at-canal__num {
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.3rem);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--bt-yellow-400);
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+    .at-canal__desc {
+      margin: var(--bt-space-1) 0 0;
+      max-width: 46ch;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .at-canal__go {
+      position: absolute;
+      top: var(--bt-space-4);
+      right: var(--bt-space-4);
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--bt-sky-400);
+      border-radius: 50%;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+    }
+    .at-canales__nota {
+      display: grid;
+      gap: var(--bt-space-3);
+      margin-top: var(--bt-space-6);
+      max-width: 62rem;
+    }
+    .at-canales__nota .bt-lead { color: var(--bt-sky-200); }
+
+    /* ====================== ANTES DE ESCRIBIR =============================== */
+    .at-pre {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .at-pre {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .at-pre__intro p + p { margin-top: var(--bt-space-4); }
+    .at-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-4);
+    }
+    .at-step {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--bt-space-4);
+      padding: var(--bt-space-4) var(--bt-space-5);
+    }
+    .at-step:nth-child(2) { margin-inline-start: clamp(0rem, 3vw, 1.75rem); }
+    .at-step:nth-child(3) { margin-inline-start: clamp(0rem, 6vw, 3.5rem); }
+    .at-step__num {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      flex: 0 0 auto;
+      font-size: var(--bt-fs-md);
+    }
+    .at-step__body { min-width: 0; }
+    .at-step__title {
+      margin: 0 0 var(--bt-space-1);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .at-step__text {
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .at-pre__nota { margin-top: var(--bt-space-5); }
+
+    /* ====================== QUÉ SE PUEDE RESOLVER ========================== */
+    .at-resolver__head {
+      display: grid;
+      gap: var(--bt-space-4);
+      margin-bottom: var(--bt-space-6);
+    }
+    @media (min-width: 62rem) {
+      .at-resolver__head {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: end;
+        gap: var(--bt-space-8);
+      }
+      .at-resolver__head p { margin: 0; }
+    }
+    .at-resolver {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: var(--bt-border-w-thick) solid var(--bt-border);
+    }
+    .at-resolver__row {
+      display: grid;
+      gap: var(--bt-space-2) var(--bt-space-5);
+      padding-block: var(--bt-space-5);
+      border-bottom: 2px dashed var(--bt-border-soft);
+    }
+    @media (min-width: 34rem) {
+      .at-resolver__row {
+        grid-template-columns: 3rem minmax(0, 1fr);
+      }
+      .at-resolver__link {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+    @media (min-width: 62rem) {
+      .at-resolver__row {
+        grid-template-columns: 4rem minmax(0, 1fr) auto;
+        align-items: center;
+        gap: var(--bt-space-6);
+      }
+      .at-resolver__link { grid-column: 3; justify-self: end; }
+    }
+    .at-resolver__num {
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      color: var(--bt-brand);
+      font-variant-numeric: tabular-nums;
+      padding-top: 0.45rem;
+    }
+    .at-resolver__body { min-width: 0; }
+    .at-resolver__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .at-resolver__text {
+      margin: var(--bt-space-1) 0 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 58ch;
+    }
+    .at-resolver__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-2);
+      min-height: 44px;
+      padding-inline: var(--bt-space-3);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      background: var(--bt-surface);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-sm);
+      font-weight: var(--bt-fw-bold);
+      text-decoration: none;
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+      white-space: nowrap;
+    }
+    .at-resolver__link:hover {
+      background: var(--bt-yellow-400);
+      color: var(--bt-ink-900);
+    }
+    .at-note-inline {
+      display: block;
+      margin-top: var(--bt-space-1);
+      color: var(--bt-text-soft);
+      font-size: var(--bt-fs-xs);
+    }
+
+    /* ====================== BUZÓN ============================================ */
+    .at-buzon {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
+    }
+    @media (min-width: 62rem) {
+      .at-buzon {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        gap: var(--bt-space-8);
+      }
+    }
+    .at-buzon__text p { max-width: 56ch; }
+    .at-buzon__ctas { margin-top: var(--bt-space-5); }
+    .at-buzon__nota { margin-top: var(--bt-space-5); max-width: 60ch; }
+    .at-form-mock {
+      position: relative;
+      min-height: 260px;
+      padding: var(--bt-space-6);
+      background: var(--bt-surface);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      transform: rotate(1.4deg);
+      overflow: hidden;
+    }
+    .at-form-mock__tag {
+      display: inline-block;
+      padding: 0.3rem 0.7rem;
+      background: var(--bt-sky-200);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+    }
+    .at-form-mock__line {
+      display: block;
+      height: 14px;
+      margin-top: var(--bt-space-4);
+      background: var(--bt-bg-sunken);
+      border: 2px solid color-mix(in srgb, var(--bt-ink-900) 18%, transparent);
+      border-radius: var(--bt-radius-pill);
+    }
+    .at-form-mock__line--short { width: 62%; }
+    .at-form-mock__line--tall { height: 56px; border-radius: var(--bt-radius-sm); }
+    .at-form-mock__stamp {
+      position: absolute;
+      right: var(--bt-space-4);
+      bottom: var(--bt-space-4);
+      padding: 0.35rem 0.75rem;
+      border: 3px solid var(--bt-orange-500);
+      border-radius: var(--bt-radius-sm);
+      /* AA: texto navy sobre papel; el naranja queda solo en el borde. */
+      color: var(--bt-brand);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-sm);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      transform: rotate(-4deg);
+      background: var(--bt-surface);
+    }
+    .at-buzon__tel {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-weight: var(--bt-fw-bold);
+      color: var(--bt-brand);
+      overflow-wrap: anywhere;
+    }
+
+    /* ====================== DATOS OFICIALES PENDIENTES ====================== */
+    .at-datos__grid {
+      display: grid;
+      gap: var(--bt-space-4);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 40rem) {
+      .at-datos__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 68rem) {
+      .at-datos__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    .at-dato {
+      display: flex;
+      flex-direction: column;
+      gap: var(--bt-space-2);
+      height: 100%;
+      margin: 0;
+    }
+    .at-dato__lbl {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1.2;
+    }
+    .at-dato__txt {
+      margin: 0;
+      color: var(--bt-text-soft);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+
+    /* ====================== CIERRE ========================================== */
+    .at-cierre__grid {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .at-cierre__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .at-cierre__title {
+      font-size: clamp(2.2rem, 1.2rem + 3.6vw, 3.6rem);
+      line-height: 0.95;
+      margin-top: var(--bt-space-2);
+    }
+    .at-cierre__text { color: var(--bt-sky-200); }
+    .at-cierre__tel {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      margin-block: var(--bt-space-3) var(--bt-space-5);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.4rem);
+      line-height: 1;
+      color: var(--bt-yellow-400);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .at-cierre__tel:hover { color: var(--bt-white); }
+    .at-cierre__nota {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+      max-width: 46ch;
+    }
+
+    /* ============================ PIE ======================================== */
+    .at-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .at-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .at-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    /* Deja libre la esquina del botón flotante cuando se llega al final. */
+    .at-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .at-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .at-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    /* El display:flex del sistema anula el [hidden] del navegador. */
+    .at-chat .bt-chat-panel[hidden] { display: none; }
+    .at-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .at-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    /* Áreas táctiles: atajos y salida a WhatsApp miden 44 px de alto. */
+    .at-chat .bt-chat-quick button,
+    .at-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .at-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="at-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html">Cómo funciona</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="canales.html">Canales</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html" aria-current="page">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="at-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE (la semilla lo trae inactivo; aquí se
+     muestra encendido para revisar el diseño del componente)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container at-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · hable con una persona
+       ════════════════════════════════════════════════════════════ -->
+  <div class="bt-escena-bloque" data-escena="poste">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy at-hero" id="portada" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs at-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="at-hero__grid">
+        <div>
+          <p class="bt-kicker">Atención al asociado · El Bagre, Antioquia</p>
+          <h1 class="bt-display at-hero__title" id="h-portada">
+            Del otro lado<br>
+            hay <span class="bt-brush">una persona.</span>
+          </h1>
+          <p class="bt-lead at-hero__lead">
+            WhatsApp y llamadas al <b>314 718 2506</b>. De lunes a viernes,
+            de 7:00 a.&nbsp;m. a 5:00 p.&nbsp;m., hora de Colombia. Sin sábados,
+            domingos ni festivos.
+          </p>
+
+          <div class="bt-cluster at-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="#canales">Llamar al 314&nbsp;718&nbsp;2506</a>
+          </div>
+
+          <p class="at-hero__meta">
+            Los dos canales son el mismo número: WhatsApp y llamada.
+          </p>
+        </div>
+
+        <aside class="at-schedule" aria-label="Horario de atención">
+          <span class="bt-sticker bt-sticker--sun at-schedule__sticker">Lun a vie</span>
+          <p class="bt-kicker at-schedule__title">Horario de atención</p>
+          <p class="at-schedule__time">
+            7:00 a.&nbsp;m.
+            <span>a 5:00 p.&nbsp;m.</span>
+          </p>
+          <ul class="at-days" aria-label="Días de atención: lunes a viernes">
+            <li><span aria-hidden="true">L</span><span class="bt-visually-hidden">Lunes</span></li>
+            <li><span aria-hidden="true">M</span><span class="bt-visually-hidden">Martes</span></li>
+            <li><span aria-hidden="true">X</span><span class="bt-visually-hidden">Miércoles</span></li>
+            <li><span aria-hidden="true">J</span><span class="bt-visually-hidden">Jueves</span></li>
+            <li><span aria-hidden="true">V</span><span class="bt-visually-hidden">Viernes</span></li>
+          </ul>
+          <p class="at-schedule__note">
+            Sábados, domingos y festivos no hay atención. Hora de Colombia
+            (<span style="white-space: nowrap;">America/Bogota</span>).
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       LOS DOS CANALES REALES · banda oscura
+       ════════════════════════════════════════════════════════════ -->
+  <div class="bt-escena-bloque" data-escena="cables">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy at-canales" id="canales" aria-labelledby="h-canales">
+    <div class="bt-container">
+      <div class="at-canales__grid">
+        <div class="at-canales__intro">
+          <p class="bt-kicker">Canales oficiales</p>
+          <h2 class="bt-display bt-display--2xl" id="h-canales">
+            Dos canales.<br>
+            <span class="bt-brush bt-brush--orange">Ninguno más.</span>
+          </h2>
+          <p class="bt-lead">
+            Por ahora solo están confirmados WhatsApp y las llamadas al 314 718 2506.
+            Si aparece otro correo, red social o dirección, se publicará aquí cuando la
+            administración lo autorice.
+          </p>
+        </div>
+
+        <div class="at-canales__list">
+          <a class="at-canal" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp al 314 718 2506">
+            <span class="at-canal__tag">01 · WhatsApp</span>
+            <span class="at-canal__title">Escribir por WhatsApp</span>
+            <span class="at-canal__num">314&nbsp;718&nbsp;2506</span>
+            <p class="at-canal__desc">
+              Mensaje al mismo número. Si escribe fuera del horario, el mensaje queda
+              para cuando se abra la atención.
+            </p>
+            <span class="at-canal__go" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="at-canal" href="tel:+573147182506"
+             aria-label="Llamar al 314 718 2506">
+            <span class="at-canal__tag">02 · Llamadas</span>
+            <span class="at-canal__title">Llamar y hablar</span>
+            <span class="at-canal__num">314&nbsp;718&nbsp;2506</span>
+            <p class="at-canal__desc">
+              Si no contestan, vuelva a marcar de lunes a viernes, entre
+              7:00 a.&nbsp;m. y 5:00 p.&nbsp;m.
+            </p>
+            <span class="at-canal__go" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="at-canales__nota">
+        <div class="bt-por-confirmar" role="note" aria-label="Canales por confirmar">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <span>
+            Correos oficiales, redes sociales y dirección física. No se publica ningún
+            marcador de posición: si no está en esta página, todavía no es oficial.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ANTES DE ESCRIBIR
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper at-section" id="antes" aria-labelledby="h-antes">
+    <div class="bt-container">
+      <div class="at-pre">
+        <div class="at-pre__intro">
+          <p class="bt-kicker">Antes de escribir</p>
+          <h2 class="bt-display bt-display--2xl" id="h-antes">
+            Tenga esto<br>
+            <span class="bt-brush bt-brush--aqua">a mano.</span>
+          </h2>
+          <p class="bt-lead">
+            No son requisitos: es lo que nos ayuda a ubicar su caso y a no hacerle
+            repetir la historia tres veces.
+          </p>
+          <p>
+            Si le falta algún dato, escriba igual. Con el barrio y lo que está pasando
+            ya se puede empezar.
+          </p>
+        </div>
+
+        <ol class="at-steps" role="list">
+          <li class="bt-card at-step">
+            <span class="bt-sticker bt-sticker--sun bt-sticker--round at-step__num" aria-hidden="true">1</span>
+            <div class="at-step__body">
+              <h3 class="at-step__title">Dónde queda</h3>
+              <p class="at-step__text">
+                El barrio o la dirección de la casa. Sirve para ubicarla y revisar si
+                hay red en ese sector.
+              </p>
+            </div>
+          </li>
+          <li class="bt-card at-step">
+            <span class="bt-sticker bt-sticker--aqua bt-sticker--round at-step__num" aria-hidden="true">2</span>
+            <div class="at-step__body">
+              <h3 class="at-step__title">Su número de asociado, si lo tiene</h3>
+              <p class="at-step__text">
+                Si no lo tiene a mano, no pasa nada: el nombre y la dirección bastan
+                para buscarlo.
+              </p>
+            </div>
+          </li>
+          <li class="bt-card at-step">
+            <span class="bt-sticker bt-sticker--navy bt-sticker--round at-step__num" aria-hidden="true">3</span>
+            <div class="at-step__body">
+              <h3 class="at-step__title">Qué está pasando</h3>
+              <p class="at-step__text">
+                Qué servicio falla, desde cuándo y qué mensaje aparece. Con sus palabras,
+                sin tecnicismos.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="at-pre__nota">
+        <div class="bt-por-confirmar" role="note" aria-label="Datos que no se piden">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <span>
+            No hay requisitos adicionales confirmados (documentos, comprobantes o
+            formatos). No se piden datos de tarjeta por WhatsApp ni por llamada.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUÉ SE PUEDE RESOLVER
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken at-section" id="resolver" aria-labelledby="h-resolver">
+    <div class="bt-container">
+      <div class="at-resolver__head">
+        <div>
+          <p class="bt-kicker">Qué se puede resolver</p>
+          <h2 class="bt-display bt-display--2xl" id="h-resolver">
+            ¿Qué necesita<br>
+            <span class="bt-brush bt-brush--sky">hoy?</span>
+          </h2>
+        </div>
+        <p class="bt-lead">
+          Elija el tema y le decimos por dónde seguir. Si su caso no está en la lista,
+          escriba igual: se orienta por el mismo número.
+        </p>
+      </div>
+
+      <ul class="at-resolver" role="list">
+        <li class="at-resolver__row">
+          <span class="at-resolver__num" aria-hidden="true">01</span>
+          <div class="at-resolver__body">
+            <h3 class="at-resolver__title">Plan y pagos</h3>
+            <p class="at-resolver__text">
+              Cuánto vale, qué incluye y cómo se paga el plan de $70.000 al mes.
+            </p>
+          </div>
+          <a class="at-resolver__link" href="planes.html">Ver planes <span aria-hidden="true">→</span></a>
+        </li>
+
+        <li class="at-resolver__row">
+          <span class="at-resolver__num" aria-hidden="true">02</span>
+          <div class="at-resolver__body">
+            <h3 class="at-resolver__title">Cobertura</h3>
+            <p class="at-resolver__text">
+              Si su barrio o vereda tiene red. Las zonas exactas todavía están por
+              confirmar; se revisa caso por caso.
+            </p>
+          </div>
+          <a class="at-resolver__link" href="cobertura.html">Revisar cobertura <span aria-hidden="true">→</span></a>
+        </li>
+
+        <li class="at-resolver__row">
+          <span class="at-resolver__num" aria-hidden="true">03</span>
+          <div class="at-resolver__body">
+            <h3 class="at-resolver__title">Canales</h3>
+            <p class="at-resolver__text">
+              Qué hay hoy en la parrilla de 90 canales SD + HD. La lista completa aún
+              no está confirmada.
+            </p>
+          </div>
+          <a class="at-resolver__link" href="canales.html">Ver canales <span aria-hidden="true">→</span></a>
+        </li>
+
+        <li class="at-resolver__row">
+          <span class="at-resolver__num" aria-hidden="true">04</span>
+          <div class="at-resolver__body">
+            <h3 class="at-resolver__title">Soporte técnico</h3>
+            <p class="at-resolver__text">
+              El televisor no sintoniza, el internet no carga o la señal se va. Cuéntenos
+              qué pasa y desde cuándo.
+            </p>
+            <span class="at-note-inline">Se atiende por llamada o WhatsApp, en el horario real.</span>
+          </div>
+          <a class="at-resolver__link" href="tel:+573147182506">Llamar ahora <span aria-hidden="true">→</span></a>
+        </li>
+
+        <li class="at-resolver__row">
+          <span class="at-resolver__num" aria-hidden="true">05</span>
+          <div class="at-resolver__body">
+            <h3 class="at-resolver__title">PQRS</h3>
+            <p class="at-resolver__text">
+              Peticiones, quejas, reclamos y sugerencias. Hay un buzón escrito, pero su
+              formulario todavía no está conectado.
+            </p>
+          </div>
+          <a class="at-resolver__link" href="buzon.html">Ver el buzón <span aria-hidden="true">→</span></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       BUZÓN
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper at-section" id="buzon" aria-labelledby="h-buzon">
+    <div class="bt-container">
+      <div class="at-buzon">
+        <div class="at-buzon__text">
+          <p class="bt-kicker">Buzón de PQRS</p>
+          <h2 class="bt-display bt-display--2xl" id="h-buzon">
+            Si prefiere<br>
+            dejarlo <span class="bt-brush bt-brush--orange">por escrito.</span>
+          </h2>
+          <p class="bt-lead">
+            El buzón está pensado para que su solicitud quede registrada con nombre,
+            contacto y el detalle de lo que pasó.
+          </p>
+          <p>
+            <b>Todavía no está conectado.</b> El formulario es una maqueta: no envía,
+            no guarda y no responde. Para dejar una solicitud hoy, use el WhatsApp o la
+            llamada al <a class="at-buzon__tel" href="tel:+573147182506">314&nbsp;718&nbsp;2506</a>.
+          </p>
+
+          <div class="bt-cluster at-buzon__ctas">
+            <a class="bt-btn bt-btn--primary" href="buzon.html">Conocer el buzón</a>
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+          </div>
+
+          <div class="bt-por-confirmar at-buzon__nota" role="note" aria-label="Buzón sin conectar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              El correo o sistema que recibirá las solicitudes y el tiempo de respuesta
+              todavía no están definidos. No se promete un plazo.
+            </span>
+          </div>
+        </div>
+
+        <div class="at-form-mock" aria-hidden="true">
+          <span class="at-form-mock__tag">Buzón de PQRS</span>
+          <span class="at-form-mock__line"></span>
+          <span class="at-form-mock__line at-form-mock__line--short"></span>
+          <span class="at-form-mock__line at-form-mock__line--tall"></span>
+          <span class="at-form-mock__stamp">Sin conexión</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       DATOS OFICIALES PENDIENTES
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken at-section" id="datos" aria-labelledby="h-datos">
+    <div class="bt-container">
+      <p class="bt-kicker">Datos oficiales</p>
+      <h2 class="bt-display bt-display--2xl" id="h-datos">
+        Lo que todavía<br>
+        <span class="bt-brush bt-brush--sky">no publicamos.</span>
+      </h2>
+      <p class="bt-lead">
+        Estos datos no están confirmados. Preferimos dejarlos vacíos antes que inventar
+        un correo o una dirección que después no exista.
+      </p>
+
+      <div class="at-datos__grid">
+        <div class="bt-por-confirmar at-dato" role="note" aria-label="Correos por confirmar">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <p class="at-dato__lbl">Correos oficiales</p>
+          <p class="at-dato__txt">Ninguno público todavía.</p>
+        </div>
+        <div class="bt-por-confirmar at-dato" role="note" aria-label="Dirección física por confirmar">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <p class="at-dato__lbl">Dirección física</p>
+          <p class="at-dato__txt">Sin oficina publicada.</p>
+        </div>
+        <div class="bt-por-confirmar at-dato" role="note" aria-label="NIT y razón social por confirmar">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <p class="at-dato__lbl">NIT y razón social</p>
+          <p class="at-dato__txt">Datos legales pendientes.</p>
+        </div>
+        <div class="bt-por-confirmar at-dato" role="note" aria-label="Redes sociales por confirmar">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <p class="at-dato__lbl">Redes sociales</p>
+          <p class="at-dato__txt">Sin cuentas oficiales publicadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy at-section at-cierre" id="cierre" aria-labelledby="h-cierre">
+    <div class="bt-container">
+      <div class="at-cierre__grid">
+        <div>
+          <p class="bt-kicker">Cierre</p>
+          <h2 class="bt-display at-cierre__title" id="h-cierre">
+            La forma más rápida<br>
+            es <span class="bt-brush bt-brush--aqua">hablar.</span>
+          </h2>
+        </div>
+        <div>
+          <p class="at-cierre__text">
+            WhatsApp y llamadas, de lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.
+            Fuera de ese horario no hay atención.
+          </p>
+          <a class="at-cierre__tel" href="tel:+573147182506">314&nbsp;718&nbsp;2506</a>
+          <div class="bt-cluster">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver planes</a>
+          </div>
+          <p class="at-cierre__nota">
+            Recuerde señor asociado: que me es cumplido, me es pago.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="at-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list at-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list at-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="buzon.html">Buzón de PQRS</a></li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="at-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="at-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT — botón flotante + panel (abre con JS en
+     producción; en la maqueta el panel vive cerrado y no hay JS)
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="at-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="at-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>

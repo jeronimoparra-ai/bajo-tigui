@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página no encontrada — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="La dirección no existe o cambió de lugar. Vuelva a Inicio, Planes, Cobertura o Atención. WhatsApp y llamadas al 314 718 2506, de lunes a viernes, 7:00 a. m. – 5:00 p. m.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «404» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .nf-section[id] { scroll-margin-top: 5.5rem; }
+    .nf-section--sunken .bt-kicker { color: var(--bt-brand); }
+
+    /* --- navegación: los siete enlaces necesitan 64rem para no apretarse --- */
+    .nf-nav .bt-nav__brand { min-height: 44px; }
+    .nf-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .nf-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .nf-nav .bt-nav__links { display: flex; }
+    }
+    .nf-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    @media (max-width: 23rem) {
+      .nf-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .nf-aviso { padding-top: var(--bt-space-4); }
+    .nf-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .nf-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .nf-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -8rem;
+      left: -12rem;
+      width: min(48rem, 115vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.13;
+    }
+    .nf-hero__grid {
+      display: grid;
+      gap: clamp(2.75rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .nf-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .nf-hero__title {
+      font-size: clamp(2.4rem, 1.1rem + 5.2vw, 4.4rem);
+      line-height: 0.92;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .nf-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .nf-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+    }
+    .nf-hero__ctas { margin-top: var(--bt-space-6); }
+    .nf-hero__meta {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+
+    /* Televisor sin señal: la 404 contada con el lenguaje de la marca. */
+    .nf-tv {
+      position: relative;
+      max-width: 30rem;
+      padding: clamp(0.9rem, 2.5vw, 1.25rem);
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 10px 10px 0 var(--bt-orange-500);
+      transform: rotate(1.2deg);
+    }
+    @media (min-width: 62rem) {
+      .nf-tv { justify-self: end; }
+    }
+    .nf-tv__screen {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--bt-navy-900);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      isolation: isolate;
+    }
+    .nf-tv__bars {
+      position: absolute;
+      inset: 0 0 30% 0;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      opacity: 0.9;
+    }
+    .nf-tv__bars span:nth-child(1) { background: var(--bt-navy-800); }
+    .nf-tv__bars span:nth-child(2) { background: var(--bt-cobalt-600); }
+    .nf-tv__bars span:nth-child(3) { background: var(--bt-sky-400); }
+    .nf-tv__bars span:nth-child(4) { background: var(--bt-aqua-500); }
+    .nf-tv__bars span:nth-child(5) { background: var(--bt-yellow-400); }
+    .nf-tv__bars span:nth-child(6) { background: var(--bt-orange-500); }
+    /* Líneas de barrido: refuerzan la idea de estática sin animación. */
+    .nf-tv__screen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        180deg,
+        rgb(11 11 11 / 0.16) 0 2px,
+        transparent 2px 5px
+      );
+    }
+    .nf-tv__code {
+      position: absolute;
+      top: var(--bt-space-3);
+      left: var(--bt-space-3);
+      z-index: 1;
+      padding: 0.15rem 0.6rem;
+      background: var(--bt-navy-900);
+      border: 2px solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-sm);
+      color: var(--bt-white);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+    }
+    .nf-tv__msg {
+      position: absolute;
+      inset: auto 0 0 0;
+      z-index: 1;
+      margin: 0;
+      padding: 0.55rem var(--bt-space-3);
+      background: var(--bt-navy-900);
+      border-top: 2px solid var(--bt-sky-400);
+      color: var(--bt-yellow-400);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.15rem, 0.9rem + 1vw, 1.55rem);
+      line-height: 1;
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .nf-tv__stand {
+      width: 42%;
+      height: 18px;
+      margin: var(--bt-space-3) auto 0;
+      background: var(--bt-sky-400);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 0 0 var(--bt-radius-sm) var(--bt-radius-sm);
+    }
+    .nf-tv__tag {
+      margin: var(--bt-space-3) 0 0;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-xs);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ============================ QUÉ PASÓ =================================== */
+    .nf-que {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .nf-que {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .nf-que__text { display: grid; gap: var(--bt-space-4); align-content: start; }
+    .nf-que__text p { margin: 0; }
+    .nf-razones {
+      list-style: none;
+      margin: var(--bt-space-2) 0 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-3);
+    }
+    .nf-razones li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--bt-space-3);
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed var(--bt-border-soft);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .nf-razones__mark {
+      flex: 0 0 auto;
+      width: 12px;
+      height: 12px;
+      margin-top: 0.38rem;
+      background: var(--bt-orange-500);
+      border: 2px solid var(--bt-border);
+      transform: rotate(45deg);
+    }
+    .nf-nota {
+      margin-top: var(--bt-space-2);
+      padding: var(--bt-space-3) var(--bt-space-4);
+      background: var(--bt-bg-sunken);
+      border: 2px dashed var(--bt-border);
+      border-radius: var(--bt-radius-sm);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+
+    /* ============================ A DÓNDE IR ================================ */
+    .nf-rutas__head {
+      display: grid;
+      gap: var(--bt-space-4);
+      margin-bottom: var(--bt-space-6);
+    }
+    @media (min-width: 62rem) {
+      .nf-rutas__head {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: end;
+        gap: var(--bt-space-8);
+      }
+      .nf-rutas__head p { margin: 0; }
+    }
+    .nf-rutas {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0 var(--bt-space-8);
+    }
+    @media (min-width: 52rem) {
+      .nf-rutas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .nf-ruta {
+      border-top: 2px dashed var(--bt-border-soft);
+    }
+    .nf-ruta a {
+      display: grid;
+      grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+      align-items: start;
+      gap: var(--bt-space-3);
+      min-height: 64px;
+      padding-block: var(--bt-space-4);
+      color: var(--bt-ink-900);
+      text-decoration: none;
+    }
+    .nf-ruta a:hover {
+      color: var(--bt-brand);
+    }
+    .nf-ruta a:hover .nf-ruta__go {
+      background: var(--bt-yellow-400);
+      transform: translate(2px, -2px);
+    }
+    .nf-ruta__num {
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      color: var(--bt-brand);
+      font-variant-numeric: tabular-nums;
+      padding-top: 0.3rem;
+    }
+    .nf-ruta__body { min-width: 0; }
+    .nf-ruta__title {
+      display: block;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .nf-ruta__desc {
+      display: block;
+      margin-top: var(--bt-space-1);
+      /* AA sobre #EDEDED: el gris del sistema queda en 4,49:1. */
+      color: var(--bt-text);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.4;
+    }
+    .nf-ruta__go {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--bt-border);
+      border-radius: 50%;
+      background: var(--bt-surface);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      transition: transform var(--bt-dur-1) var(--bt-ease-snap),
+                  background-color var(--bt-dur-1) ease;
+    }
+
+    /* ============================ CIERRE (banda oscura) ===================== */
+    .nf-cierre__grid {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .nf-cierre__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .nf-cierre__title {
+      font-size: clamp(2.2rem, 1.2rem + 3.6vw, 3.6rem);
+      line-height: 0.95;
+      margin-top: var(--bt-space-2);
+    }
+    .nf-cierre__text { color: var(--bt-sky-200); }
+    .nf-cierre__tel {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      margin-block: var(--bt-space-3) var(--bt-space-5);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.4rem);
+      line-height: 1;
+      color: var(--bt-yellow-400);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .nf-cierre__tel:hover { color: var(--bt-white); }
+    .nf-cierre__nota {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+      max-width: 48ch;
+    }
+
+    /* ============================ PIE ======================================== */
+    .nf-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .nf-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .nf-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    .nf-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .nf-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .nf-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    .nf-chat .bt-chat-panel[hidden] { display: none; }
+    .nf-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .nf-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    .nf-chat .bt-chat-quick button,
+    .nf-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .nf-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="nf-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html">Cómo funciona</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="canales.html">Canales</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="nf-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container nf-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · la señal se perdió
+       ════════════════════════════════════════════════════════════ -->
+  <div class="bt-escena-bloque" data-escena="cables">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy nf-hero" id="portada" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs nf-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="nf-hero__grid">
+        <div>
+          <p class="bt-kicker">Error 404 · El Bagre, Antioquia</p>
+          <h1 class="bt-display nf-hero__title" id="h-portada">
+            La señal<br>
+            <span class="bt-brush bt-brush--orange">se perdió.</span>
+          </h1>
+          <p class="bt-lead nf-hero__lead">
+            Esta dirección del sitio no existe o cambió de lugar. Su televisor y su
+            internet no tienen nada que ver con este aviso: es una página que no está.
+          </p>
+
+          <div class="bt-cluster nf-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="inicio.html">Volver al inicio</a>
+          </div>
+
+          <p class="nf-hero__meta">
+            WhatsApp y llamadas: 314&nbsp;718&nbsp;2506 · lunes a viernes,
+            7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.
+          </p>
+        </div>
+
+        <div class="nf-tv">
+          <div class="nf-tv__screen" aria-hidden="true">
+            <div class="nf-tv__bars">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <span class="nf-tv__code">404</span>
+            <p class="nf-tv__msg">Sin señal</p>
+          </div>
+          <div class="nf-tv__stand" aria-hidden="true"></div>
+          <p class="nf-tv__tag">
+            Ni una barra de señal. Por eso esta página no llega a ninguna parte.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUÉ PASÓ
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper nf-section" id="que-paso" aria-labelledby="h-que-paso">
+    <div class="bt-container">
+      <div class="nf-que">
+        <div>
+          <p class="bt-kicker">Qué pasó</p>
+          <h2 class="bt-display bt-display--2xl" id="h-que-paso">
+            La dirección<br>
+            <span class="bt-brush bt-brush--sky">no existe.</span>
+          </h2>
+          <p class="bt-lead" style="margin-top: var(--bt-space-5);">
+            O existe con otro nombre: la página se movió y el enlace quedó viejo.
+          </p>
+        </div>
+
+        <div class="nf-que__text">
+          <p>
+            No hay nada que usted haya hecho mal. Los enlaces se copian incompletos,
+            las páginas cambian de nombre y los favoritos viejos dejan de apuntar a
+            donde apuntaban.
+          </p>
+          <ul class="nf-razones" role="list">
+            <li>
+              <span class="nf-razones__mark" aria-hidden="true"></span>
+              <span>El enlace llegó incompleto o con una letra cambiada.</span>
+            </li>
+            <li>
+              <span class="nf-razones__mark" aria-hidden="true"></span>
+              <span>La página se movió a otra dirección dentro del sitio.</span>
+            </li>
+            <li>
+              <span class="nf-razones__mark" aria-hidden="true"></span>
+              <span>El enlace es de una versión anterior y ya no apunta a nada.</span>
+            </li>
+          </ul>
+          <p class="nf-nota">
+            Esta página no tiene buscador ni formulario para reportar enlaces: no los
+            inventamos. Abajo están los accesos a las páginas que sí existen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       A DÓNDE IR
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken nf-section" id="rutas" aria-labelledby="h-rutas">
+    <div class="bt-container">
+      <div class="nf-rutas__head">
+        <div>
+          <p class="bt-kicker">A dónde ir</p>
+          <h2 class="bt-display bt-display--2xl" id="h-rutas">
+            Por aquí se vuelve<br>
+            <span class="bt-brush bt-brush--aqua">a la señal.</span>
+          </h2>
+        </div>
+        <p class="bt-lead">
+          Ocho puertas reales del sitio. Elija por dónde seguir; ninguna de estas
+          lleva a una página vacía.
+        </p>
+      </div>
+
+      <ul class="nf-rutas" role="list">
+        <li class="nf-ruta">
+          <a href="inicio.html">
+            <span class="nf-ruta__num" aria-hidden="true">01</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Inicio</span>
+              <span class="nf-ruta__desc">La señal viaja lejos. Aquí se queda.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="planes.html">
+            <span class="nf-ruta__num" aria-hidden="true">02</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Planes</span>
+              <span class="nf-ruta__desc">50 Mbps de descarga + 90 canales por $70.000 al mes.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="como-funciona.html">
+            <span class="nf-ruta__num" aria-hidden="true">03</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Cómo funciona</span>
+              <span class="nf-ruta__desc">De la azotea a la sala, paso a paso.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="cobertura.html">
+            <span class="nf-ruta__num" aria-hidden="true">04</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Cobertura</span>
+              <span class="nf-ruta__desc">¿Llega a mi casa? Consulte por su barrio.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="canales.html">
+            <span class="nf-ruta__num" aria-hidden="true">05</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Canales</span>
+              <span class="nf-ruta__desc">Los 90 canales SD + HD de la parabólica.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="nosotros.html">
+            <span class="nf-ruta__num" aria-hidden="true">06</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Nosotros</span>
+              <span class="nf-ruta__desc">Sin ánimo de lucro, con nombre y cara.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="contacto.html">
+            <span class="nf-ruta__num" aria-hidden="true">07</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Atención</span>
+              <span class="nf-ruta__desc">WhatsApp y llamadas con una persona.</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+        <li class="nf-ruta">
+          <a href="buzon.html">
+            <span class="nf-ruta__num" aria-hidden="true">08</span>
+            <span class="nf-ruta__body">
+              <span class="nf-ruta__title">Buzón de PQRS</span>
+              <span class="nf-ruta__desc">Para dejarlo por escrito (formulario en maqueta).</span>
+            </span>
+            <span class="nf-ruta__go" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE · banda oscura
+       ════════════════════════════════════════════════════════════ -->
+  <div class="bt-escena-bloque" data-escena="poste">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy nf-section" id="cierre" aria-labelledby="h-cierre">
+    <div class="bt-container">
+      <div class="nf-cierre__grid">
+        <div>
+          <p class="bt-kicker">Sigue sin encontrar lo que busca</p>
+          <h2 class="bt-display nf-cierre__title" id="h-cierre">
+            Hable con<br>
+            <span class="bt-brush bt-brush--aqua">una persona.</span>
+          </h2>
+        </div>
+        <div>
+          <p class="nf-cierre__text">
+            Los canales oficiales son WhatsApp y llamadas al 314 718 2506. De lunes a
+            viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m., hora de Colombia. Sábados,
+            domingos y festivos no hay atención.
+          </p>
+          <a class="nf-cierre__tel" href="tel:+573147182506">314&nbsp;718&nbsp;2506</a>
+          <div class="bt-cluster">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="inicio.html">Ir al inicio</a>
+          </div>
+          <p class="nf-cierre__nota">
+            Recuerde señor asociado: que me es cumplido, me es pago.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="nf-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list nf-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list nf-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="buzon.html">Buzón de PQRS</a></li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="nf-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="nf-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="nf-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="nf-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>

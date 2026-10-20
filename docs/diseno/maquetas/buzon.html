@@ -1,0 +1,1159 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buzón de PQRS — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="Buzón de peticiones, quejas, reclamos y sugerencias de Bajo Tigui en El Bagre, Antioquia. El formulario está en maqueta y todavía no envía: mientras tanto, WhatsApp y llamadas al 314 718 2506.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Buzón» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .bz-section[id] { scroll-margin-top: 5.5rem; }
+    /* AA sobre el gris del sistema: el kicker pequeño va en navy. */
+    .bz-section--sunken .bt-kicker { color: var(--bt-brand); }
+
+    /* --- navegación: los siete enlaces necesitan 64rem para no apretarse --- */
+    .bz-nav .bt-nav__brand { min-height: 44px; }
+    .bz-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .bz-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .bz-nav .bt-nav__links { display: flex; }
+    }
+    .bz-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    @media (max-width: 23rem) {
+      .bz-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .bz-aviso { padding-top: var(--bt-space-4); }
+    .bz-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .bz-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .bz-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -7rem;
+      right: -10rem;
+      width: min(48rem, 112vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.15;
+    }
+    .bz-hero__grid {
+      display: grid;
+      gap: clamp(2.75rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .bz-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .bz-hero__title {
+      font-size: clamp(2.3rem, 1.1rem + 4.8vw, 4rem);
+      line-height: 0.94;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .bz-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .bz-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+    }
+    .bz-alerta {
+      margin: var(--bt-space-5) 0 0;
+      padding: var(--bt-space-4) var(--bt-space-5);
+      background: var(--bt-yellow-400);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      box-shadow: var(--bt-shadow-hard);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+      transform: rotate(-0.6deg);
+      max-width: 46rem;
+    }
+    .bz-alerta b { font-weight: var(--bt-fw-black); }
+    .bz-alerta a {
+      color: var(--bt-ink-900);
+      font-weight: var(--bt-fw-bold);
+      text-decoration-thickness: 2px;
+    }
+    /* El sistema pinta los enlaces de las secciones navy en celeste:
+       sobre el amarillo de la alerta no pasa AA (1,03:1). */
+    .bt-section--navy .bz-alerta a { color: var(--bt-ink-900); }
+    .bz-hero__ctas { margin-top: var(--bt-space-5); }
+
+    /* Recibo editorial: qué se puede dejar por escrito. */
+    .bz-recibo {
+      position: relative;
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      padding: clamp(1.35rem, 4vw, 2rem);
+      box-shadow: 10px 10px 0 var(--bt-orange-500);
+      transform: rotate(1.3deg);
+      max-width: 27rem;
+    }
+    @media (min-width: 62rem) {
+      .bz-recibo { justify-self: end; }
+    }
+    .bz-recibo__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--bt-space-3);
+      padding-bottom: var(--bt-space-3);
+      border-bottom: 2px dashed color-mix(in srgb, var(--bt-sky-400) 50%, transparent);
+    }
+    .bz-recibo__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+      color: var(--bt-white);
+    }
+    .bz-recibo__stamp {
+      flex: 0 0 auto;
+      padding: 0.25rem 0.55rem;
+      border: 2px solid var(--bt-yellow-400);
+      border-radius: var(--bt-radius-sm);
+      color: var(--bt-yellow-400);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      transform: rotate(-4deg);
+    }
+    .bz-tipos {
+      list-style: none;
+      margin: var(--bt-space-3) 0 0;
+      padding: 0;
+    }
+    .bz-tipos li {
+      display: flex;
+      align-items: baseline;
+      gap: var(--bt-space-3);
+      padding-block: var(--bt-space-3);
+      border-bottom: 2px dashed color-mix(in srgb, var(--bt-sky-400) 30%, transparent);
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.4;
+    }
+    .bz-tipos li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .bz-tipos__num {
+      flex: 0 0 auto;
+      color: var(--bt-yellow-400);
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      font-variant-numeric: tabular-nums;
+    }
+    .bz-tipos b {
+      display: block;
+      color: var(--bt-white);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1.15;
+    }
+
+    /* ============================ FORMULARIO ================================ */
+    .bz-form-grid {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .bz-form-grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4.5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .bz-form-head { margin-bottom: var(--bt-space-6); }
+    .bz-form-head p { max-width: 60ch; }
+
+    .bz-form {
+      position: relative;
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+      background: var(--bt-surface);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      display: grid;
+      gap: var(--bt-space-5);
+    }
+    .bz-form__band {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-2);
+      justify-self: start;
+      margin-top: calc(-1 * var(--bt-space-5) - 0.55rem);
+      margin-bottom: 0;
+      padding: 0.35rem 0.8rem;
+      background: var(--bt-sky-200);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+    }
+    .bz-form__intro {
+      margin: 0;
+      color: var(--bt-text-soft);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .bz-form__group {
+      margin: 0;
+      padding-bottom: var(--bt-space-2);
+      border-bottom: 2px dashed var(--bt-border-soft);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .bz-field {
+      display: grid;
+      gap: var(--bt-space-2);
+      min-width: 0;
+    }
+    .bz-field > label,
+    .bz-fieldset > legend {
+      font-weight: var(--bt-fw-bold);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.35;
+    }
+    .bz-req {
+      color: var(--bt-brand);
+      font-weight: var(--bt-fw-bold);
+      white-space: nowrap;
+    }
+    .bz-opt {
+      color: var(--bt-text-soft);
+      font-weight: var(--bt-fw-regular);
+    }
+    .bz-hint {
+      margin: 0;
+      color: var(--bt-text-soft);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+    .bz-form input[type="text"],
+    .bz-form input[type="tel"],
+    .bz-form input[type="email"],
+    .bz-form textarea {
+      width: 100%;
+      min-width: 0;
+      min-height: 48px;
+      padding: 0.7rem 0.9rem;
+      background: var(--bt-paper-50);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-sm);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-md);
+      line-height: 1.4;
+    }
+    .bz-form textarea {
+      min-height: 9.5rem;
+      resize: vertical;
+    }
+    .bz-form input[type="text"]:hover,
+    .bz-form input[type="tel"]:hover,
+    .bz-form input[type="email"]:hover,
+    .bz-form textarea:hover {
+      border-color: var(--bt-brand);
+    }
+
+    .bz-fieldset {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      display: grid;
+      gap: var(--bt-space-2);
+      min-width: 0;
+    }
+    .bz-opciones {
+      display: grid;
+      gap: var(--bt-space-2);
+      margin-top: var(--bt-space-1);
+    }
+    @media (min-width: 26rem) {
+      .bz-opciones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .bz-opcion {
+      display: flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+      min-height: 48px;
+      padding: 0.55rem 0.9rem;
+      background: var(--bt-paper-50);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      font-size: var(--bt-fs-sm);
+      font-weight: var(--bt-fw-bold);
+      cursor: pointer;
+      transition: background-color var(--bt-dur-1) ease;
+    }
+    .bz-opcion:hover { background: var(--bt-yellow-200); }
+    .bz-opcion:has(input:checked) { background: var(--bt-yellow-400); }
+    .bz-opcion input {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      margin: 0;
+      accent-color: var(--bt-brand);
+    }
+
+    .bz-check {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--bt-space-3);
+      min-height: 44px;
+      padding: var(--bt-space-4);
+      background: var(--bt-paper-50);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-md);
+    }
+    .bz-check input {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+      margin: 0.1rem 0 0;
+      accent-color: var(--bt-brand);
+    }
+    .bz-check label {
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .bz-check a { color: var(--bt-brand); }
+
+    .bz-form__footer {
+      display: grid;
+      gap: var(--bt-space-3);
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed var(--bt-border-soft);
+    }
+    .bz-form__nota {
+      margin: 0;
+      padding: var(--bt-space-3) var(--bt-space-4);
+      background: var(--bt-yellow-200);
+      border: 2px solid var(--bt-border);
+      border-left-width: 8px;
+      border-left-color: var(--bt-orange-500);
+      border-radius: var(--bt-radius-sm);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+      color: var(--bt-ink-900);
+    }
+    .bz-form__nota a { color: var(--bt-brand); font-weight: var(--bt-fw-bold); }
+
+    /* --- columna lateral --- */
+    .bz-aside {
+      display: grid;
+      gap: var(--bt-space-4);
+    }
+    .bz-aside__card {
+      display: grid;
+      gap: var(--bt-space-3);
+    }
+    .bz-aside__card .bt-por-confirmar { width: 100%; }
+    .bz-aside__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .bz-aside__text {
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .bz-aside__card--sun {
+      background: var(--bt-yellow-400);
+      border-color: var(--bt-border);
+    }
+    .bz-aside__card--sun .bz-aside__text { color: var(--bt-ink-900); }
+    .bz-aside__card--navy {
+      background: var(--bt-navy-800);
+      color: var(--bt-white);
+      border-color: var(--bt-border);
+    }
+    .bz-aside__card--navy .bz-aside__title { color: var(--bt-white); }
+    .bz-aside__card--navy .bz-aside__text { color: var(--bt-sky-200); }
+    .bz-aside__card--navy a { color: var(--bt-yellow-400); }
+    .bz-tel {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.8rem);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+    .bz-aside__card--navy .bz-tel { color: var(--bt-yellow-400); }
+
+    /* ============================ QUÉ PASA DESPUÉS (banda oscura) =========== */
+    .bz-despues {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .bz-despues {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .bz-despues__lead { color: var(--bt-sky-200); }
+    .bz-despues__list {
+      display: grid;
+      gap: var(--bt-space-4);
+    }
+    .bz-despues .bt-por-confirmar { width: 100%; color: var(--bt-ink-900); }
+    .bz-despues__cta { margin-top: var(--bt-space-5); }
+
+    /* ============================ PRIVACIDAD ================================ */
+    .bz-priv__grid {
+      display: grid;
+      gap: var(--bt-space-4);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 48rem) {
+      .bz-priv__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .bz-priv__card { display: grid; gap: var(--bt-space-2); align-content: start; }
+    .bz-priv__card h3 {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.15;
+    }
+    .bz-priv__card p {
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .bz-priv__card--sun { background: var(--bt-aqua-500); }
+    .bz-priv__derechos {
+      margin-top: var(--bt-space-5);
+      max-width: 70ch;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .bz-priv__nota { margin-top: var(--bt-space-4); }
+
+    /* ============================ CIERRE ==================================== */
+    .bz-cierre__grid {
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 62rem) {
+      .bz-cierre__grid {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .bz-cierre__title {
+      font-size: clamp(2.1rem, 1.2rem + 3.4vw, 3.5rem);
+      line-height: 0.95;
+      margin-top: var(--bt-space-2);
+    }
+    .bz-cierre__text { color: var(--bt-sky-200); }
+    .bz-cierre__nota {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+      max-width: 46ch;
+    }
+
+    /* ============================ PIE ======================================== */
+    .bz-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .bz-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .bz-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    .bz-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .bz-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .bz-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    .bz-chat .bt-chat-panel[hidden] { display: none; }
+    .bz-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .bz-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    .bz-chat .bt-chat-quick button,
+    .bz-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .bz-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="bz-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html">Cómo funciona</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="canales.html">Canales</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="bz-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container bz-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · déjelo por escrito
+       ════════════════════════════════════════════════════════════ -->
+  <div class="bt-escena-bloque" data-escena="poste">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy bz-hero" id="portada" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs bz-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="bz-hero__grid">
+        <div>
+          <p class="bt-kicker">Buzón de PQRS · El Bagre, Antioquia</p>
+          <h1 class="bt-display bz-hero__title" id="h-portada">
+            Déjelo<br>
+            por <span class="bt-brush">escrito.</span>
+          </h1>
+          <p class="bt-lead bz-hero__lead">
+            Peticiones, quejas, reclamos y sugerencias. Un registro para que su caso
+            no se pierda ni dependa de la memoria de una llamada.
+          </p>
+
+          <p class="bz-alerta">
+            <b>El formulario todavía no está conectado.</b> Es una maqueta: no envía
+            ni guarda nada. Mientras tanto, escriba o llame al
+            <a href="tel:+573147182506">314&nbsp;718&nbsp;2506</a>.
+          </p>
+
+          <div class="bt-cluster bz-hero__ctas">
+            <a class="bt-btn bt-btn--accent bt-btn--lg" href="#formulario">Ver el formulario</a>
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <aside class="bz-recibo" aria-label="Qué se puede dejar en el buzón">
+          <div class="bz-recibo__head">
+            <p class="bz-recibo__title">Qué cabe aquí</p>
+            <span class="bz-recibo__stamp">PQRS</span>
+          </div>
+          <ul class="bz-tipos" role="list">
+            <li>
+              <span class="bz-tipos__num" aria-hidden="true">01</span>
+              <span><b>Petición</b> Algo que necesita y todavía no tiene.</span>
+            </li>
+            <li>
+              <span class="bz-tipos__num" aria-hidden="true">02</span>
+              <span><b>Queja</b> Una atención o un servicio que no estuvo bien.</span>
+            </li>
+            <li>
+              <span class="bz-tipos__num" aria-hidden="true">03</span>
+              <span><b>Reclamo</b> Un cobro, una suspensión o un acuerdo incumplido.</span>
+            </li>
+            <li>
+              <span class="bz-tipos__num" aria-hidden="true">04</span>
+              <span><b>Sugerencia</b> Una idea para mejorar el servicio.</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       FORMULARIO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper bz-section" id="formulario" aria-labelledby="h-formulario">
+    <div class="bt-container">
+      <div class="bz-form-head">
+        <p class="bt-kicker">Formulario</p>
+        <h2 class="bt-display bt-display--2xl" id="h-formulario">
+          Cuéntenos<br>
+          <span class="bt-brush bt-brush--aqua">qué pasó.</span>
+        </h2>
+        <p class="bt-lead">
+          Escriba con sus palabras. No hace falta usar términos técnicos ni tener
+          todos los datos: con lo que sepa basta para empezar.
+        </p>
+      </div>
+
+      <div class="bz-form-grid">
+        <form class="bz-form" aria-label="Formulario de PQRS, maqueta sin conexión">
+          <span class="bz-form__band">Maqueta · sin envío</span>
+          <p class="bz-form__intro">
+            Los campos marcados como obligatorios son los únicos que se piden.
+            Este formulario no tiene backend todavía.
+          </p>
+
+          <h3 class="bz-form__group">Sus datos</h3>
+
+          <div class="bz-field">
+            <label for="f-nombre">Nombre completo <span class="bz-req">(obligatorio)</span></label>
+            <input
+              id="f-nombre"
+              name="nombre"
+              type="text"
+              autocomplete="name"
+              required
+              aria-required="true"
+            >
+          </div>
+
+          <div class="bz-field">
+            <label for="f-telefono">Teléfono <span class="bz-opt">(opcional)</span></label>
+            <input
+              id="f-telefono"
+              name="telefono"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              aria-describedby="ayuda-contacto"
+            >
+          </div>
+
+          <div class="bz-field">
+            <label for="f-correo">Correo electrónico <span class="bz-opt">(opcional)</span></label>
+            <input
+              id="f-correo"
+              name="correo"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              aria-describedby="ayuda-contacto"
+            >
+          </div>
+          <p class="bz-hint" id="ayuda-contacto">
+            Dé al menos uno de los dos: teléfono o correo. No hacen falta los dos.
+          </p>
+
+          <fieldset class="bz-fieldset">
+            <legend>Tipo de solicitud <span class="bz-req">(obligatorio)</span></legend>
+            <div class="bz-opciones">
+              <label class="bz-opcion">
+                <input type="radio" name="tipo" value="peticion" required>
+                Petición
+              </label>
+              <label class="bz-opcion">
+                <input type="radio" name="tipo" value="queja">
+                Queja
+              </label>
+              <label class="bz-opcion">
+                <input type="radio" name="tipo" value="reclamo">
+                Reclamo
+              </label>
+              <label class="bz-opcion">
+                <input type="radio" name="tipo" value="sugerencia">
+                Sugerencia
+              </label>
+            </div>
+            <p class="bz-hint" id="ayuda-tipo">Elija la que más se parezca a su caso.</p>
+          </fieldset>
+
+          <div class="bz-field">
+            <label for="f-mensaje">Mensaje <span class="bz-req">(obligatorio)</span></label>
+            <textarea
+              id="f-mensaje"
+              name="mensaje"
+              rows="6"
+              required
+              aria-required="true"
+              aria-describedby="ayuda-mensaje"
+            ></textarea>
+            <p class="bz-hint" id="ayuda-mensaje">
+              Cuente qué pasó, en qué barrio o dirección y desde cuándo. No escriba
+              datos de tarjeta ni contraseñas.
+            </p>
+          </div>
+
+          <h3 class="bz-form__group">Autorización</h3>
+
+          <div class="bz-check">
+            <input
+              id="f-autorizo"
+              name="autorizacion"
+              type="checkbox"
+              required
+              aria-required="true"
+              aria-describedby="ayuda-autorizo"
+            >
+            <label for="f-autorizo">
+              Autorizo el tratamiento de mis datos personales para atender esta
+              solicitud, según la Ley 1581 de 2012 y la
+              <a href="#">política de privacidad</a>.
+            </label>
+          </div>
+          <p class="bz-hint" id="ayuda-autorizo">
+            Sin esta autorización no se puede tramitar la solicitud. La política de
+            privacidad es un enlace de maqueta.
+          </p>
+
+          <div class="bz-form__footer">
+            <button
+              class="bt-btn bt-btn--primary bt-btn--lg bt-btn--block"
+              type="submit"
+              disabled
+              aria-describedby="nota-envio"
+            >
+              Enviar solicitud
+            </button>
+            <p class="bz-form__nota" id="nota-envio" role="note">
+              <b>Este formulario es una maqueta: todavía no está conectado.</b>
+              No envía ni guarda lo que escribe. Mientras tanto, escriba al
+              <a href="tel:+573147182506">314&nbsp;718&nbsp;2506</a>.
+            </p>
+          </div>
+        </form>
+
+        <aside class="bz-aside" aria-label="Información sobre el buzón">
+          <div class="bt-card bz-aside__card bz-aside__card--sun">
+            <h3 class="bz-aside__title">Qué pasa después</h3>
+            <p class="bz-aside__text">
+              Cuando el buzón esté conectado, la solicitud entrará por el canal que
+              defina la administración. Hoy no entra a ningún lado.
+            </p>
+            <div class="bt-por-confirmar" role="note" aria-label="Correo receptor por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>El correo o sistema que recibirá las solicitudes.</span>
+            </div>
+            <div class="bt-por-confirmar" role="note" aria-label="Tiempo de respuesta por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>El tiempo de respuesta. No se promete un plazo.</span>
+            </div>
+          </div>
+
+          <div class="bt-card bz-aside__card bz-aside__card--navy">
+            <h3 class="bz-aside__title">Canal alterno</h3>
+            <p class="bz-aside__text">
+              WhatsApp y llamadas al mismo número, de lunes a viernes.
+            </p>
+            <a class="bz-tel" href="tel:+573147182506">314&nbsp;718&nbsp;2506</a>
+            <p class="bz-aside__text">
+              7:00 a.&nbsp;m. – 5:00 p.&nbsp;m., hora de Colombia.
+              Sábados, domingos y festivos no hay atención.
+            </p>
+          </div>
+
+          <div class="bt-card bz-aside__card">
+            <h3 class="bz-aside__title">Privacidad</h3>
+            <p class="bz-aside__text">
+              Solo se piden nombre, un contacto, el tipo y el mensaje. No se guardan
+              datos de tarjeta.
+            </p>
+            <p class="bz-aside__text">
+              <a href="#">Política de privacidad</a> (enlace de maqueta).
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUÉ PASA DESPUÉS · banda oscura
+       ════════════════════════════════════════════════════════════ -->
+  <div class="bt-escena-bloque" data-escena="cables">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy bz-section" id="despues" aria-labelledby="h-despues">
+    <div class="bt-container">
+      <div class="bz-despues">
+        <div>
+          <p class="bt-kicker">Qué pasa después</p>
+          <h2 class="bt-display bt-display--2xl" id="h-despues">
+            Hoy el formulario<br>
+            <span class="bt-brush bt-brush--orange">no envía nada.</span>
+          </h2>
+          <p class="bt-lead bz-despues__lead">
+            No hay un «mensaje enviado» que mostrar. El botón está deshabilitado a
+            propósito hasta que exista un backend que reciba y registre la solicitud.
+          </p>
+          <p class="bz-despues__lead">
+            Por eso no publicamos un correo receptor ni un plazo de respuesta: ambos
+            están por confirmar. Prometerlos ahora sería inventar.
+          </p>
+          <div class="bt-cluster bz-despues__cta">
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline" href="contacto.html">Ver Atención</a>
+          </div>
+        </div>
+
+        <div class="bz-despues__list">
+          <div class="bt-por-confirmar" role="note" aria-label="Receptor de las solicitudes por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              <b>Quién recibe:</b> el correo o sistema que recibirá las solicitudes del
+              buzón todavía no está definido.
+            </span>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Tiempo de respuesta por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              <b>Cuánto tarda:</b> no hay un tiempo de respuesta confirmado. No se
+              publica «24 horas» ni ningún otro plazo.
+            </span>
+          </div>
+          <div class="bt-por-confirmar" role="note" aria-label="Confirmación de recibo por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              <b>Cómo se confirma:</b> si habrá correo de recibo, número de radicado o
+              seguimiento, está pendiente.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PRIVACIDAD
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken bz-section" id="privacidad" aria-labelledby="h-privacidad">
+    <div class="bt-container">
+      <p class="bt-kicker">Ley 1581 de 2012</p>
+      <h2 class="bt-display bt-display--2xl" id="h-privacidad">
+        Sus datos,<br>
+        <span class="bt-brush bt-brush--sky">en claro.</span>
+      </h2>
+      <p class="bt-lead">
+        El buzón pide lo mínimo para poder leer y responder. Nada de documentos,
+        contraseñas ni datos de tarjeta.
+      </p>
+
+      <div class="bz-priv__grid">
+        <div class="bt-card bz-priv__card">
+          <h3>Qué se pide</h3>
+          <p>
+            Nombre, un teléfono o un correo, el tipo de solicitud y el mensaje.
+            La autorización de tratamiento es obligatoria.
+          </p>
+        </div>
+        <div class="bt-card bz-priv__card bz-priv__card--sun">
+          <h3>Para qué</h3>
+          <p>
+            Para leer la solicitud, ubicar su caso y hacer seguimiento. No se usa
+            para publicidad ni se comparte con terceros ajenos al servicio.
+          </p>
+        </div>
+        <div class="bt-card bz-priv__card">
+          <h3>Qué no se guarda</h3>
+          <p>
+            Datos de tarjeta, claves o contraseñas. Este sitio no procesa pagos ni
+            almacena información financiera.
+          </p>
+        </div>
+      </div>
+
+      <p class="bz-priv__derechos">
+        Usted puede conocer, actualizar, rectificar y solicitar la eliminación de sus
+        datos personales. El canal oficial para ejercer esos derechos todavía no está
+        confirmado; mientras tanto, use el WhatsApp o la llamada al 314 718 2506.
+      </p>
+
+      <div class="bt-por-confirmar bz-priv__nota" role="note" aria-label="Canal de habeas data por confirmar">
+        <span class="bt-por-confirmar__tag">Por confirmar</span>
+        <span>El correo o área encargada de las solicitudes de habeas data.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy bz-section" id="cierre" aria-labelledby="h-cierre">
+    <div class="bt-container">
+      <div class="bz-cierre__grid">
+        <div>
+          <p class="bt-kicker">Cierre</p>
+          <h2 class="bt-display bz-cierre__title" id="h-cierre">
+            Mientras tanto,<br>
+            el teléfono <span class="bt-brush bt-brush--aqua">sí funciona.</span>
+          </h2>
+        </div>
+        <div>
+          <p class="bz-cierre__text">
+            El formulario espera su backend. La atención por WhatsApp y llamada ya
+            existe: de lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.
+          </p>
+          <div class="bt-cluster" style="margin-top: var(--bt-space-5);">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="contacto.html">Volver a Atención</a>
+          </div>
+          <p class="bz-cierre__nota">
+            Recuerde señor asociado: que me es cumplido, me es pago.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="bz-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list bz-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list bz-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="buzon.html">Buzón de PQRS</a></li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="bz-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="bz-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="bz-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="bz-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>
