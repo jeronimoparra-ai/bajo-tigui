@@ -82,8 +82,8 @@ una imagen fija (§ Versión corta).
 - **Español colombiano, cercano y comunitario.** "Asociado", no "usuario". Frases cortas.
 - Honesto: se dice lo que se sabe y, cuando algo no está confirmado, **no se promete**
   (cobertura, instalación gratis, vigencia de la promo quedan marcados POR CONFIRMAR).
-- El lema interno *"Recuerde señor asociado: que me es cumplido, me es pago"* se usa **con respeto**,
-  como firma de compromiso en la página "Nosotros", no como slogan comercial.
+- Frase de la marca: *"La señal viaja lejos. Aquí se queda."* Se usa con respeto como firma de
+  compromiso en la página "Nosotros", no como slogan comercial.
 - Se evita el lenguaje frío de corporación: nada de "soluciones integrales de conectividad".
 
 ## Qué debe lograr cada pantalla (resumen)

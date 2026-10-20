@@ -1366,6 +1366,16 @@ code {
    no invada el módulo siguiente.
    ---------------------------------------------------------------- */
 
+/* ----------------------------------------------------------------
+   16. ESCENAS DE FONDO POR MÓDULO
+   La imagen queda quieta dentro del módulo y el contenido pasa por
+   encima («sticky», no background-attachment: fixed: Safari en iOS
+   ignora «fixed»). El wrapper recorta la escena para que no invada
+   el módulo siguiente. El navy de bloque es red de seguridad: el
+   contraste se mide sobre él si la imagen aún no está lista.
+   Las imágenes son trazos de trabajador autorizados por el cliente.
+   ---------------------------------------------------------------- */
+
 .bt-escena-bloque {
   position: relative;
   isolation: isolate;
@@ -1385,6 +1395,8 @@ code {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 0.7s ease;
 }
 
 .bt-escena-bloque__fondo::after {
@@ -1398,13 +1410,23 @@ code {
 }
 
 [data-escena="poste"] > .bt-escena-bloque__fondo {
-  background-image: url("../assets/escenas/escena-poste.webp");
+  background-image: url("../assets/escenas/escena-poste-a.webp");
   background-position: 38% center;
 }
 
 [data-escena="cables"] > .bt-escena-bloque__fondo {
-  background-image: url("../assets/escenas/escena-cables.webp");
+  background-image: url("../assets/escenas/escena-cables-a.webp");
   background-position: 50% center;
+}
+
+[data-escena="poste-b"] > .bt-escena-bloque__fondo {
+  background-image: url("../assets/escenas/escena-poste-b.webp");
+  background-position: 70% center;
+}
+
+[data-escena="cables-b"] > .bt-escena-bloque__fondo {
+  background-image: url("../assets/escenas/escena-cables-b.webp");
+  background-position: 30% center;
 }
 
 .bt-escena-bloque > section {
@@ -1412,6 +1434,10 @@ code {
   z-index: 1;
   background: transparent !important;
 }
+
+/* Fundido suave al entrar en cada módulo: la escena entrante
+   empieza oculta y el script la revela con transición de opacidad. */
+.bt-escena-bloque__fondo--entrando { opacity: 0; }
 
 /* Modo ligero: sin imágenes, solo el navy del sistema. */
 [data-motion="lite"] .bt-escena-bloque__fondo {
@@ -1421,4 +1447,5 @@ code {
 [data-motion="lite"] .bt-escena-bloque__fondo::after {
   background: var(--bt-navy-900);
 }
+
 

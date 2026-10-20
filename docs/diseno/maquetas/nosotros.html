@@ -938,7 +938,7 @@
           <p class="no-cita__mark" aria-hidden="true">«</p>
           <blockquote>
             <p class="no-cita__txt">
-              Recuerde señor asociado: que me es cumplido, me es pago.
+              La señal viaja lejos. Aquí se queda.
             </p>
           </blockquote>
           <figcaption class="no-cita__cap">
@@ -953,7 +953,7 @@
   <!-- ════════════════════════════════════════════════════════════
        LEMA · destacado, tal cual
        ════════════════════════════════════════════════════════════ -->
-  <div class="bt-escena-bloque" data-escena="poste">
+  <div class="bt-escena-bloque" data-escena="poste-b">
   <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
   <section class="bt-section bt-section--navy no-section" id="lema" aria-labelledby="h-lema">
     <svg class="bt-signal-arcs no-lema__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
@@ -968,7 +968,7 @@
         <span class="bt-sticker bt-sticker--sun">El lema</span>
         <h2 class="bt-visually-hidden" id="h-lema">El lema de Bajo Tigui</h2>
         <blockquote class="no-lema__quote">
-          «Recuerde señor asociado: que me es cumplido, me es pago.»
+          «La señal viaja lejos. Aquí se queda.»
         </blockquote>
         <p class="no-lema__cap">
           No es una frase de mercadeo: es la manera en que la organización entiende el
@@ -1162,7 +1162,7 @@
         </div>
 
         <p class="no-cierre__nota">
-          «Recuerde señor asociado: que me es cumplido, me es pago.»
+          «La señal viaja lejos. Aquí se queda.»
           La instalación gratis y la vigencia de la promoción del mes gratis siguen
           pendientes de confirmación con la administración.
         </p>
@@ -1196,7 +1196,7 @@
           El Bagre, Antioquia, Colombia
         </p>
         <p class="bt-footer__lema">
-          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+          "La señal viaja lejos.<br>Aquí se queda."
         </p>
       </div>
 
@@ -1298,5 +1298,57 @@
   </button>
 </aside>
 
+<script>
+(function(){
+  var a = document.querySelector('.bt-fondo--a');
+  var b = document.querySelector('.bt-fondo--b');
+  var bloques = document.querySelectorAll('.bt-escena-bloque[data-escena]');
+  var activa = a;
+  var escenas = {
+    poste:  { img: '../assets/escenas/escena-poste-a.webp',  pos: '38% center' },
+    cables: { img: '../assets/escenas/escena-cables-a.webp', pos: '50% center' },
+    'poste-b':  { img: '../assets/escenas/escena-poste-b.webp',  pos: '70% center' },
+    'cables-b': { img: '../assets/escenas/escena-cables-b.webp', pos: '30% center' }
+  };
+  function poner(el){
+    var s = escenas[el.dataset.escena] || escenas.poste;
+    var siguiente = (activa === a) ? b : a;
+    siguiente.style.backgroundImage = 'url("' + s.img + '")';
+    siguiente.style.backgroundPosition = s.pos;
+    siguiente.classList.add('bt-fondo--activo');
+    activa.classList.remove('bt-fondo--activo');
+    activa = siguiente;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){ if (entry.isIntersecting) poner(entry.target); });
+  }, { threshold: 0.45 });
+  bloques.forEach(function(bl){ obs.observe(bl); });
+  var primero = document.querySelector('.bt-escena-bloque[data-escena]');
+  if (primero) poner(primero);
+})();
+</script>
+<script>
+(function(){
+  var bloques = document.querySelectorAll('.bt-escena-bloque[data-escena]');
+  var idx = 0;
+  bloques.forEach(function(bl, i){
+    var fondo = bl.querySelector('.bt-escena-bloque__fondo');
+    if (!fondo) return;
+    if (i === 0) return; // el primero ya es visible por CSS (data-escena)
+    fondo.classList.add('bt-escena-bloque__fondo--entrando');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          requestAnimationFrame(function(){
+            fondo.classList.remove('bt-escena-bloque__fondo--entrando');
+          });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+    obs.observe(bl);
+  });
+})();
+</script>
 </body>
 </html>

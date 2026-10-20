@@ -820,7 +820,7 @@
           <span class="bt-sticker bt-sticker--sun in-lema__sticker">El lema</span>
           <blockquote>
             <p class="in-lema__quote">
-              «Recuerde señor asociado: que me es cumplido, me es pago.»
+              «La señal viaja lejos. Aquí se queda.»
             </p>
           </blockquote>
           <figcaption>
@@ -1010,7 +1010,7 @@
   <!-- ════════════════════════════════════════════════════════════
        CANALES (adelanto)
        ════════════════════════════════════════════════════════════ -->
-  <div class="bt-escena-bloque" data-escena="cables">
+  <div class="bt-escena-bloque" data-escena="cables-b">
   <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
   <section class="bt-section bt-section--navy" id="canales" aria-labelledby="h-canales">
     <div class="bt-container">
@@ -1147,7 +1147,7 @@
           El Bagre, Antioquia, Colombia
         </p>
         <p class="bt-footer__lema">
-          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+          "La señal viaja lejos.<br>Aquí se queda."
         </p>
       </div>
 
@@ -1249,5 +1249,57 @@
   </button>
 </aside>
 
+<script>
+(function(){
+  var a = document.querySelector('.bt-fondo--a');
+  var b = document.querySelector('.bt-fondo--b');
+  var bloques = document.querySelectorAll('.bt-escena-bloque[data-escena]');
+  var activa = a;
+  var escenas = {
+    poste:  { img: '../assets/escenas/escena-poste-a.webp',  pos: '38% center' },
+    cables: { img: '../assets/escenas/escena-cables-a.webp', pos: '50% center' },
+    'poste-b':  { img: '../assets/escenas/escena-poste-b.webp',  pos: '70% center' },
+    'cables-b': { img: '../assets/escenas/escena-cables-b.webp', pos: '30% center' }
+  };
+  function poner(el){
+    var s = escenas[el.dataset.escena] || escenas.poste;
+    var siguiente = (activa === a) ? b : a;
+    siguiente.style.backgroundImage = 'url("' + s.img + '")';
+    siguiente.style.backgroundPosition = s.pos;
+    siguiente.classList.add('bt-fondo--activo');
+    activa.classList.remove('bt-fondo--activo');
+    activa = siguiente;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){ if (entry.isIntersecting) poner(entry.target); });
+  }, { threshold: 0.45 });
+  bloques.forEach(function(bl){ obs.observe(bl); });
+  var primero = document.querySelector('.bt-escena-bloque[data-escena]');
+  if (primero) poner(primero);
+})();
+</script>
+<script>
+(function(){
+  var bloques = document.querySelectorAll('.bt-escena-bloque[data-escena]');
+  var idx = 0;
+  bloques.forEach(function(bl, i){
+    var fondo = bl.querySelector('.bt-escena-bloque__fondo');
+    if (!fondo) return;
+    if (i === 0) return; // el primero ya es visible por CSS (data-escena)
+    fondo.classList.add('bt-escena-bloque__fondo--entrando');
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          requestAnimationFrame(function(){
+            fondo.classList.remove('bt-escena-bloque__fondo--entrando');
+          });
+          obs.disconnect();
+        }
+      });
+    }, { threshold: 0.35 });
+    obs.observe(bl);
+  });
+})();
+</script>
 </body>
 </html>

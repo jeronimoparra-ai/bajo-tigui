@@ -3,7 +3,7 @@
 > Léelo completo al iniciar CADA sesión. Es la fuente de verdad del proyecto.
 
 ## 1. Proyecto
-Sitio web + aplicativo para **Antena Parabólica Bajo Tigui**, organización **sin ánimo de lucro** de **El Bagre, Antioquia (Colombia)**. Ofrece televisión por antena parabólica (redes y canales) y, desde este año, **internet por fibra óptica** a buen precio para El Bagre y sus alrededores. Los clientes son "asociados". Lema interno: *"Recuerde señor asociado: que me es cumplido, me es pago"*.
+Sitio web + aplicativo para **Antena Parabólica Bajo Tigui**, organización **sin ánimo de lucro** de **El Bagre, Antioquia (Colombia)**. Ofrece televisión por antena parabólica (redes y canales) y, desde este año, **internet por fibra óptica** a buen precio para El Bagre y sus alrededores. Los clientes son "asociados". Frase de la marca: «La señal viaja lejos. Aquí se queda.».
 Tono: cercano, comunitario, honesto, confiable. Nunca corporativo frío. Español colombiano.
 
 ## 2. Identidad visual (ruta del proyecto)
