@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cobertura — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="¿Llega la señal de Bajo Tigui a su casa en El Bagre, Antioquia? Consulte su barrio o dirección por WhatsApp al 314 718 2506. Zonas exactas de cobertura pendientes de confirmación.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -132,6 +132,10 @@
       line-height: 1.4;
       color: var(--bt-ink-900);
       text-align: center;
+    }
+    [data-theme="dark"] .co-fig__caption {
+      color: var(--bt-text);
+      border-top-color: color-mix(in srgb, var(--bt-sky-400) 40%, transparent);
     }
 
     /* ============================ MAPA ======================================= */
@@ -453,6 +457,37 @@
       max-width: 62ch;
       font-size: var(--bt-fs-sm);
       line-height: 1.5;
+    }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* La tarjeta del mapa, la nota final y el cierre eran papel claro con texto
+       crema del sistema: pasan a panel de aparato oscuro para conservar AA. */
+    [data-theme="dark"] .co-mapa-card,
+    [data-theme="dark"] .co-cierre {
+      background: color-mix(in srgb, var(--bt-surface) 82%, transparent);
+      border-color: var(--bt-border);
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+    }
+    [data-theme="dark"] .co-nota-final {
+      background: color-mix(in srgb, var(--bt-surface) 70%, transparent);
+      border-color: var(--bt-border);
+      border-radius: 0;
+      box-shadow: inset 0 0 0 1px var(--bt-border);
+    }
+    /* Recuadro de la casa: panel técnico verde agua oscuro (dibujo propio). */
+    [data-theme="dark"] .co-fig {
+      background: color-mix(in srgb, var(--bt-aqua-700) 40%, #061533);
+      border-color: var(--bt-aqua-500);
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px var(--bt-aqua-500), var(--bt-shadow-hard);
+    }
+    /* Medallas de requisitos: se conservan claras con texto en tinta. */
+    [data-theme="dark"] .co-req__icon,
+    [data-theme="dark"] .co-mapa__tag {
+      border-color: #0B0B0B;
+      box-shadow: 3px 3px 0 #01060F;
+      color: #0B0B0B;
     }
 
     /* ============================ CIERRE ===================================== */

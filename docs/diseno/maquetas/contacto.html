@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Atención — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="WhatsApp y llamadas al 314 718 2506, de lunes a viernes, 7:00 a. m. – 5:00 p. m. Qué tener a mano antes de escribir y qué puede resolver con Bajo Tigui en El Bagre, Antioquia.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -589,6 +589,35 @@
     .at-chat .bt-chat-panel__wa-exit { min-height: 44px; }
     @media (max-width: 26rem) {
       .at-chat .bt-chat-panel { max-width: 100%; }
+    }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* El atajo "resolver" y la maqueta del buzón tenían texto en tinta sobre
+       superficie: en noche pasan a panel oscuro con texto crema (AA). */
+    [data-theme="dark"] .at-resolver__link {
+      background: color-mix(in srgb, var(--bt-surface) 82%, transparent);
+      color: var(--bt-text);
+      border-color: var(--bt-sky-400);
+      box-shadow: 2px 2px 0 #01060F;
+    }
+    [data-theme="dark"] .at-resolver__link:hover {
+      background: var(--bt-yellow-400);
+      color: #0B0B0B;
+    }
+    [data-theme="dark"] .at-form-mock {
+      background: color-mix(in srgb, var(--bt-surface) 82%, transparent);
+      border-color: var(--bt-border);
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+    }
+    /* La etiqueta clara del buzón se conserva en amarillo con texto tinta (AA).
+       El teléfono no es una etiqueta: usa --bt-brand, que en noche ya es celeste
+       claro sobre el panel, así que no necesita override. */
+    [data-theme="dark"] .at-form-mock__tag {
+      background: var(--bt-yellow-400);
+      border-color: #0B0B0B;
+      color: #0B0B0B;
+      box-shadow: 2px 2px 0 #01060F;
     }
   </style>
 </head>

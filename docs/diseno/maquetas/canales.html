@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Canales — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="90 canales SD + HD por antena parabólica en El Bagre, Antioquia. La parrilla real —cuáles son y en qué número— está pendiente de confirmación. Pregunte por WhatsApp al 314 718 2506.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -257,6 +257,18 @@
       padding: clamp(1.1rem, 3vw, 1.75rem);
       color: var(--bt-ink-900);
     }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* La parrilla era una hoja de papel con texto en tinta; en noche pasa a
+       panel de aparato con texto crema del sistema (contraste AA). */
+    [data-theme="dark"] .ca-parrilla {
+      background: color-mix(in srgb, var(--bt-surface) 82%, transparent);
+      border-color: var(--bt-border);
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+      color: var(--bt-text);
+    }
+    [data-theme="dark"] .ca-parrilla .bt-por-confirmar { color: var(--bt-text); }
     .ca-parrilla__head {
       display: flex;
       flex-wrap: wrap;
