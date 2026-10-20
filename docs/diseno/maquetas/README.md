@@ -68,9 +68,10 @@ node tools/verificar-maqueta.mjs docs/diseno/maquetas/inicio.html
 
 ## Estado de la 1B
 
-**Hechas:** Inicio · Planes · Cómo funciona · Cobertura · Canales · Nosotros.
+**Hechas:** Inicio · Planes · Cómo funciona · Cobertura · Canales · Nosotros · Atención · Buzón ·
+404 · Mantenimiento.
 
-**Pendientes:** Contacto/Atención · Buzón · 404 · Mantenimiento · widget del chatbot.
-(Login, Pagos, Portal y Admin quedan para después).
+**Pendiente:** conectar el widget del chatbot a su backend. (Login, Pagos, Portal y Admin quedan
+para después; el buzón ya tiene el formulario, pero su backend también está pendiente).
 
 Todas se construyen **con este sistema**: no se redefinen tokens ni colores, se componen clases `bt-*`.
