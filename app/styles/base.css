@@ -1811,8 +1811,8 @@ body[data-theme="dark"]::after {
 }
 @media (min-width: 62rem) {
   .in-hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: var(--bt-space-8);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: var(--bt-space-7);
   }
 }
 .in-hero__arte {
