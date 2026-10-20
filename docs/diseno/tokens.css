@@ -161,11 +161,11 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bt-bg:           #050E2B;
-  --bt-bg-raised:    #0A1740;
-  --bt-bg-sunken:    #030A22;
-  --bt-bg-inverse:   #071634;
-  --bt-surface:      #0B1B45;
+  --bt-bg:           #0F2A5C;
+  --bt-bg-raised:    #1A3A6B;
+  --bt-bg-sunken:    #0A1740;
+  --bt-bg-inverse:   #0F2A5C;
+  --bt-surface:      #142850;
 
   --bt-text:         var(--bt-cream-100);
   --bt-text-soft:    #9FC2E8;
