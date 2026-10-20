@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Planes y precios — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="Un solo plan: internet por fibra óptica de 50 Mbps de descarga y televisión por antena parabólica con 90 canales SD + HD por $70.000 al mes, con 1 mes gratis. El Bagre, Antioquia.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -181,6 +181,17 @@
       font-size: var(--bt-fs-2xs);
     }
 
+    /* Tema noche: el recibo pasa de papel claro a panel de aparato. */
+    [data-theme="dark"] .pl-recibo {
+      background: color-mix(in srgb, var(--bt-surface) 82%, transparent);
+      border-color: var(--bt-border);
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+    }
+    [data-theme="dark"] .pl-recibo .bt-kicker { color: var(--bt-yellow-400); }
+    [data-theme="dark"] .pl-recibo__amount { color: var(--bt-yellow-400); text-shadow: 0 0 24px rgb(255 216 6 / 0.45); }
+    [data-theme="dark"] .pl-recibo__period { color: var(--bt-text-soft); }
+
     /* ============================ EL PLAN ==================================== */
     .pl-plan {
       display: grid;
@@ -222,6 +233,27 @@
       flex: 1 1 auto;
       height: 3px;
       background: var(--bt-border);
+    }
+
+    /* Tema noche: "Sí" = panel verde agua oscuro con texto claro;
+       "No" = panel de aparato a rayas. */
+    [data-theme="dark"] .pl-si,
+    [data-theme="dark"] .pl-no {
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px var(--bt-border), var(--bt-shadow-hard);
+    }
+    [data-theme="dark"] .pl-si {
+      background: color-mix(in srgb, var(--bt-aqua-700) 45%, #061533);
+      border-color: var(--bt-aqua-500);
+    }
+    [data-theme="dark"] .pl-no {
+      background: color-mix(in srgb, var(--bt-surface) 70%, transparent);
+      border-style: dashed;
+    }
+    [data-theme="dark"] .pl-si__head svg,
+    [data-theme="dark"] .pl-no__head svg {
+      background: var(--bt-bg-sunken);
+      box-shadow: 2px 2px 0 #01060F;
     }
 
     /* ============================ SÍ / NO ==================================== */
@@ -598,7 +630,7 @@
     <div class="bt-container">
       <div class="pl-hero__grid">
         <div>
-          <p class="bt-kicker">Planes · El Bagre, Antioquia · sin ánimo de lucro</p>
+          <p class="bt-kicker bt-kicker--ch">CH 01 · Planes, El Bagre, Antioquia</p>
           <h1 class="bt-display pl-hero__title" id="h-portada">
             La fibra y la tele,<br>
             en una sola<br>
@@ -638,7 +670,7 @@
         <aside class="pl-recibo" aria-label="Resumen del plan Fibra + TV">
           <span class="bt-sticker bt-sticker--aqua pl-recibo__sticker">Plan único</span>
           <div class="pl-recibo__top">
-            <p class="bt-kicker">Su plan</p>
+            <p class="bt-kicker bt-kicker--ch">CH 02 · Su plan</p>
             <p class="pl-recibo__numero" aria-hidden="true">N.º 01</p>
           </div>
           <p class="pl-recibo__name">Fibra + TV</p>
@@ -684,7 +716,7 @@
       <div class="pl-plan">
         <div class="pl-plan__text">
           <div>
-            <p class="bt-kicker">El plan de hoy</p>
+            <p class="bt-kicker bt-kicker--ch">CH 03 · El plan de hoy</p>
             <h2 class="bt-display bt-display--2xl" id="h-plan">
               Todo lo que recibe,<br>
               <span class="bt-brush bt-brush--aqua">claro y completo.</span>
@@ -788,7 +820,7 @@
        ════════════════════════════════════════════════════════════ -->
   <section class="bt-section bt-section--sunken pl-section" id="incluye" aria-labelledby="h-incluye">
     <div class="bt-container">
-      <p class="bt-kicker">Sin letra menuda</p>
+      <p class="bt-kicker bt-kicker--ch">CH 04 · Sin letra menuda</p>
       <h2 class="bt-display bt-display--2xl" id="h-incluye">
         Lo que sí.<br>
         <span class="bt-brush bt-brush--orange">Lo que no.</span>
@@ -894,7 +926,7 @@
           <span class="bt-sticker bt-sticker--sun">Plan único</span>
         </div>
         <div class="pl-otros__body">
-          <p class="bt-kicker">Otros planes</p>
+          <p class="bt-kicker bt-kicker--ch">CH 05 · Otros planes</p>
           <h2 class="bt-display bt-display--2xl" id="h-otros">
             Hoy hay<br>
             <span class="bt-brush bt-brush--sky">un solo plan.</span>
@@ -933,7 +965,7 @@
   <section class="bt-section bt-section--paper pl-section" id="preguntas" aria-labelledby="h-preguntas">
     <div class="bt-container">
       <div class="pl-faq">
-        <p class="bt-kicker">Preguntas frecuentes</p>
+        <p class="bt-kicker bt-kicker--ch">CH 06 · Preguntas frecuentes</p>
         <h2 class="bt-display bt-display--2xl" id="h-preguntas">
           Preguntas que sí<br>
           <span class="bt-brush">tienen respuesta.</span>
@@ -1051,7 +1083,7 @@
     <div class="bt-container">
       <div class="pl-cierre">
         <div class="pl-cierre__text">
-          <p class="bt-kicker">Contratar o preguntar</p>
+          <p class="bt-kicker bt-kicker--ch">CH 07 · Contratar o preguntar</p>
           <h2 class="bt-display bt-display--2xl" id="h-contratar">
             Hablemos con<br>
             <span class="bt-brush">alguien.</span>
@@ -1083,7 +1115,7 @@
         </div>
 
         <aside class="pl-cierre__card" aria-label="Horario de atención">
-          <p class="bt-kicker">Atención al asociado</p>
+          <p class="bt-kicker bt-kicker--ch">CH 08 · Atención al asociado</p>
           <dl class="pl-cierre__dl">
             <div class="pl-cierre__row">
               <dt>Horario</dt>
