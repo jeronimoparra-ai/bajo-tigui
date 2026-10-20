@@ -21,6 +21,7 @@
   --bt-sky-400:    #8FCCF0; /* OFICIAL logo · celeste */
   --bt-sky-300:    #8FE4FE; /* OFICIAL flyer · celeste brillante */
   --bt-sky-200:    #DEFAFA; /* OFICIAL logo · cian claro */
+  --bt-aqua-200:   #E9F7F5; /* derivado · fondo suave verde agua */
   --bt-aqua-500:   #A1D9D4; /* OFICIAL logo · verde agua */
   --bt-aqua-700:   #2F8C86; /* derivado · verde agua oscuro (texto) */
   /* Acentos */
@@ -54,12 +55,15 @@
 
   --bt-border:         var(--bt-ink-900);
   --bt-border-soft:    color-mix(in srgb, var(--bt-ink-900) 14%, transparent);
+  /* El anillo de foco claro se queda en naranja: el verde agua no se ve sobre
+     papel (no era amarillo; no entra en el cambio de acento). */
   --bt-outline-focus:  var(--bt-orange-500);
 
   --bt-brand:          var(--bt-navy-800);
   --bt-brand-strong:   var(--bt-cobalt-600);
   --bt-accent:         var(--bt-orange-500);
-  --bt-accent-soft:    var(--bt-yellow-400);
+  --bt-accent-soft:    var(--bt-aqua-500);
+  --bt-accent-readable: var(--bt-navy-800);
   --bt-highlight:      var(--bt-sky-400);
 
   --bt-state-ok:       #1F7A3D;
@@ -170,18 +174,19 @@
 
   --bt-border:       #2E5B9E;
   --bt-border-soft:  color-mix(in srgb, #8FCCF0 18%, transparent);
-  --bt-outline-focus: var(--bt-yellow-400);
+  --bt-outline-focus: var(--bt-aqua-500);
 
   --bt-brand:        var(--bt-sky-400);
   --bt-brand-strong: var(--bt-cream-100);
   --bt-highlight:    var(--bt-aqua-500);
+  --bt-accent-readable: var(--bt-aqua-500);
 
   --bt-shadow-hard: 5px 5px 0 #01060F;
   --bt-shadow-soft: 0 18px 50px -26px rgb(0 0 0 / 0.85);
 
-  /* Lenguaje "aparato / señal": glow celeste y amarillo de aviso. */
+  /* Lenguaje "aparato / señal": glow celeste y verde agua. */
   --bt-glow-sky:    0 0 0 1px rgb(143 204 240 / 0.4), 0 0 26px -4px rgb(143 204 240 / 0.6);
-  --bt-glow-yellow: 0 0 0 1px rgb(255 216 6 / 0.45), 0 0 30px -4px rgb(255 216 6 / 0.65);
+  --bt-glow-aqua: 0 0 0 1px rgb(161 217 212 / 0.45), 0 0 30px -4px rgb(161 217 212 / 0.65);
   /* Esquina cortada de panel/monitor. */
   --bt-chaflan:     18px;
   --bt-font-mono:   ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
