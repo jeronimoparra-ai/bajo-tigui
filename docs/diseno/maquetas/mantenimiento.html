@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mantenimiento — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="El sitio de Bajo Tigui está en mantenimiento. La hora de regreso y el estado de los servicios están por confirmar. Mientras tanto, WhatsApp y llamadas al 314 718 2506, de lunes a viernes, 7:00 a. m. – 5:00 p. m.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -350,6 +350,12 @@
     @media (max-width: 26rem) {
       .mt-chat .bt-chat-panel { max-width: 100%; }
     }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* El panel amarillo y las marcas de lista usaban --bt-brand / --bt-text,
+       que en noche son claros: sobre amarillo hay que volver a tinta (AA). */
+    [data-theme="dark"] .mt-panel--sun .mt-panel__estado { color: var(--bt-ink-900); }
+    [data-theme="dark"] .mt-sabemos__mark { color: var(--bt-ink-900); }
   </style>
 </head>
 
@@ -428,7 +434,7 @@
     <div class="bt-container">
       <div class="mt-hero__grid">
         <div>
-          <p class="bt-kicker">Mantenimiento · El Bagre, Antioquia</p>
+          <p class="bt-kicker bt-kicker--ch">CH 01 · Mantenimiento, El Bagre, Antioquia</p>
           <h1 class="bt-display mt-hero__title" id="h-portada">
             Estamos ajustando<br>
             la <span class="bt-brush bt-brush--aqua">antena.</span>
@@ -484,7 +490,7 @@
     <div class="bt-container">
       <div class="mt-que">
         <div>
-          <p class="bt-kicker">Qué está pasando</p>
+          <p class="bt-kicker bt-kicker--ch">CH 02 · Qué está pasando</p>
           <h2 class="bt-display bt-display--2xl" id="h-que-pasa">
             Es el sitio.<br>
             <span class="bt-brush bt-brush--sky">No una página suelta.</span>
@@ -528,7 +534,7 @@
   <section class="bt-section bt-section--sunken mt-section" id="preguntas" aria-labelledby="h-preguntas">
     <div class="bt-container">
       <div class="mt-preguntas__head">
-        <p class="bt-kicker">Las dos preguntas</p>
+        <p class="bt-kicker bt-kicker--ch">CH 03 · Las dos preguntas</p>
         <h2 class="bt-display bt-display--2xl" id="h-preguntas">
           Lo que todavía<br>
           <span class="bt-brush bt-brush--aqua">no podemos decir.</span>
@@ -579,7 +585,7 @@
     <div class="bt-container">
       <div class="mt-mientras__grid">
         <div>
-          <p class="bt-kicker">Mientras tanto</p>
+          <p class="bt-kicker bt-kicker--ch">CH 04 · Mientras tanto</p>
           <h2 class="bt-display mt-mientras__title" id="h-mientras">
             El teléfono<br>
             <span class="bt-brush bt-brush--orange">sigue ahí.</span>
@@ -619,7 +625,7 @@
     <div class="bt-container">
       <div class="mt-cierre__grid">
         <div>
-          <p class="bt-kicker">Por si ya volvió</p>
+          <p class="bt-kicker bt-kicker--ch">CH 05 · Por si ya volvió</p>
           <h2 class="bt-display mt-cierre__title" id="h-cierre">
             Pruebe el inicio<br>
             <span class="bt-brush bt-brush--sky">otra vez.</span>

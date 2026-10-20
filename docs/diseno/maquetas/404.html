@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Página no encontrada — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="La dirección no existe o cambió de lugar. Vuelva a Inicio, Planes, Cobertura o Atención. WhatsApp y llamadas al 314 718 2506, de lunes a viernes, 7:00 a. m. – 5:00 p. m.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -410,6 +410,12 @@
     @media (max-width: 26rem) {
       .nf-chat .bt-chat-panel { max-width: 100%; }
     }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* Las rutas usaban tinta sobre papel: en noche pasan a texto crema y el
+       ícono del enlace deja de ser tinta sobre superficie oscura. */
+    [data-theme="dark"] .nf-ruta a { color: var(--bt-text); }
+    [data-theme="dark"] .nf-ruta__go { color: var(--bt-text); }
   </style>
 </head>
 
@@ -488,7 +494,7 @@
     <div class="bt-container">
       <div class="nf-hero__grid">
         <div>
-          <p class="bt-kicker">Error 404 · El Bagre, Antioquia</p>
+          <p class="bt-kicker bt-kicker--ch">CH 01 · Error 404, El Bagre, Antioquia</p>
           <h1 class="bt-display nf-hero__title" id="h-portada">
             La señal<br>
             <span class="bt-brush bt-brush--orange">se perdió.</span>
@@ -541,7 +547,7 @@
     <div class="bt-container">
       <div class="nf-que">
         <div>
-          <p class="bt-kicker">Qué pasó</p>
+          <p class="bt-kicker bt-kicker--ch">CH 02 · Qué pasó</p>
           <h2 class="bt-display bt-display--2xl" id="h-que-paso">
             La dirección<br>
             <span class="bt-brush bt-brush--sky">no existe.</span>
@@ -587,7 +593,7 @@
     <div class="bt-container">
       <div class="nf-rutas__head">
         <div>
-          <p class="bt-kicker">A dónde ir</p>
+          <p class="bt-kicker bt-kicker--ch">CH 03 · A dónde ir</p>
           <h2 class="bt-display bt-display--2xl" id="h-rutas">
             Por aquí se vuelve<br>
             <span class="bt-brush bt-brush--aqua">a la señal.</span>
@@ -693,7 +699,7 @@
     <div class="bt-container">
       <div class="nf-cierre__grid">
         <div>
-          <p class="bt-kicker">Sigue sin encontrar lo que busca</p>
+          <p class="bt-kicker bt-kicker--ch">CH 04 · Sigue sin encontrar lo que busca</p>
           <h2 class="bt-display nf-cierre__title" id="h-cierre">
             Hable con<br>
             <span class="bt-brush bt-brush--aqua">una persona.</span>

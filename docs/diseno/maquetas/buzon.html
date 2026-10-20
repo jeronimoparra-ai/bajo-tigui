@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Buzón de PQRS — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="Buzón de peticiones, quejas, reclamos y sugerencias de Bajo Tigui en El Bagre, Antioquia. El formulario está en maqueta y todavía no envía: mientras tanto, WhatsApp y llamadas al 314 718 2506.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -552,6 +552,30 @@
     @media (max-width: 26rem) {
       .bz-chat .bt-chat-panel { max-width: 100%; }
     }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* Los campos y las tarjetas del formulario eran papel claro: pasan a panel
+       de aparato oscuro. Los estados que se iluminan (hover / marcado) y la
+       nota conservan su acento claro, con texto en tinta (AA). */
+    [data-theme="dark"] .bz-form input[type="text"],
+    [data-theme="dark"] .bz-form input[type="tel"],
+    [data-theme="dark"] .bz-form input[type="email"],
+    [data-theme="dark"] .bz-form textarea {
+      background: var(--bt-bg-sunken);
+      color: var(--bt-text);
+      border-color: var(--bt-border);
+    }
+    [data-theme="dark"] .bz-opcion,
+    [data-theme="dark"] .bz-check {
+      background: color-mix(in srgb, var(--bt-surface) 70%, transparent);
+    }
+    [data-theme="dark"] .bz-opcion:hover,
+    [data-theme="dark"] .bz-opcion:has(input:checked) { color: #0B0B0B; }
+    [data-theme="dark"] .bz-form__nota a { color: var(--bt-ink-900); }
+    [data-theme="dark"] .bz-despues .bt-por-confirmar { color: var(--bt-text); }
+    /* Títulos sobre paneles claros (amarillo / verde agua): texto en tinta. */
+    [data-theme="dark"] .bz-aside__card--sun,
+    [data-theme="dark"] .bz-priv__card--sun { color: var(--bt-ink-900); }
   </style>
 </head>
 
@@ -630,7 +654,7 @@
     <div class="bt-container">
       <div class="bz-hero__grid">
         <div>
-          <p class="bt-kicker">Buzón de PQRS · El Bagre, Antioquia</p>
+          <p class="bt-kicker bt-kicker--ch">CH 01 · Buzón de PQRS, El Bagre, Antioquia</p>
           <h1 class="bt-display bz-hero__title" id="h-portada">
             Déjelo<br>
             por <span class="bt-brush">escrito.</span>
@@ -694,7 +718,7 @@
   <section class="bt-section bt-section--paper bz-section" id="formulario" aria-labelledby="h-formulario">
     <div class="bt-container">
       <div class="bz-form-head">
-        <p class="bt-kicker">Formulario</p>
+        <p class="bt-kicker bt-kicker--ch">CH 02 · Formulario</p>
         <h2 class="bt-display bt-display--2xl" id="h-formulario">
           Cuéntenos<br>
           <span class="bt-brush bt-brush--aqua">qué pasó.</span>
@@ -885,7 +909,7 @@
     <div class="bt-container">
       <div class="bz-despues">
         <div>
-          <p class="bt-kicker">Qué pasa después</p>
+          <p class="bt-kicker bt-kicker--ch">CH 03 · Qué pasa después</p>
           <h2 class="bt-display bt-display--2xl" id="h-despues">
             Hoy el formulario<br>
             <span class="bt-brush bt-brush--orange">no envía nada.</span>
@@ -944,7 +968,7 @@
        ════════════════════════════════════════════════════════════ -->
   <section class="bt-section bt-section--sunken bz-section" id="privacidad" aria-labelledby="h-privacidad">
     <div class="bt-container">
-      <p class="bt-kicker">Ley 1581 de 2012</p>
+      <p class="bt-kicker bt-kicker--ch">CH 04 · Ley 1581 de 2012</p>
       <h2 class="bt-display bt-display--2xl" id="h-privacidad">
         Sus datos,<br>
         <span class="bt-brush bt-brush--sky">en claro.</span>
@@ -998,7 +1022,7 @@
     <div class="bt-container">
       <div class="bz-cierre__grid">
         <div>
-          <p class="bt-kicker">Cierre</p>
+          <p class="bt-kicker bt-kicker--ch">CH 05 · Cierre</p>
           <h2 class="bt-display bz-cierre__title" id="h-cierre">
             Mientras tanto,<br>
             el teléfono <span class="bt-brush bt-brush--aqua">sí funciona.</span>

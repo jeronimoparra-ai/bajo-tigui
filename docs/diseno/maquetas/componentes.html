@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050E2B" />
   <title>Componentes — Sistema de diseño Bajo Tigui</title>
   <link rel="stylesheet" href="_base.css" />
   <style>
@@ -89,6 +90,18 @@
       flex-wrap: wrap;
       align-items: flex-start;
     }
+
+    /* ======================= TEMA NOCHE "SEÑAL DE TV" ======================== */
+    /* Etiquetas de demo: el gris del sistema no pasa AA sobre la noche. */
+    [data-theme="dark"] .demo-label,
+    [data-theme="dark"] .demo-chat-label { color: var(--bt-text-soft); }
+    /* El blanco sobre naranja del tag y del sticker por defecto queda en 3:1:
+       vuelve a tinta para conservar contraste AA. El sticker navy conserva su
+       texto claro (va después para ganar la especificidad). */
+    [data-theme="dark"] .bt-por-confirmar__tag,
+    [data-theme="dark"] .bt-banner-aviso__tag,
+    [data-theme="dark"] .bt-sticker { color: var(--bt-ink-900); }
+    [data-theme="dark"] .bt-sticker--navy { color: var(--bt-white); }
   </style>
 </head>
 
