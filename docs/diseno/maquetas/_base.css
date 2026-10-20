@@ -1359,12 +1359,294 @@ code {
 }
 
 /* ----------------------------------------------------------------
-   16. ESCENAS DE FONDO POR MÓDULO
-   La imagen queda quieta dentro del módulo y el contenido pasa por
-   encima. Se usa «sticky» y no background-attachment: fixed porque
-   Safari en iOS ignora «fixed». El wrapper recorta la escena para que
-   no invada el módulo siguiente.
+   15bis. LENGUAJE "SEÑAL DE TV" (paneles aparato, dial, EN VIVO, valla)
+   Componentes aprobados en el spike de dirección. Conviven con las
+   reglas base; los selectores son complementarios (no duplicados).
    ---------------------------------------------------------------- */
+
+/* Fondo de página: noche con halo superior y halftone sutil. */
+body[data-theme="dark"] {
+  background-color: var(--bt-bg);
+  background-image:
+    radial-gradient(120% 70% at 50% -10%, rgb(143 204 240 / 0.10), transparent 60%),
+    radial-gradient(rgb(143 204 240 / 0.05) 1px, transparent 1.5px);
+  background-size: auto, 7px 7px;
+}
+
+/* Scanlines de televisor: capa fija que no intercepta el puntero. */
+body[data-theme="dark"]::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0.18) 0px,
+    rgb(0 0 0 / 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+[data-motion="lite"] body[data-theme="dark"]::after { opacity: 0.3; }
+
+/* Titulares: glow celeste + valla en mayúsculas (solo display y hero). */
+[data-theme="dark"] .bt-display {
+  text-shadow: 0 2px 0 rgb(0 0 0 / 0.55), 0 0 40px rgb(143 204 240 / 0.22);
+}
+[data-theme="dark"] .bt-display--valla {
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+}
+[data-theme="dark"] .in-lema__quote { text-shadow: none; }
+
+/* Número de canal tipo guía de TV. */
+[data-theme="dark"] .bt-kicker--ch {
+  font-family: var(--bt-font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bt-yellow-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+/* Badge EN VIVO. */
+[data-theme="dark"] .in-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.15em 0.55em;
+  background: var(--bt-orange-500);
+  color: #0B0B0B;
+  font-family: var(--bt-font-mono);
+  font-weight: 700;
+  font-size: 0.72em;
+  letter-spacing: 0.18em;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+[data-theme="dark"] .in-live i {
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: #0B0B0B;
+  box-shadow: 0 0 8px 0 rgb(0 0 0 / 0.6);
+  animation: bt-blink 1.4s steps(1, end) infinite;
+}
+@keyframes bt-blink { 0%,55% { opacity: 1; } 56%,100% { opacity: 0.2; } }
+[data-motion="lite"] .in-live i { animation: none; }
+
+/* Botones "aparato": rectangulares con chaflán y texto monoespaciado.
+   El sistema pinta con --_btn-*; se redefinen esas variables. */
+[data-theme="dark"] .bt-btn {
+  --bt-radius-pill: 0;
+  --_btn-bg: #0a1c40;
+  --_btn-fg: var(--bt-text);
+  --_btn-bd: var(--bt-border);
+  border-radius: 0;
+  clip-path: polygon(var(--bt-chaflan) 0, 100% 0, 100% calc(100% - var(--bt-chaflan)),
+                     calc(100% - var(--bt-chaflan)) 100%, 0 100%, 0 var(--bt-chaflan));
+  font-family: var(--bt-font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 1.5rem;
+  box-shadow: inset 0 0 0 2px var(--bt-border), var(--bt-shadow-hard);
+}
+[data-theme="dark"] .bt-btn--primary {
+  --_btn-bg: #FFC800;
+  --_btn-fg: #0B0B0B;
+  --_btn-bd: #0B0B0B;
+  box-shadow: inset 0 0 0 2px #0B0B0B, var(--bt-shadow-hard);
+}
+[data-theme="dark"] .bt-btn--primary:hover {
+  box-shadow: inset 0 0 0 2px #0B0B0B, 7px 7px 0 #01060F, var(--bt-glow-yellow);
+}
+[data-theme="dark"] .bt-btn--outline,
+[data-theme="dark"] .bt-btn--secondary {
+  --_btn-bg: #0a1c40;
+  --_btn-fg: var(--bt-text);
+  --_btn-bd: var(--bt-sky-400);
+  box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+}
+[data-theme="dark"] .bt-btn--outline:hover,
+[data-theme="dark"] .bt-btn--secondary:hover {
+  box-shadow: inset 0 0 0 2px var(--bt-sky-400), 7px 7px 0 #01060F, var(--bt-glow-sky);
+}
+[data-theme="dark"] .bt-btn--wa {
+  --_btn-bg: #1eb757;
+  --_btn-fg: #04220f;
+  --_btn-bd: #04220f;
+  box-shadow: inset 0 0 0 2px #04220f, var(--bt-shadow-hard);
+}
+
+/* Paneles de aparato: chaflán en vez de esquinas redondeadas. */
+[data-theme="dark"] .bt-chamfer,
+[data-theme="dark"] .bt-card,
+[data-theme="dark"] .bt-card-plan,
+[data-theme="dark"] .bt-banner-aviso,
+[data-theme="dark"] .in-index,
+[data-theme="dark"] .bt-chat-panel,
+[data-theme="dark"] .in-antena {
+  border-radius: 0;
+}
+[data-theme="dark"] .bt-card,
+[data-theme="dark"] .in-antena {
+  box-shadow: inset 0 0 0 2px var(--bt-border), var(--bt-shadow-hard);
+  border-color: transparent;
+}
+[data-theme="dark"] .bt-card-plan {
+  border-color: transparent;
+  box-shadow: inset 0 0 0 2px var(--bt-border), var(--bt-shadow-hard);
+}
+[data-theme="dark"] .bt-card-plan--featured {
+  box-shadow: inset 0 0 0 3px var(--bt-yellow-400), var(--bt-shadow-hard), var(--bt-glow-yellow);
+}
+[data-theme="dark"] .bt-card-plan__amount { text-shadow: 0 0 24px rgb(255 216 6 / 0.45); }
+
+/* Aviso administrable. */
+[data-theme="dark"] .bt-banner-aviso {
+  background: #3A1602;
+  border: 0;
+  box-shadow: inset 0 0 0 2px var(--bt-orange-500), var(--bt-shadow-hard), 0 0 30px -12px rgb(254 99 1 / 0.7);
+}
+
+/* "POR CONFIRMAR". */
+[data-theme="dark"] .bt-por-confirmar {
+  color: var(--bt-text);
+  background: color-mix(in srgb, var(--bt-orange-500) 22%, #0B1B45);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px var(--bt-orange-500), 2px 2px 0 #01060F;
+}
+[data-theme="dark"] .in-mails .bt-por-confirmar__tag { color: #0B0B0B; }
+
+/* Píldoras. */
+[data-theme="dark"] .bt-pill {
+  background: color-mix(in srgb, var(--bt-surface) 70%, transparent);
+  color: var(--bt-text);
+  border-color: var(--bt-border);
+  box-shadow: 2px 2px 0 #01060F;
+}
+
+/* Navegación: borde inferior con glow. */
+[data-theme="dark"] .bt-nav {
+  border-bottom: 0;
+  box-shadow: inset 0 -2px 0 -1px var(--bt-sky-400), 0 8px 26px -14px rgb(143 204 240 / 0.55);
+}
+
+/* Footer. */
+[data-theme="dark"] .bt-footer {
+  background: var(--bt-bg-sunken);
+  border-top: 0;
+  box-shadow: inset 0 2px 0 -1px var(--bt-border);
+}
+
+/* Chatbot. */
+[data-theme="dark"] .bt-chat-fab {
+  border: 0;
+  border-radius: 0;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  box-shadow: inset 0 0 0 2px var(--bt-yellow-400), var(--bt-shadow-hard), var(--bt-glow-yellow);
+}
+[data-theme="dark"] .bt-chat-panel {
+  border: 0;
+  box-shadow: inset 0 0 0 2px var(--bt-border), var(--bt-shadow-hard);
+}
+[data-theme="dark"] .bt-chat-panel__head { border-radius: 0; }
+
+/* Franja de datos: medidor con luz amarilla. */
+[data-theme="dark"] .in-franja {
+  border-block: 0;
+  box-shadow: inset 0 3px 0 -1px var(--bt-yellow-400), inset 0 -3px 0 -1px var(--bt-yellow-400);
+}
+[data-theme="dark"] .in-fact__num {
+  color: var(--bt-yellow-400);
+  text-shadow: 0 0 26px rgb(255 216 6 / 0.4);
+}
+
+/* Lema: panel amarillo inclinado con texto en tinta. */
+[data-theme="dark"] .in-lema {
+  border-radius: 0;
+  background-color: #FFD211;
+  box-shadow: inset 0 0 0 2px #0B0B0B, var(--bt-shadow-hard);
+  color: #0B0B0B;
+}
+[data-theme="dark"] .in-lema figcaption { color: #2a2200; }
+
+/* Antena: panel técnico oscuro. */
+[data-theme="dark"] .in-antena {
+  background:
+    repeating-linear-gradient(180deg, rgb(161 217 212 / 0.06) 0 1px, transparent 1px 4px),
+    linear-gradient(160deg, #0c2a4e, #061533);
+  box-shadow: inset 0 0 0 2px var(--bt-aqua-500), var(--bt-shadow-hard);
+}
+[data-theme="dark"] .in-antena__tag {
+  border-radius: 0;
+  box-shadow: inset 0 0 0 2px var(--bt-sky-400), 2px 2px 0 #01060F;
+}
+
+/* Dial de canales: lista de canales con marco de mini-pantalla. */
+[data-theme="dark"] .in-dial { --bt-corner: var(--bt-chaflan); }
+[data-theme="dark"] .in-dial__list {
+  list-style: none;
+  margin: var(--bt-space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--bt-space-2);
+}
+[data-theme="dark"] .in-dial__ch a {
+  display: flex;
+  align-items: center;
+  gap: var(--bt-space-4);
+  padding: var(--bt-space-3);
+  min-height: 56px;
+  text-decoration: none;
+  color: var(--bt-text);
+  background: color-mix(in srgb, var(--bt-surface) 60%, transparent);
+  box-shadow: inset 0 0 0 2px var(--bt-border);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  transition: transform var(--bt-dur-1) var(--bt-ease-snap), box-shadow var(--bt-dur-1) var(--bt-ease-out);
+}
+[data-theme="dark"] .in-dial__ch a:hover {
+  transform: translateX(4px);
+  box-shadow: inset 0 0 0 2px var(--bt-yellow-400), var(--bt-glow-yellow);
+}
+[data-theme="dark"] .in-dial__frame {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(180deg, rgb(255 255 255 / 0.08) 0 1px, transparent 1px 3px),
+    linear-gradient(160deg, #0e2a5c, #061533);
+  box-shadow: inset 0 0 0 2px var(--bt-sky-400);
+  color: var(--bt-yellow-400);
+}
+[data-theme="dark"] .in-dial__frame b {
+  font-family: var(--bt-font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+[data-theme="dark"] .in-dial__body { display: grid; gap: 2px; }
+[data-theme="dark"] .in-dial__no {
+  font-family: var(--bt-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bt-text-soft);
+}
+[data-theme="dark"] .in-dial__name {
+  font-family: var(--bt-font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1.05;
+}
 
 /* ----------------------------------------------------------------
    16. ESCENAS DE FONDO POR MÓDULO
@@ -1446,6 +1728,25 @@ code {
 
 [data-motion="lite"] .bt-escena-bloque__fondo::after {
   background: var(--bt-navy-900);
+}
+
+/* Velo duotono del tema noche: la foto pasa a duotono navy→celeste con
+   viñeta, para que respire sobre el fondo profundo sin perder contraste. */
+[data-theme="dark"] .bt-escena-bloque {
+  background: var(--bt-bg);
+}
+[data-theme="dark"] .bt-escena-bloque__fondo {
+  background-color: var(--bt-bg);
+  filter: saturate(1.05) contrast(1.05);
+}
+[data-theme="dark"] .bt-escena-bloque__fondo::after {
+  background:
+    radial-gradient(rgb(247 244 236 / 0.06) 1px, transparent 1.4px) 0 0 / 6px 6px,
+    radial-gradient(120% 120% at 50% 45%, rgb(5 14 43 / 0.55), rgb(3 10 34 / 0.9)),
+    linear-gradient(180deg, rgb(0 46 132 / 0.55), rgb(0 26 77 / 0.82));
+}
+[data-theme="dark"][data-motion="lite"] .bt-escena-bloque__fondo::after {
+  background: var(--bt-bg);
 }
 
 

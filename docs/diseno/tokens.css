@@ -151,31 +151,40 @@
   --bt-z-toast: 800;
 }
 
-/* ---------------------------------------------------------------- Tema oscuro */
+/* ---------------------------------------------------------------- Tema oscuro ("señal de TV")
+   Paleta noche aprobada: fondo profundo derivado del navy del logo, texto
+   crema cálido, glow celeste en contornos y amarillo como luz de aviso. */
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bt-bg:           var(--bt-navy-900);
-  --bt-bg-raised:    #00224F; /* derivado */
-  --bt-bg-sunken:    #001233; /* derivado */
-  --bt-bg-inverse:   var(--bt-cream-100);
-  --bt-surface:      #002A5C; /* derivado */
+  --bt-bg:           #050E2B;
+  --bt-bg-raised:    #0A1740;
+  --bt-bg-sunken:    #030A22;
+  --bt-bg-inverse:   #071634;
+  --bt-surface:      #0B1B45;
 
-  --bt-text:         var(--bt-sky-200);
-  --bt-text-soft:    var(--bt-sky-400);
-  --bt-text-inverse: var(--bt-navy-900);
+  --bt-text:         var(--bt-cream-100);
+  --bt-text-soft:    #9FC2E8;
+  --bt-text-inverse: var(--bt-cream-100);
   --bt-text-link:    var(--bt-sky-300);
 
-  --bt-border:       var(--bt-sky-200);
-  --bt-border-soft:  color-mix(in srgb, var(--bt-sky-200) 22%, transparent);
+  --bt-border:       #2E5B9E;
+  --bt-border-soft:  color-mix(in srgb, #8FCCF0 18%, transparent);
   --bt-outline-focus: var(--bt-yellow-400);
 
-  --bt-brand:        var(--bt-cobalt-600);
-  --bt-brand-strong: var(--bt-sky-400);
+  --bt-brand:        var(--bt-sky-400);
+  --bt-brand-strong: var(--bt-cream-100);
   --bt-highlight:    var(--bt-aqua-500);
 
-  --bt-shadow-hard: 6px 6px 0 var(--bt-navy-900);
-  --bt-shadow-soft: 0 18px 50px -26px rgb(0 0 0 / 0.7);
+  --bt-shadow-hard: 5px 5px 0 #01060F;
+  --bt-shadow-soft: 0 18px 50px -26px rgb(0 0 0 / 0.85);
+
+  /* Lenguaje "aparato / señal": glow celeste y amarillo de aviso. */
+  --bt-glow-sky:    0 0 0 1px rgb(143 204 240 / 0.4), 0 0 26px -4px rgb(143 204 240 / 0.6);
+  --bt-glow-yellow: 0 0 0 1px rgb(255 216 6 / 0.45), 0 0 30px -4px rgb(255 216 6 / 0.65);
+  /* Esquina cortada de panel/monitor. */
+  --bt-chaflan:     18px;
+  --bt-font-mono:   ui-monospace, "Cascadia Mono", Menlo, Consolas, monospace;
 }
 
 /* ---------------------------------------------------------------- Utilidades de forma */

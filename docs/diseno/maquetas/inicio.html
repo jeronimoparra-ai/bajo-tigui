@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es-CO">
+<html lang="es-CO" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inicio — Antena Parabólica Bajo Tigui</title>
   <meta name="description" content="Internet por fibra óptica de 50 Mbps de descarga y televisión por antena parabólica con 90 canales SD + HD en El Bagre, Antioquia. $70.000 al mes y 1 mes gratis.">
-  <meta name="theme-color" content="#002E84">
+  <meta name="theme-color" content="#050E2B">
   <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="_base.css">
   <style>
@@ -97,7 +97,24 @@
       box-shadow: 8px 8px 0 var(--bt-orange-500);
       transform: rotate(-1.4deg);
     }
-    .in-index__title { color: var(--bt-sky-400); margin-bottom: 0; }
+    /* Tema noche: el panel del dial se vuelve aparato (chaflán, borde glow). */
+    [data-theme="dark"] .in-index {
+      background: color-mix(in srgb, var(--bt-surface) 82%, transparent);
+      border-color: var(--bt-border);
+      border-radius: var(--bt-chaflan);
+      box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+    }
+    /* Tema noche: el lema es panel amarillo con texto en tinta (aprobado en
+       el spike); el figcaption hereda tinta oscura sobre amarillo = AA. */
+    [data-theme="dark"] .in-lema {
+      background-color: #FFD211; /* amarillo sólido: el verificador compone background-color */
+      border-color: #0B0B0B;
+      border-radius: 0;
+      box-shadow: inset 0 0 0 2px #0B0B0B, var(--bt-shadow-hard);
+      color: #0B0B0B;
+    }
+    [data-theme="dark"] .in-lema__quote { color: #0B0B0B; text-shadow: none; }
+    [data-theme="dark"] .in-lema figcaption { color: #2a2200; }
     .in-viaje {
       list-style: none;
       margin: var(--bt-space-3) 0 0;
@@ -641,7 +658,10 @@
     <div class="bt-container">
       <div class="in-hero">
         <div>
-          <p class="bt-kicker">El Bagre, Antioquia · organización sin ánimo de lucro</p>
+          <p class="bt-kicker bt-kicker--ch">
+            <span class="in-live" aria-hidden="true"><i></i>EN VIVO</span>
+            CH 01 · El Bagre, Antioquia
+          </p>
           <h1 class="bt-display bt-display--valla in-hero__title" id="h-portada">
             La señal viaja <span class="bt-brush">lejos.</span><br>
             Aquí <span class="bt-brush bt-brush--orange">se queda.</span>
@@ -673,32 +693,44 @@
           </p>
         </div>
 
-        <div class="in-index">
-          <p class="bt-kicker in-index__title">El viaje de la señal</p>
+        <div class="in-index in-dial">
+          <p class="bt-kicker in-index__title">Sintonía · El viaje de la señal</p>
           <nav aria-label="El viaje de la señal">
-          <ol class="in-viaje" role="list">
-            <li>
+          <ol class="in-dial__list" role="list">
+            <li class="in-dial__ch">
               <a href="#acto-1">
-                <span class="in-viaje__num">01</span> Órbita
-                <span class="in-viaje__go" aria-hidden="true">↓</span>
+                <span class="in-dial__frame" aria-hidden="true"><b>01</b></span>
+                <span class="in-dial__body">
+                  <span class="in-dial__no">Canal 01</span>
+                  <span class="in-dial__name">Órbita</span>
+                </span>
               </a>
             </li>
-            <li>
+            <li class="in-dial__ch">
               <a href="#como-funciona">
-                <span class="in-viaje__num">02</span> Azotea
-                <span class="in-viaje__go" aria-hidden="true">↓</span>
+                <span class="in-dial__frame" aria-hidden="true"><b>02</b></span>
+                <span class="in-dial__body">
+                  <span class="in-dial__no">Canal 02</span>
+                  <span class="in-dial__name">Azotea</span>
+                </span>
               </a>
             </li>
-            <li>
+            <li class="in-dial__ch">
               <a href="#nosotros">
-                <span class="in-viaje__num">03</span> El barrio
-                <span class="in-viaje__go" aria-hidden="true">↓</span>
+                <span class="in-dial__frame" aria-hidden="true"><b>03</b></span>
+                <span class="in-dial__body">
+                  <span class="in-dial__no">Canal 03</span>
+                  <span class="in-dial__name">El barrio</span>
+                </span>
               </a>
             </li>
-            <li>
+            <li class="in-dial__ch">
               <a href="#planes">
-                <span class="in-viaje__num">04</span> La sala
-                <span class="in-viaje__go" aria-hidden="true">↓</span>
+                <span class="in-dial__frame" aria-hidden="true"><b>04</b></span>
+                <span class="in-dial__body">
+                  <span class="in-dial__no">Canal 04</span>
+                  <span class="in-dial__name">La sala</span>
+                </span>
               </a>
             </li>
           </ol>
@@ -729,7 +761,7 @@
 
         <div class="in-azotea__text">
           <div>
-            <p class="bt-kicker">Acto 2 · La azotea</p>
+            <p class="bt-kicker bt-kicker--ch">CH 02 · La azotea</p>
             <h2 class="bt-display bt-display--2xl" id="h-azotea">
               Subimos al techo.<br>
               <span class="bt-brush">Ahí llega.</span>
@@ -793,7 +825,7 @@
       <div class="in-barrio">
         <div class="in-barrio__text">
           <div>
-            <p class="bt-kicker">Acto 3 · El barrio</p>
+            <p class="bt-kicker bt-kicker--ch">CH 03 · El barrio</p>
             <h2 class="bt-display bt-display--2xl" id="h-barrio">
               Sin ánimo de lucro,<br>
               con <span class="bt-brush bt-brush--orange">nombre y cara.</span>
@@ -838,7 +870,7 @@
     <div class="bt-container">
       <div class="in-sala">
         <div>
-          <p class="bt-kicker">Acto 4 · La sala</p>
+          <p class="bt-kicker bt-kicker--ch">CH 04 · La sala</p>
           <h2 class="bt-display bt-display--2xl" id="h-sala">
             Un solo pago,<br>
             <span class="bt-brush bt-brush--aqua">toda la casa.</span>
@@ -849,7 +881,7 @@
           </p>
 
           <div class="in-cierre">
-            <p class="bt-kicker">Fin del viaje</p>
+            <p class="bt-kicker bt-kicker--ch">CH 05 · Fin del viaje</p>
             <p class="in-cierre__line">
               La señal<br>
               <span class="bt-brush bt-brush--orange">ya llegó.</span>
@@ -969,7 +1001,7 @@
     <div class="bt-container">
       <div class="in-cob">
         <div>
-          <p class="bt-kicker">Cobertura</p>
+          <p class="bt-kicker bt-kicker--ch">CH 06 · Cobertura</p>
           <h2 class="bt-display bt-display--2xl" id="h-cob">
             ¿Llega a <span class="bt-brush bt-brush--sky">mi casa</span>&nbsp;?
           </h2>
@@ -1016,7 +1048,7 @@
     <div class="bt-container">
       <div class="in-canales">
         <div class="in-canales__text">
-          <p class="bt-kicker">Televisión</p>
+          <p class="bt-kicker bt-kicker--ch">CH 07 · Televisión</p>
           <h2 class="bt-display bt-display--2xl" id="h-canales">
             90 canales<br>
             <span class="bt-brush bt-brush--sky">SD + HD</span>
@@ -1058,7 +1090,7 @@
     <div class="bt-container">
       <div class="in-atn">
         <div>
-          <p class="bt-kicker">Atención al asociado</p>
+          <p class="bt-kicker bt-kicker--ch">CH 08 · Atención</p>
           <h2 class="bt-display bt-display--2xl" id="h-atencion">
             Aquí contesta<br>
             <span class="bt-brush">una persona.</span>
