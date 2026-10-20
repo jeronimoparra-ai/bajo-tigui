@@ -4,10 +4,43 @@
   "private": true,
   "description": "Sitio web y aplicativo de Antena Parabólica Bajo Tigui (El Bagre, Antioquia)",
   "scripts": {
-    "maquetas:capturar": "node tools/capturar-maquetas.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "maquetas:capturar": "node tools/capturar-maqueta.mjs",
     "maquetas:verificar": "node tools/verificar-maqueta.mjs"
   },
+  "dependencies": {
+    "@react-three/drei": "^10.7.0",
+    "@react-three/fiber": "^9.0.0",
+    "@supabase/supabase-js": "^2.109.0",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.0",
+    "gsap": "^3.12.5",
+    "leaflet": "^1.9.4",
+    "next": "^15.5.0",
+    "next-auth": "^4.24.15",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-leaflet": "^5.0.0",
+    "resend": "^6.34.1",
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
-    "playwright": "^1.56.0"
+    "@types/leaflet": "^1.9.14",
+    "@types/node": "^22.9.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.14.0",
+    "eslint-config-next": "^15.5.0",
+    "playwright": "^1.56.0",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
   }
 }

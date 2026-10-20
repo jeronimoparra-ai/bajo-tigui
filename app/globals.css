@@ -1,0 +1,17 @@
+/* Sistema de diseño Bajo Tigui — portado desde docs/diseno/maquetas/_base.css + tokens.css */
+@import "./styles/tokens.css";
+@import "./styles/base.css";
+
+/* Utilidades mínimas para el portal/admin (Tailwind aporta el resto). */
+:root {
+  --bt-container: 76rem;
+}
+
+body {
+  margin: 0;
+}
+
+/* Respeta movimiento reducido (ya cubierto por los tokens). */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

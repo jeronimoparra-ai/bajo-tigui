@@ -52,6 +52,6 @@ INSERT INTO avisos (titulo, contenido, activo) VALUES
 -- Configuración general
 INSERT INTO configuracion (clave, valor, descripcion) VALUES
   ('saldo_suspension', '37000', 'Saldo a partir del cual se puede suspender el servicio de parabólica (COP)'),
-  ('whatsapp_telefono', '3147182506', 'WhatsApp y llamadas (sin espacios)'),
+  ('whatsapp_telefono', '3122740219', 'WhatsApp y llamadas (sin espacios)'),
   ('zona_horaria', 'America/Bogota', 'Zona horaria de presentación'),
   ('instalacion_gratis', 'por_confirmar', 'Instalación gratuita (POR CONFIRMAR)');

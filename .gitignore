@@ -43,3 +43,10 @@ yarn-error.log*
 # Python
 __pycache__/
 *.pyc
+
+# Configuración local de OpenCode (rutas absolutas, no versionar)
+opencode.json
+
+# Spike desechable de diseño (referencia, no versionar)
+docs/diseno/maquetas/_spike-signal.css
+docs/diseno/maquetas/inicio-signal-spike.html

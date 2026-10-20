@@ -24,7 +24,7 @@ Los derivados (SVG vectorizado, imágenes optimizadas, variantes de logo) van en
 - Plan principal: Internet fibra óptica **50 Mbps de descarga** (no afirmar simetría) + TV **90 canales SD + HD**. **$70.000 COP/mes**. **1 mes gratis** (confirmado).
 - Instalación gratis: **POR CONFIRMAR** — solo en borrador/maqueta hasta confirmación.
 - Beneficios: internet de alta velocidad, TV por satélite, sin interrupciones.
-- Contacto: WhatsApp/llamadas **314 718 2506**. Zona de cobertura (mapa).
+- Contacto: WhatsApp/llamadas **312 274 0219**. Zona de cobertura (mapa).
 - Aviso administrable: suspensión de servicios de parabólica con saldo superior a **$37.000**, sin fecha fija (la define el admin; banner inactivo en la semilla).
 - Horario humano: **lunes a viernes 7:00 a. m.–5:00 p. m.**, zona `America/Bogota`. Sin atención sábados, domingos ni festivos de Colombia.
 - POR CONFIRMAR (no inventar): correos oficiales (placeholders **no publicables**: `contacto@bajotigui.co`, `soporte@bajotigui.co`, `pagos@bajotigui.co`), zonas exactas de cobertura (barrios/veredas + polígono), instalación gratis, parrilla real de los 90 canales, vigencia/cierre de la promoción, NIT/razón social, dirección física y redes sociales.
