@@ -1,33 +1,55 @@
-# Sesión — Tema "Señal de TV" + cambio de acento (Fase 1B)
+# Sesión — Tema "Señal de TV" + acento + Fase 5 (chatbot + buzón)
 
 ## Proyecto
-Antena Parabólica Bajo Tigui — `docs/diseno/maquetas/`
+Antena Parabólica Bajo Tigui — sitio en producción: **https://bajo-tigui.vercel.app**
+Repo: **https://github.com/jeronimoparra-ai/bajo-tigui** (privado, rama `fase-1b-antigravity`)
 
-## Estado actual (tema oscuro "señal de TV")
-| Lote | Commit | Pantallas |
-|---|---|---|
-| Porte base | `0f45876` | `tokens.css` + `_base.css` (sección 15bis) + `inicio.html` |
-| Lote 1 | `0667eff` | `planes`, `nosotros`, `como-funciona` |
-| Lote 2 | `1ae3630` | `canales`, `cobertura`, `contacto` |
-| Lote 3 | `35bebc4` | `404`, `mantenimiento`, `buzon`, `componentes` |
-| Acento | `ac502b0` | Verde agua `#A1D9D4` en todo el sitio (claro + oscuro) |
+## Estado actual
+| Commit | Contenido |
+|---|---|
+| `0f45876`–`1ae3630` | Tema oscuro "señal de TV" (lotes 1 y 2) |
+| `35bebc4` | Lote 3: 404, mantenimiento, buzón, componentes |
+| `ac502b0` | Acento amarillo → verde agua `#A1D9D4` en todo el sitio |
+| `65d9f54` | Fotos reales (barrio, CC BY-SA) + ilustraciones propias SVG + tema más claro |
+| `7a1af89` | Más espacio al texto en el hero |
+| `38cd73f` | Hero animado de señal, transiciones de scroll, home de un solo recorrido |
+| `1aaf7cd` | **Fase 5**: chatbot con IA + buzón de PQRS |
 
-- Las 11 pantallas verificadas **sin fallos** a 320/360/390/768/1024/1440.
-- Fallo que costó: en `contacto.html` el que fallaba era `.at-buzon__tel` (no `.at-form-mock__tag`). Usaba `--bt-brand`, que en noche ya es celeste claro; se quitó el override.
-- Cambio de acento: el amarillo `#FFD806` (del flyer, no está en el logo) se sustituyó por verde agua `#A1D9D4` (color del logo). Mapeo: `--bt-yellow-400/500` → `--bt-aqua-500`; `--bt-yellow-200` → `--bt-aqua-200` (nuevo, `#E9F7F5`); hex `#FFD806/#FFC800/#FFD211/#FEDC01` → `#A1D9D4`; `#FEF3B0/#FFF3B8` → `#E9F7F5`; `rgb(255 216 6 / x)` → `rgb(161 217 212 / x)`; `--bt-glow-yellow` → `--bt-glow-aqua`. Nuevo token `--bt-accent-readable` (navy en claro, aqua en oscuro) para texto que era amarillo. Los primitivos `--bt-yellow-*` se conservan como referencia de paleta, pero ya no se usan. El anillo de foco claro se mantiene en naranja (no era amarillo).
+## Fase 5 — qué quedó hecho
+- **Chatbot**: API `/api/chat` con streaming SSE hacia Anthropic (la clave nunca llega al
+  navegador). 5 herramientas con datos reales de Supabase. Widget con consentimiento
+  (Ley 1581), filtro de datos sensibles y límite por IP. Prompt en
+  `docs/chatbot/prompt-sistema.md`.
+- **Buzón**: formulario completo (anonimato, adjuntos, autorización) → crea ticket + mensaje
+  y devuelve código `BZ-XXXXXX`; consulta de estado por código. **Verificado 8/8** contra
+  la BD real.
+- **Batería de 30 preguntas** automatizada: `npm run chatbot:probar`
+  (falta `ANTHROPIC_API_KEY` para ejecutarla; criterios en
+  `docs/chatbot/evaluacion-chatbot.md`).
+
+## ⚠️ Secretos que faltan (bloquean funciones reales)
+| Variable | Para qué |
+|---|---|
+| `ANTHROPIC_API_KEY` | Chatbot con IA (sin ella responde con honestidad que no está disponible) |
+| `WOMPI_PRIVATE_KEY`, `WOMPI_EVENTS_SECRET` | Pagos (por ahora solo Nequi) |
+| `META_ACCESS_TOKEN`, `META_PHONE_NUMBER_ID`, `META_VERIFY_TOKEN` | WhatsApp Cloud API |
+| `RESEND_API_KEY` | Correos |
+| `TURNSTILE_SECRET_KEY` | Protección de formularios públicos |
+
+Se configuran en **Vercel → Settings → Environment Variables** y en `.env.local`.
 
 ## Herramientas cableadas
 - **MCP**: `filesystem` ✓, `playwright` ✓ (Chromium 1248), `context7` (en `opencode.json` del proyecto), `rea` (deshabilitado).
 - La config global tenía `type: "stdio"` y `env`; V2 exige `"local"` y `"environment"`. Corregido (backup `opencode.jsonc.bak.pre-mcpfix-*`).
-- **Orca**: repo registrado, base ref `fase-1b-antigravity`. Agentes reconocidos: `antigravity` (sin cuota: *Individual quota reached, reset en ~85 h*), `codex` (auth), `cursor`, `claude`, `gemini`, `omp`, `grok`, `codebuddy`.
-- El agente Antigravity se quedó sin cuota; el cambio de acento se ejecutó con **Codex vía Orca** (worktree `fe-acento-verde-agua`). `git diff --check` pasó y la búsqueda estática no encontró amarillo. Verificador sin fallos en las 11 pantallas.
-- `opencode.json` del proyecto: MCP scoped al repo. La sesión debe estar en la carpeta del repo para cargarla (la sesión en `/home/andresdev` usa la config global).
+- **Orca**: repo registrado, base ref `fase-1b-antigravity`. `antigravity` sin cuota (reset ~85 h); `codex`, `cursor`, `claude`, `gemini` disponibles.
+- `opencode.json` del proyecto: MCP scoped al repo. La sesión debe estar en la carpeta del repo para cargarla.
 
 ## Verificación
-`node tools/verificar-maqueta.mjs <archivo> 320 360 390 768 1024 1440`
+- `node tools/verificar-maqueta.mjs <archivo> 320 360 390 768 1024 1440` (maquetas: sin fallos)
+- `node scripts/migrate.mjs` (migraciones + seed) · `node scripts/duotono.sh` (duotono de fotos)
+- `npm run chatbot:probar` (batería del chatbot, requiere la clave)
 
 ## Referencias clave
-- Spike desechable: `docs/diseno/maquetas/inicio-signal-spike.html`, `_spike-signal.css`
 - Backups pre-porte: `/tmp/opencode/_base.css.bak-portado`, `/tmp/opencode/tokens.css.bak-portado`
-- Rama git: `fase-1b-antigravity`
-- Regla AGENTS.md: no tocar `identidad-visual/marca/` (solo lectura), no publicar referencias prohibidas, datos POR CONFIRMAR con ese rótulo.
+- Créditos de fotos: `public/assets/fotos/CREDITOS.md`
+- Regla AGENTS.md: no tocar `identidad-visual/marca/` (solo lectura), **no publicar** `identidad-visual/referencia/`, datos POR CONFIRMAR con ese rótulo.
