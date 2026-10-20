@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cobertura — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="¿Llega la señal de Bajo Tigui a su casa en El Bagre, Antioquia? Consulte su barrio o dirección por WhatsApp al 314 718 2506. Zonas exactas de cobertura pendientes de confirmación.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Cobertura» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .co-section[id] { scroll-margin-top: 5.5rem; }
+
+    /* --- navegación: los seis enlaces necesitan 64rem para no apretarse --- */
+    .co-nav .bt-nav__brand { min-height: 44px; }
+    .co-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .co-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .co-nav .bt-nav__links { display: flex; }
+    }
+    .co-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    @media (max-width: 23rem) {
+      .co-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .co-aviso { padding-top: var(--bt-space-4); }
+    /* AA: el texto pequeño del tag no puede ir blanco sobre naranja (3,0:1). */
+    .co-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .co-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .co-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -7rem;
+      right: -9rem;
+      width: min(50rem, 112vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.15;
+    }
+    .co-hero__grid {
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .co-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .co-hero__title {
+      font-size: clamp(2.25rem, 1.2rem + 4.4vw, 3.7rem);
+      line-height: 0.94;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .co-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .co-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+      max-width: 46ch;
+    }
+    .co-hero__pills { list-style: none; margin: var(--bt-space-5) 0 0; padding: 0; }
+    .co-hero__ctas { margin-top: var(--bt-space-6); }
+    .co-hero__meta {
+      margin-top: var(--bt-space-5);
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+
+    /* Casa en la azotea: dibujo propio, sin fotos ni caras de los flyers. */
+    .co-fig {
+      position: relative;
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      padding: clamp(0.75rem, 2.5vw, 1.4rem);
+      transform: rotate(-1.2deg);
+      max-width: 30rem;
+      margin-inline: auto;
+      width: 100%;
+    }
+    .co-fig svg { width: 100%; height: auto; display: block; }
+    .co-fig__ink {
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .co-fig__dash {
+      fill: none;
+      stroke: var(--bt-navy-800);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 8 10;
+    }
+    .co-fig__paper { fill: var(--bt-paper-50); }
+    .co-fig__sun { fill: var(--bt-yellow-400); }
+    .co-fig__sky { fill: var(--bt-sky-400); }
+    .co-fig__navy { fill: var(--bt-navy-800); }
+    .co-fig__orange { fill: var(--bt-orange-500); }
+    .co-fig__sticker {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-4));
+      right: var(--bt-space-4);
+    }
+    .co-fig__caption {
+      margin: var(--bt-space-3) 0 0;
+      padding-top: var(--bt-space-2);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-ink-900) 35%, transparent);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.4;
+      color: var(--bt-ink-900);
+      text-align: center;
+    }
+
+    /* ============================ MAPA ======================================= */
+    .co-mapa-grid {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 62rem) {
+      .co-mapa-grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .co-mapa-card {
+      position: relative;
+      background: var(--bt-paper-50);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      padding: clamp(0.75rem, 2vw, 1.25rem);
+    }
+    .co-mapa-card svg { width: 100%; height: auto; display: block; }
+    .co-mapa-card__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--bt-space-2) var(--bt-space-3);
+      margin-bottom: var(--bt-space-3);
+    }
+    .co-mapa__tag {
+      padding: 0.35rem 0.7rem;
+      background: var(--bt-yellow-400);
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+      color: var(--bt-ink-900);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+    }
+    .co-mapa__pend {
+      transform: rotate(-2deg);
+      font-size: var(--bt-fs-2xs);
+      line-height: 1.25;
+      text-align: center;
+    }
+    .co-mapa__line {
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 4;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+    .co-mapa__road {
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 2 9;
+    }
+    .co-mapa__paper { fill: var(--bt-paper-50); }
+    .co-mapa__aqua { fill: var(--bt-aqua-500); }
+    .co-mapa__sky { fill: var(--bt-sky-400); }
+    .co-mapa__yellow { fill: var(--bt-yellow-400); }
+    .co-mapa__water { fill: none; stroke: var(--bt-sky-400); stroke-width: 42; }
+    .co-mapa__water-ink { fill: none; stroke: var(--bt-ink-900); stroke-width: 50; }
+    .co-mapa__water-line { fill: none; stroke: var(--bt-navy-800); stroke-width: 2.5; stroke-dasharray: 12 14; }
+    .co-mapa__pin { fill: var(--bt-orange-500); stroke: var(--bt-ink-900); stroke-width: 3; }
+    .co-mapa__hatch { fill: url(#co-hatch); stroke: var(--bt-orange-500); stroke-width: 3; stroke-dasharray: 9 8; }
+    .co-mapa__hatch-line { stroke: var(--bt-orange-500); stroke-width: 2; }
+    .co-mapa__name {
+      font-family: var(--bt-font-display);
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      fill: var(--bt-ink-900);
+      text-transform: uppercase;
+    }
+    .co-mapa__small {
+      font-family: var(--bt-font-body);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      fill: var(--bt-navy-800);
+      text-transform: uppercase;
+    }
+    .co-leyenda {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-3);
+    }
+    .co-leyenda li {
+      display: grid;
+      grid-template-columns: 2rem minmax(0, 1fr);
+      gap: var(--bt-space-3);
+      align-items: start;
+      padding-bottom: var(--bt-space-3);
+      border-bottom: 2px dashed var(--bt-border-soft);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.4;
+    }
+    .co-leyenda li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .co-leyenda__swatch {
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-sm);
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+    }
+    .co-leyenda__swatch--hatch {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        var(--bt-orange-500) 0 2px,
+        transparent 2px 7px
+      );
+      background-color: var(--bt-paper-50);
+    }
+    .co-leyenda__swatch--water { background: var(--bt-sky-400); }
+    .co-leyenda__swatch--home { background: var(--bt-orange-500); border-radius: 50%; }
+    .co-leyenda strong { display: block; }
+    .co-leyenda small {
+      display: block;
+      margin-top: var(--bt-space-1);
+      color: var(--bt-text-soft);
+      font-size: var(--bt-fs-xs);
+    }
+    .co-mapa-nota {
+      margin: var(--bt-space-5) 0 0;
+      max-width: 62ch;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .co-mapa-nota--light { color: var(--bt-sky-200); }
+    .co-mapa-pend { display: flex; width: 100%; margin-top: var(--bt-space-5); }
+
+    /* ============================ CONSULTA =================================== */
+    .co-consulta {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .co-consulta {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .co-pasos {
+      list-style: none;
+      margin: var(--bt-space-6) 0 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-4);
+      counter-reset: co-paso;
+    }
+    .co-paso {
+      display: grid;
+      grid-template-columns: 2.75rem minmax(0, 1fr);
+      gap: var(--bt-space-4);
+      align-items: start;
+      padding-bottom: var(--bt-space-4);
+      border-bottom: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+    }
+    .co-paso:last-child { border-bottom: 0; padding-bottom: 0; }
+    .co-paso__num {
+      display: grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      background: var(--bt-yellow-400);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 3px 3px 0 var(--bt-ink-900);
+      color: var(--bt-ink-900);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .co-paso:nth-child(2) .co-paso__num { background: var(--bt-aqua-500); }
+    .co-paso:nth-child(3) .co-paso__num { background: var(--bt-sky-400); }
+    .co-paso__body { min-width: 0; }
+    .co-paso__title {
+      margin: 0 0 var(--bt-space-1);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+      color: var(--bt-white);
+    }
+    .co-paso__text {
+      margin: 0;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 52ch;
+    }
+    .co-tel {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+      min-height: 48px;
+      margin-top: var(--bt-space-5);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.7rem, 1.1rem + 2.4vw, 2.6rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--bt-sky-300);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .co-tel svg { width: 30px; height: 30px; flex: 0 0 auto; fill: currentColor; }
+    .co-tel:hover { color: var(--bt-yellow-400); }
+    .co-tel-card {
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      padding: clamp(1.25rem, 3vw, 2rem);
+      position: relative;
+      transform: rotate(1deg);
+    }
+    .co-tel-card__kicker { color: var(--bt-sky-400); }
+    .co-tel-card__txt {
+      margin: var(--bt-space-3) 0 0;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .co-tel-card__cta { margin-top: var(--bt-space-4); }
+    .co-tel-card .co-tel { margin-top: var(--bt-space-3); font-size: clamp(1.55rem, 1rem + 2vw, 2.1rem); }
+    .co-tel-card__dl {
+      margin: var(--bt-space-5) 0 0;
+      display: grid;
+      gap: var(--bt-space-2);
+      font-size: var(--bt-fs-sm);
+    }
+    .co-tel-card__row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 0.75rem;
+      padding-top: var(--bt-space-2);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 40%, transparent);
+    }
+    .co-tel-card__row dt { color: var(--bt-sky-400); font-weight: var(--bt-fw-bold); }
+    .co-tel-card__row dd { margin: 0; min-width: 0; color: var(--bt-sky-200); }
+
+    /* ============================ REQUISITOS ================================= */
+    .co-section--sunken .bt-kicker { color: var(--bt-brand); }
+    .co-requisitos {
+      display: grid;
+      gap: var(--bt-space-6);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 52rem) {
+      .co-requisitos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .co-req {
+      min-width: 0;
+      padding-top: var(--bt-space-4);
+      border-top: var(--bt-border-w-thick) solid var(--bt-border);
+    }
+    .co-req__head { display: flex; align-items: center; gap: var(--bt-space-3); }
+    .co-req__icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+    }
+    .co-req:nth-child(2) .co-req__icon { background: var(--bt-yellow-400); }
+    .co-req__icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .co-req__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+    }
+    .co-req p { margin: var(--bt-space-3) 0 0; max-width: 46ch; }
+    .co-req__nota {
+      margin: var(--bt-space-2) 0 0;
+      font-size: var(--bt-fs-xs);
+      line-height: 1.45;
+      color: var(--bt-text-soft);
+    }
+    .co-pend {
+      display: flex;
+      width: 100%;
+      max-width: 70ch;
+      margin-top: var(--bt-space-6);
+    }
+    .co-nota-final {
+      margin: var(--bt-space-6) 0 0;
+      padding: clamp(1.2rem, 3vw, 1.75rem);
+      background: var(--bt-paper-50);
+      border: 2px dashed var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      max-width: 62ch;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+
+    /* ============================ CIERRE ===================================== */
+    .co-cierre {
+      position: relative;
+      background: var(--bt-paper-50);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 10px 10px 0 var(--bt-aqua-500);
+      padding: clamp(1.5rem, 5vw, 3rem);
+    }
+    .co-cierre__sticker {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-4));
+      right: clamp(1rem, 4vw, 2.5rem);
+    }
+    .co-cierre__line {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+      line-height: 0.98;
+      letter-spacing: var(--bt-ls-display);
+      text-transform: uppercase;
+    }
+    .co-cierre__txt { margin: var(--bt-space-4) 0 0; max-width: 50ch; }
+    .co-cierre__ctas { margin-top: var(--bt-space-5); }
+    .co-cierre__nota {
+      margin: var(--bt-space-5) 0 0;
+      padding-top: var(--bt-space-4);
+      border-top: 2px dashed var(--bt-border-soft);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+      max-width: 62ch;
+    }
+
+    /* ============================ PIE ======================================== */
+    .co-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .co-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .co-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    .co-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .co-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .co-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    /* El display:flex del sistema anula el [hidden] del navegador. */
+    .co-chat .bt-chat-panel[hidden] { display: none; }
+    .co-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .co-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    .co-chat .bt-chat-quick button,
+    .co-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .co-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="co-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html">Cómo funciona</a></li>
+          <li><a href="cobertura.html" aria-current="page">Cobertura</a></li>
+          <li><a href="canales.html">Canales</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272-.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="co-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE (semilla inactiva; encendida para revisar
+     el diseño, igual que en Inicio y Planes)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container co-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · la pregunta, sin promesas
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy co-hero" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs co-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="co-hero__grid">
+        <div>
+          <p class="bt-kicker">Cobertura · El Bagre, Antioquia</p>
+          <h1 class="bt-display co-hero__title" id="h-portada">
+            ¿Llega a<br>
+            <span class="bt-brush bt-brush--sky">mi casa</span>?
+          </h1>
+          <p class="bt-lead co-hero__lead">
+            No le vamos a decir que cubrimos todo el municipio: eso todavía no está
+            confirmado. Escríbanos su barrio o su dirección y le contestamos con la verdad
+            que haya hoy.
+          </p>
+
+          <ul class="bt-cluster co-hero__pills" role="list" aria-label="Cómo se consulta la cobertura">
+            <li class="bt-pill bt-pill--aqua">Casa por casa</li>
+            <li class="bt-pill bt-pill--sun">Sin promesas de más</li>
+            <li class="bt-pill">Contesta una persona</li>
+          </ul>
+
+          <div class="bt-cluster co-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Preguntar si la señal llega a una dirección por WhatsApp o llamada al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272-.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Preguntar por mi dirección
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver el plan</a>
+          </div>
+
+          <p class="co-hero__meta">
+            Lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. ·
+            WhatsApp y llamadas: 314&nbsp;718&nbsp;2506
+          </p>
+        </div>
+
+        <figure class="co-fig">
+          <span class="bt-sticker bt-sticker--sun co-fig__sticker">Casa por casa</span>
+          <svg viewBox="0 0 560 420" role="img" aria-label="Ilustración: una casa de El Bagre con su parabólica en el techo y las ondas de la señal llegando desde arriba">
+            <!-- ondas de la señal -->
+            <path d="M262 34 A 62 62 0 0 1 340 34" class="co-fig__dash"/>
+            <path d="M278 8 A 88 88 0 0 1 360 8" class="co-fig__dash"/>
+            <path d="M246 60 A 38 38 0 0 1 322 60" class="co-fig__dash"/>
+
+            <!-- cerro / horizonte -->
+            <path d="M-10 250 C 60 214, 120 228, 176 246 C 236 266, 300 258, 356 238 C 420 216, 490 226, 570 250"
+                  class="co-fig__ink"/>
+            <path d="M-10 250 L-10 300 L570 300 L570 250 Z" class="co-fig__sky"/>
+
+            <!-- casa -->
+            <rect x="132" y="232" width="216" height="122" class="co-fig__paper co-fig__ink"/>
+            <path d="M112 236 L240 148 L368 236 Z" class="co-fig__orange co-fig__ink"/>
+            <rect x="158" y="258" width="52" height="52" class="co-fig__sky co-fig__ink"/>
+            <path d="M184 258 V310 M158 284 H210" class="co-fig__ink" stroke-width="2.5"/>
+            <rect x="238" y="286" width="58" height="68" class="co-fig__sky co-fig__ink"/>
+            <circle cx="284" cy="320" r="3.5" class="co-fig__navy"/>
+            <path d="M240 286 H294" class="co-fig__ink" stroke-width="2.5"/>
+
+            <!-- parabólica en el techo -->
+            <g transform="rotate(-24 300 160)">
+              <path d="M268 160 A 34 52 0 0 1 332 160 Z" class="co-fig__sun co-fig__ink"/>
+              <path d="M300 160 V204" class="co-fig__ink"/>
+              <circle cx="300" cy="160" r="5" class="co-fig__orange co-fig__ink" stroke-width="2.5"/>
+              <path d="M286 170 L314 170" class="co-fig__ink" stroke-width="2.5"/>
+            </g>
+            <path d="M300 204 V232" class="co-fig__ink"/>
+
+            <!-- piso y matas -->
+            <path d="M-10 354 H570" class="co-fig__ink"/>
+            <path d="M82 354 C 76 338, 90 328, 97 336 C 104 326, 118 334, 114 354 Z" class="co-fig__orange co-fig__ink"/>
+            <path d="M366 354 C 360 342, 372 334, 379 340 C 386 332, 398 340, 394 354 Z" class="co-fig__ink"/>
+            <path d="M434 354 C 430 336, 446 326, 454 334 C 464 326, 478 336, 472 354 Z" class="co-fig__ink"/>
+          </svg>
+          <figcaption class="co-fig__caption">
+            Dibujo del barrio. La parabólica se instala en el techo; si la red llega al
+            sector, se lo decimos antes de subir.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       MAPA · dibujo de referencia, no polígono
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper co-section" id="mapa" aria-labelledby="h-mapa">
+    <div class="bt-container">
+      <p class="bt-kicker">El mapa</p>
+      <h2 class="bt-display bt-display--2xl" id="h-mapa">
+        El mapa todavía<br>
+        va <span class="bt-brush">a lápiz.</span>
+      </h2>
+      <p class="bt-lead">
+        Este es un dibujo de referencia del municipio y sus alrededores. Sirve para
+        conversar, no para prometer: el polígono real de cobertura no está confirmado.
+      </p>
+
+      <div class="co-mapa-grid">
+        <div class="co-mapa-card">
+          <div class="co-mapa-card__head">
+            <span class="co-mapa__tag">Dibujo de referencia</span>
+            <span class="bt-sticker bt-sticker--sun co-mapa__pend">Zonas por confirmar</span>
+          </div>
+          <svg viewBox="0 0 760 520" role="img" aria-label="Mapa ilustrado de referencia de El Bagre y sus alrededores: bloques de barrio, un río, vías y casas marcadas. No es un polígono real de cobertura.">
+            <!-- tierra -->
+            <path d="M20 96 C 120 62, 210 88, 288 70 C 380 48, 452 74, 540 62 C 636 48, 700 78, 740 112
+                     L 740 430 C 664 464, 596 446, 520 464 C 430 486, 360 456, 282 470
+                     C 192 486, 104 462, 20 440 Z"
+                  class="co-mapa__aqua co-mapa__line"/>
+
+            <!-- río que cruza el municipio -->
+            <path d="M-10 200 C 96 212, 150 166, 236 190 C 318 212, 356 268, 436 268
+                     C 520 268, 578 214, 770 238" class="co-mapa__water-ink"/>
+            <path d="M-10 200 C 96 212, 150 166, 236 190 C 318 212, 356 268, 436 268
+                     C 520 268, 578 214, 770 238" class="co-mapa__water"/>
+            <path d="M-10 200 C 96 212, 150 166, 236 190 C 318 212, 356 268, 436 268
+                     C 520 268, 578 214, 770 238" class="co-mapa__water-line"/>
+
+            <!-- bloques de barrio (formas, no nombres reales) -->
+            <path d="M86 116 L190 104 L206 168 L150 200 L92 176 Z" class="co-mapa__paper co-mapa__line"/>
+            <path d="M224 108 L318 100 L330 158 L246 170 Z" class="co-mapa__yellow co-mapa__line"/>
+            <path d="M100 252 L196 236 L214 322 L126 342 Z" class="co-mapa__sky co-mapa__line"/>
+            <path d="M252 306 L348 296 L362 384 L270 396 Z" class="co-mapa__paper co-mapa__line"/>
+            <path d="M472 120 L566 110 L578 186 L492 198 Z" class="co-mapa__paper co-mapa__line"/>
+            <path d="M596 292 L690 286 L700 372 L610 380 Z" class="co-mapa__sky co-mapa__line"/>
+            <path d="M394 330 L466 322 L476 400 L402 406 Z" class="co-mapa__yellow co-mapa__line"/>
+
+            <!-- zona sin confirmar, rayada -->
+            <path d="M486 226 L616 216 L630 326 L498 342 Z" class="co-mapa__hatch"/>
+            <defs>
+              <pattern id="co-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="9" class="co-mapa__hatch-line"/>
+              </pattern>
+            </defs>
+
+            <!-- vías -->
+            <path d="M60 380 C 160 350, 240 356, 330 300 C 420 244, 470 214, 552 208 C 620 204, 680 220, 726 244"
+                  class="co-mapa__road"/>
+            <path d="M196 84 C 214 156, 250 210, 300 250 C 358 296, 396 348, 408 438" class="co-mapa__road"/>
+
+            <!-- casas marcadas (ilustrativas) -->
+            <g>
+              <circle cx="150" cy="150" r="9" class="co-mapa__pin"/>
+              <circle cx="282" cy="132" r="9" class="co-mapa__pin"/>
+              <circle cx="164" cy="292" r="9" class="co-mapa__pin"/>
+              <circle cx="312" cy="350" r="9" class="co-mapa__pin"/>
+              <circle cx="532" cy="156" r="9" class="co-mapa__pin"/>
+              <circle cx="646" cy="332" r="9" class="co-mapa__pin"/>
+            </g>
+
+            <text x="44" y="446" class="co-mapa__name">El Bagre</text>
+            <text x="560" y="452" class="co-mapa__small">Alrededores</text>
+            <text x="316" y="150" class="co-mapa__small">Río</text>
+          </svg>
+        </div>
+
+        <div>
+          <h3 class="bt-display bt-display--lg">Qué dice y qué no dice</h3>
+          <ul class="co-leyenda">
+            <li>
+              <span class="co-leyenda__swatch co-leyenda__swatch--hatch" aria-hidden="true"></span>
+              <span>
+                <strong>Zona rayada</strong>
+                <small>Área de cobertura: POR CONFIRMAR. No representa un sector real.</small>
+              </span>
+            </li>
+            <li>
+              <span class="co-leyenda__swatch co-leyenda__swatch--water" aria-hidden="true"></span>
+              <span>
+                <strong>El río</strong>
+                <small>Referencia geográfica del municipio, no un límite de cobertura.</small>
+              </span>
+            </li>
+            <li>
+              <span class="co-leyenda__swatch co-leyenda__swatch--home" aria-hidden="true"></span>
+              <span>
+                <strong>Las casas</strong>
+                <small>Puntos de ejemplo para mostrar el dibujo. No son direcciones atendidas.</small>
+              </span>
+            </li>
+            <li>
+              <span class="co-leyenda__swatch" aria-hidden="true"></span>
+              <span>
+                <strong>Los bloques</strong>
+                <small>Formas de barrio sin nombre: los barrios y veredas con cobertura están POR CONFIRMAR.</small>
+              </span>
+            </li>
+          </ul>
+
+          <div class="bt-por-confirmar co-mapa-pend" role="note" aria-label="Cobertura por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Las zonas exactas de cobertura —barrios, veredas y el polígono sobre el mapa—
+              están pendientes de confirmación con la administración. Este dibujo no se
+              publica como mapa definitivo.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CONSULTA · cómo se responde una dirección
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy co-section" id="consulta" aria-labelledby="h-consulta">
+    <div class="bt-container">
+      <div class="co-consulta">
+        <div>
+          <p class="bt-kicker">¿Llega a mi casa?</p>
+          <h2 class="bt-display bt-display--2xl" id="h-consulta">
+            Pregúntenos<br>
+            por <span class="bt-brush bt-brush--sky">su dirección.</span>
+          </h2>
+          <p class="bt-lead" style="color: var(--bt-sky-200);">
+            Un mensaje con el barrio o la dirección es suficiente para empezar. No tiene
+            que llenar formularios largos ni saberse el nombre de la red.
+          </p>
+
+          <ol class="co-pasos">
+            <li class="co-paso">
+              <span class="co-paso__num" aria-hidden="true">1</span>
+              <div class="co-paso__body">
+                <h3 class="co-paso__title">Escriba o llame</h3>
+                <p class="co-paso__text">
+                  Díganos el barrio, la vereda o la dirección, y un teléfono para responderle.
+                  Al 314&nbsp;718&nbsp;2506, de lunes a viernes.
+                </p>
+              </div>
+            </li>
+            <li class="co-paso">
+              <span class="co-paso__num" aria-hidden="true">2</span>
+              <div class="co-paso__body">
+                <h3 class="co-paso__title">Miramos su sector</h3>
+                <p class="co-paso__text">
+                  Revisamos si hay red en esa parte del municipio. Si no la hay, se lo decimos
+                  de una, sin dar vueltas.
+                </p>
+              </div>
+            </li>
+            <li class="co-paso">
+              <span class="co-paso__num" aria-hidden="true">3</span>
+              <div class="co-paso__body">
+                <h3 class="co-paso__title">Le contestamos</h3>
+                <p class="co-paso__text">
+                  Con un sí o un no claro, y qué sigue si la respuesta es sí. Sin fechas
+                  inventadas ni promesas que no podamos cumplir.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="bt-por-confirmar" role="note" aria-label="Tiempos y requisitos por confirmar" style="margin-top: var(--bt-space-5);">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Los tiempos de visita e instalación, la instalación gratis y los requisitos
+              documentales todavía no están confirmados por la administración.
+            </span>
+          </div>
+        </div>
+
+        <aside class="co-tel-card" aria-label="La línea directa">
+          <p class="bt-kicker co-tel-card__kicker">La línea directa</p>
+          <p class="co-tel-card__txt">
+            WhatsApp y llamadas. Contesta una persona, no una máquina.
+          </p>
+
+          <a class="co-tel" href="tel:+573147182506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272-.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            314&nbsp;718&nbsp;2506
+          </a>
+
+          <div class="bt-cluster co-tel-card__cta">
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272-.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+          </div>
+
+          <dl class="co-tel-card__dl">
+            <div class="co-tel-card__row">
+              <dt>Horario</dt>
+              <dd>Lun – Vie, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</dd>
+            </div>
+            <div class="co-tel-card__row">
+              <dt>Sin atención</dt>
+              <dd>Sábados, domingos y festivos.</dd>
+            </div>
+            <div class="co-tel-card__row">
+              <dt>Hora</dt>
+              <dd>Colombia (America/Bogota).</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       REQUISITOS · lo mínimo para saber si llega
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken co-section co-section--sunken" id="requisitos" aria-labelledby="h-requisitos">
+    <div class="bt-container">
+      <p class="bt-kicker">Para consultar</p>
+      <h2 class="bt-display bt-display--2xl" id="h-requisitos">
+        Solo necesita<br>
+        <span class="bt-brush bt-brush--orange">dos cosas.</span>
+      </h2>
+      <p class="bt-lead">
+        No le vamos a pedir una lista larga que todavía no está definida. Para saber si la
+        señal llega a su casa, con esto basta.
+      </p>
+
+      <div class="co-requisitos">
+        <article class="co-req">
+          <div class="co-req__head">
+            <span class="co-req__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21s7-5.2 7-11a7 7 0 10-14 0c0 5.8 7 11 7 11z"/>
+                <circle cx="12" cy="10" r="2.5"/>
+              </svg>
+            </span>
+            <h3 class="co-req__title">Una dirección o un punto de referencia</h3>
+          </div>
+          <p>
+            El barrio o la vereda donde vive, y si puede, la dirección o una referencia
+            fácil de ubicar: la tienda de la esquina, la escuela, la cancha.
+          </p>
+          <p class="co-req__nota">
+            Debe quedar dentro de la cobertura. Qué zonas están cubiertas: por confirmar.
+          </p>
+        </article>
+
+        <article class="co-req">
+          <div class="co-req__head">
+            <span class="co-req__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 3h4l2 5-3 2a12 12 0 004 4l2-3 5 2v4a2 2 0 01-2 2A16 16 0 015 5a2 2 0 012-2z"/>
+              </svg>
+            </span>
+            <h3 class="co-req__title">Un teléfono de contacto</h3>
+          </div>
+          <p>
+            El mismo número por donde nos escribe o nos llama, para ubicarlo y confirmar
+            la visita. Puede ser fijo o celular.
+          </p>
+          <p class="co-req__nota">
+            No pedimos documentos en esta consulta: los requisitos formales están por confirmar.
+          </p>
+        </article>
+      </div>
+
+      <div class="bt-por-confirmar co-pend" role="note" aria-label="Datos de cobertura por confirmar">
+        <span class="bt-por-confirmar__tag">Por confirmar</span>
+        <span>
+          Zonas exactas de cobertura, polígono sobre el mapa, requisitos documentales,
+          tiempos de instalación e instalación gratis: pendientes de confirmación con la
+          administración. Nada de esto se anuncia como definitivo.
+        </span>
+      </div>
+
+      <p class="co-nota-final">
+        Si su casa queda en un sector donde todavía no hay red, se lo decimos antes de
+        agendar cualquier cosa. Preferimos una respuesta honesta a una visita que no sirve.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper co-section" id="cierre" aria-labelledby="h-cierre">
+    <div class="bt-container">
+      <div class="co-cierre">
+        <span class="bt-sticker bt-sticker--aqua co-cierre__sticker">Sin ánimo de lucro</span>
+        <p class="bt-kicker">Empecemos por su casa</p>
+        <h2 class="co-cierre__line" id="h-cierre">
+          La señal se consulta,<br>
+          <span class="bt-brush bt-brush--orange">no se supone.</span>
+        </h2>
+        <p class="co-cierre__txt">
+          Un mensaje con su barrio y le contestamos si hay red. Si la hay, miramos el plan
+          de <b>$70.000 al mes</b> con internet de 50 Mbps de descarga y 90 canales SD + HD.
+        </p>
+
+        <div class="bt-cluster co-cierre__ctas">
+          <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+             aria-label="Preguntar por la cobertura por WhatsApp o llamada al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272-.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            Escribir por WhatsApp
+          </a>
+          <a class="bt-btn bt-btn--outline bt-btn--lg" href="tel:+573147182506">
+            Llamar al 314&nbsp;718&nbsp;2506
+          </a>
+          <a class="bt-btn bt-btn--ghost bt-btn--lg" href="planes.html">Ver planes y precios</a>
+        </div>
+
+        <p class="co-cierre__nota">
+          <b>Recuerde señor asociado: que me es cumplido, me es pago.</b>
+          Las condiciones de la promoción y de la instalación se confirman con la administración.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="co-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list co-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list co-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="co-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="co-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT — botón flotante + panel (abre con JS en
+     producción; en la maqueta el panel vive cerrado y no hay JS)
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="co-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="co-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272-.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>

@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canales — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="90 canales SD + HD por antena parabólica en El Bagre, Antioquia. La parrilla real —cuáles son y en qué número— está pendiente de confirmación. Pregunte por WhatsApp al 314 718 2506.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Canales» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .ca-section[id] { scroll-margin-top: 5.5rem; }
+    /* AA sobre el gris del sistema: el kicker pequeño va en navy (8,9:1). */
+    .ca-section--sunken .bt-kicker { color: var(--bt-brand); }
+
+    /* --- navegación: los seis enlaces necesitan 64rem para no apretarse --- */
+    .ca-nav .bt-nav__brand { min-height: 44px; }
+    .ca-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .ca-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .ca-nav .bt-nav__links { display: flex; }
+    }
+    .ca-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    @media (max-width: 23rem) {
+      .ca-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .ca-aviso { padding-top: var(--bt-space-4); }
+    /* AA: el texto pequeño del tag no puede ir blanco sobre naranja (3,0:1). */
+    .ca-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .ca-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .ca-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -7rem;
+      right: -9rem;
+      width: min(50rem, 112vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.15;
+    }
+    .ca-hero__grid {
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .ca-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .ca-hero__title {
+      font-size: clamp(2.4rem, 1.2rem + 5vw, 4.1rem);
+      line-height: 0.92;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .ca-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .ca-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+      max-width: 46ch;
+    }
+    .ca-hero__pills { list-style: none; margin: var(--bt-space-5) 0 0; padding: 0; }
+    .ca-hero__ctas { margin-top: var(--bt-space-6); }
+    .ca-hero__meta {
+      margin-top: var(--bt-space-5);
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+
+    /* Televisor dibujado: barras de prueba y el 90 como sello. */
+    .ca-tv {
+      position: relative;
+      width: 100%;
+      max-width: 31rem;
+      margin-inline: auto;
+      padding: clamp(1rem, 3vw, 1.75rem);
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      transform: rotate(1.2deg);
+    }
+    .ca-tv svg { width: 100%; height: auto; display: block; }
+    .ca-tv__ink {
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .ca-tv__navy { fill: var(--bt-navy-800); }
+    .ca-tv__paper { fill: var(--bt-paper-50); }
+    .ca-tv__yellow { fill: var(--bt-yellow-400); }
+    .ca-tv__sky { fill: var(--bt-sky-400); }
+    .ca-tv__aqua { fill: var(--bt-aqua-500); }
+    .ca-tv__orange { fill: var(--bt-orange-500); }
+    .ca-tv__bars { stroke: var(--bt-ink-900); stroke-width: 4; }
+    .ca-tv__badge {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-4));
+      right: var(--bt-space-4);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.1;
+    }
+    .ca-tv__caption {
+      margin: var(--bt-space-3) 0 0;
+      padding-top: var(--bt-space-2);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-ink-900) 35%, transparent);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.4;
+      color: var(--bt-ink-900);
+      text-align: center;
+    }
+
+    /* ============================ LA OFERTA ================================== */
+    .ca-oferta {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .ca-oferta {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .ca-numero {
+      position: relative;
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 10px 10px 0 var(--bt-yellow-400);
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      transform: rotate(-1.2deg);
+    }
+    .ca-numero__kicker { color: var(--bt-sky-400); }
+    .ca-numero__big {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-valla);
+      font-size: clamp(5.5rem, 4rem + 10vw, 10rem);
+      line-height: 0.82;
+      letter-spacing: var(--bt-ls-display);
+      color: var(--bt-yellow-400);
+      font-variant-numeric: tabular-nums;
+    }
+    .ca-numero__sub {
+      margin: var(--bt-space-2) 0 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+      color: var(--bt-white);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .ca-numero__txt {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .ca-numero__pend {
+      position: relative;
+      display: flex;
+      width: 100%;
+      margin-top: var(--bt-space-5);
+      background: var(--bt-paper-50);
+    }
+    .ca-ficha {
+      margin: var(--bt-space-6) 0 0;
+      padding: 0;
+      border-top: var(--bt-border-w-thick) solid var(--bt-border);
+    }
+    .ca-ficha__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--bt-space-4);
+      align-items: baseline;
+      padding-block: var(--bt-space-4);
+      border-bottom: 2px dashed var(--bt-border-soft);
+    }
+    .ca-ficha__row dt {
+      font-weight: var(--bt-fw-bold);
+      color: var(--bt-brand);
+    }
+    .ca-ficha__row dd {
+      margin: 0;
+      min-width: 0;
+      text-align: right;
+      font-size: var(--bt-fs-sm);
+      overflow-wrap: anywhere;
+    }
+    .ca-ficha__row dd b {
+      font-family: var(--bt-font-display);
+      font-size: var(--bt-fs-lg);
+      line-height: 1;
+    }
+    .ca-ficha__row--pend dd { color: var(--bt-text-soft); font-weight: var(--bt-fw-bold); }
+    /* En móvil la etiqueta y el dato se apilan: alineados a la derecha, el
+       dato largo quedaba en una columna de tres renglones. */
+    @media (max-width: 30rem) {
+      .ca-ficha__row { grid-template-columns: minmax(0, 1fr); gap: var(--bt-space-1); }
+      .ca-ficha__row dd { text-align: left; }
+    }
+    .ca-oferta__nota {
+      margin: var(--bt-space-5) 0 0;
+      padding: clamp(1.1rem, 3vw, 1.5rem);
+      background: var(--bt-bg-raised);
+      border: 2px dashed var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 56ch;
+    }
+
+    /* ============================ PARRILLA =================================== */
+    .ca-parrilla-wrap {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 62rem) {
+      .ca-parrilla-wrap {
+        grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .ca-parrilla {
+      background: var(--bt-paper-50);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      padding: clamp(1.1rem, 3vw, 1.75rem);
+      color: var(--bt-ink-900);
+    }
+    .ca-parrilla__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--bt-space-2) var(--bt-space-4);
+      padding-bottom: var(--bt-space-3);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+    }
+    .ca-parrilla__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .ca-parrilla__edicion {
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      color: var(--bt-brand);
+    }
+    .ca-slots {
+      display: grid;
+      gap: 0 var(--bt-space-6);
+      margin: var(--bt-space-2) 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    @media (min-width: 44rem) {
+      .ca-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .ca-slot {
+      display: grid;
+      grid-template-columns: 2.1rem minmax(0, 1fr) auto;
+      gap: var(--bt-space-2);
+      align-items: center;
+      min-height: 48px;
+      border-bottom: 2px dashed var(--bt-border-soft);
+    }
+    .ca-slot__num {
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-sm);
+      color: var(--bt-brand);
+      font-variant-numeric: tabular-nums;
+    }
+    .ca-slot__bar {
+      height: 14px;
+      border: 2px solid var(--bt-border);
+      border-radius: var(--bt-radius-pill);
+      background-color: var(--bt-paper-50);
+      background-image: repeating-linear-gradient(
+        -55deg,
+        var(--bt-orange-500) 0 2px,
+        transparent 2px 8px
+      );
+    }
+    .ca-slot__lbl {
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--bt-text-soft);
+      white-space: nowrap;
+    }
+    .ca-parrilla__foot {
+      margin: var(--bt-space-3) 0 0;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed var(--bt-border-soft);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.4;
+      color: var(--bt-text-soft);
+    }
+    .ca-cats {
+      list-style: none;
+      margin: var(--bt-space-5) 0 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-3);
+    }
+    .ca-cat {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--bt-space-1) var(--bt-space-4);
+      align-items: baseline;
+      padding-block: var(--bt-space-3);
+      border-bottom: 2px dashed color-mix(in srgb, var(--bt-ink-900) 20%, transparent);
+    }
+    .ca-cat:last-child { border-bottom: 0; }
+    .ca-cat__name {
+      grid-column: 1;
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1.1;
+    }
+    .ca-cat__txt {
+      grid-column: 1;
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.4;
+      color: var(--bt-text-soft);
+    }
+    .ca-cat__tag {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      color: var(--bt-brand);
+    }
+    .ca-parrilla-nota {
+      margin: var(--bt-space-5) 0 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 52ch;
+    }
+    .ca-pend { display: flex; width: 100%; margin-top: var(--bt-space-5); }
+
+    /* ============================ PREGUNTAR ================================== */
+    .ca-preg {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .ca-preg {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .ca-preg__p {
+      color: var(--bt-sky-200);
+      max-width: 52ch;
+    }
+    .ca-preg__ctas { margin-top: var(--bt-space-5); }
+    .ca-directorio {
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      padding: clamp(1.25rem, 3vw, 2rem);
+      transform: rotate(1deg);
+    }
+    .ca-directorio__kicker { color: var(--bt-sky-400); }
+    .ca-directorio__tel {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-2);
+      min-height: 48px;
+      margin-top: var(--bt-space-2);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.6rem, 1.1rem + 2vw, 2.2rem);
+      line-height: 1;
+      color: var(--bt-sky-300);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .ca-directorio__tel svg { width: 28px; height: 28px; flex: 0 0 auto; fill: currentColor; }
+    .ca-directorio__tel:hover { color: var(--bt-yellow-400); }
+    .ca-directorio__txt {
+      margin: var(--bt-space-3) 0 0;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .ca-directorio__cta { margin-top: var(--bt-space-4); }
+    .ca-directorio__dl {
+      margin: var(--bt-space-4) 0 0;
+      display: grid;
+      gap: var(--bt-space-2);
+      font-size: var(--bt-fs-sm);
+      color: var(--bt-sky-200);
+    }
+    .ca-directorio__row {
+      padding-top: var(--bt-space-2);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 40%, transparent);
+    }
+    .ca-directorio__row dt { color: var(--bt-sky-400); font-weight: var(--bt-fw-bold); }
+    .ca-directorio__row dd { margin: 0; }
+
+    /* ============================ CIERRE ===================================== */
+    .ca-cierre {
+      display: grid;
+      gap: clamp(2rem, 6vw, 4rem);
+      align-items: center;
+    }
+    @media (min-width: 62rem) {
+      .ca-cierre {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        gap: var(--bt-space-8);
+      }
+    }
+    .ca-cierre__line {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      font-size: clamp(2rem, 1.2rem + 3vw, 3.4rem);
+      line-height: 0.96;
+      letter-spacing: var(--bt-ls-display);
+      text-transform: uppercase;
+      color: var(--bt-text);
+    }
+    .ca-cierre__txt {
+      margin: var(--bt-space-4) 0 0;
+      color: var(--bt-text);
+      max-width: 48ch;
+    }
+    .ca-cierre__ctas { margin-top: var(--bt-space-5); }
+    .ca-cierre__poster {
+      position: relative;
+      background: var(--bt-yellow-400);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-sky-400);
+      padding: clamp(1.4rem, 4vw, 2.2rem);
+      transform: rotate(-2deg);
+      color: var(--bt-ink-900);
+      text-align: center;
+    }
+    .ca-cierre__num {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-valla);
+      font-size: clamp(4rem, 3rem + 7vw, 7rem);
+      line-height: 0.8;
+      letter-spacing: var(--bt-ls-display);
+    }
+    .ca-cierre__sub {
+      margin: var(--bt-space-2) 0 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+    .ca-cierre__pend {
+      margin: var(--bt-space-3) 0 0;
+      padding-top: var(--bt-space-2);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-ink-900) 35%, transparent);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.35;
+      font-weight: var(--bt-fw-bold);
+    }
+
+    /* ============================ PIE ======================================== */
+    .ca-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .ca-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .ca-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    .ca-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .ca-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .ca-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    /* El display:flex del sistema anula el [hidden] del navegador. */
+    .ca-chat .bt-chat-panel[hidden] { display: none; }
+    .ca-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .ca-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    .ca-chat .bt-chat-quick button,
+    .ca-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .ca-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="ca-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html">Cómo funciona</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="canales.html" aria-current="page">Canales</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="ca-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE (semilla inactiva; encendida para revisar
+     el diseño, igual que en Inicio y Planes)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container ca-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · el número real y la lista pendiente
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy ca-hero" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs ca-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="ca-hero__grid">
+        <div>
+          <p class="bt-kicker">Televisión · antena parabólica</p>
+          <h1 class="bt-display ca-hero__title" id="h-portada">
+            90 canales<br>
+            <span class="bt-brush bt-brush--sky">SD + HD</span>
+          </h1>
+          <p class="bt-lead ca-hero__lead">
+            Ese número es real: noventa canales SD y HD por antena parabólica. Cuáles son
+            y en qué número todavía no lo sabemos con certeza: la parrilla está pendiente
+            de confirmación.
+          </p>
+
+          <ul class="bt-cluster ca-hero__pills" role="list" aria-label="La oferta de televisión en tres datos">
+            <li class="bt-pill bt-pill--sky">90 canales</li>
+            <li class="bt-pill bt-pill--aqua">SD + HD</li>
+            <li class="bt-pill bt-pill--sun">Antena parabólica</li>
+          </ul>
+
+          <div class="bt-cluster ca-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Preguntar por los canales por WhatsApp o llamada al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Preguntar por canales
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver el plan</a>
+          </div>
+
+          <p class="ca-hero__meta">
+            Lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. ·
+            WhatsApp y llamadas: 314&nbsp;718&nbsp;2506
+          </p>
+        </div>
+
+        <figure class="ca-tv">
+          <span class="bt-sticker bt-sticker--sun ca-tv__badge">Parrilla en borrador</span>
+          <svg viewBox="0 0 560 420" role="img" aria-label="Ilustración: un televisor con barras de color de prueba y una antena, como una parrilla que todavía se está armando">
+            <!-- antena de conejo -->
+            <path d="M280 150 L236 74" class="ca-tv__ink"/>
+            <path d="M280 150 L324 74" class="ca-tv__ink"/>
+            <circle cx="236" cy="74" r="7" class="ca-tv__orange ca-tv__ink" stroke-width="3"/>
+            <circle cx="324" cy="74" r="7" class="ca-tv__orange ca-tv__ink" stroke-width="3"/>
+            <path d="M280 150 V182" class="ca-tv__ink"/>
+
+            <!-- pantalla -->
+            <rect x="86" y="182" width="388" height="196" rx="14" class="ca-tv__navy ca-tv__ink"/>
+            <rect x="108" y="202" width="344" height="146" rx="4" class="ca-tv__paper ca-tv__ink"/>
+
+            <!-- barras de prueba -->
+            <g class="ca-tv__bars">
+              <rect x="118" y="212" width="46" height="126" fill="var(--bt-white)"/>
+              <rect x="164" y="212" width="46" height="126" fill="var(--bt-yellow-400)"/>
+              <rect x="210" y="212" width="46" height="126" fill="var(--bt-sky-400)"/>
+              <rect x="256" y="212" width="46" height="126" fill="var(--bt-aqua-500)"/>
+              <rect x="302" y="212" width="46" height="126" fill="var(--bt-cobalt-600)"/>
+              <rect x="348" y="212" width="46" height="126" fill="var(--bt-orange-500)"/>
+              <rect x="394" y="212" width="48" height="126" fill="var(--bt-navy-800)"/>
+            </g>
+            <path d="M108 332 H452" class="ca-tv__ink" stroke-width="3"/>
+            <path d="M118 342 H178 M188 342 H248" class="ca-tv__ink" stroke-width="3"/>
+
+            <!-- botones y pata -->
+            <circle cx="446" cy="196" r="5" class="ca-tv__yellow ca-tv__ink" stroke-width="2.5"/>
+            <circle cx="430" cy="196" r="5" class="ca-tv__aqua ca-tv__ink" stroke-width="2.5"/>
+            <path d="M176 378 L158 398 M356 378 L374 398" class="ca-tv__ink"/>
+            <path d="M132 400 H198 M334 400 H400" class="ca-tv__ink"/>
+
+            <!-- control remoto -->
+            <g transform="rotate(9 494 300)">
+              <rect x="468" y="258" width="52" height="112" rx="12" class="ca-tv__orange ca-tv__ink"/>
+              <circle cx="494" cy="284" r="9" class="ca-tv__paper ca-tv__ink" stroke-width="3"/>
+              <path d="M480 310 H508 M480 324 H508" class="ca-tv__ink" stroke-width="3"/>
+            </g>
+          </svg>
+          <figcaption class="ca-tv__caption">
+            Barras de prueba, no una parrilla real. Cuando la administración confirme los
+            canales, este espacio se llena con la lista completa.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       LA OFERTA · el número confirmado
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper ca-section" id="oferta" aria-labelledby="h-oferta">
+    <div class="bt-container">
+      <div class="ca-oferta">
+        <div>
+          <p class="bt-kicker">La oferta de TV</p>
+          <h2 class="bt-display bt-display--2xl" id="h-oferta">
+            El número sí está.<br>
+            La <span class="bt-brush bt-brush--orange">lista</span>, todavía no.
+          </h2>
+          <p class="bt-lead">
+            Lo que sí podemos afirmar es cuántos canales entran y cómo llegan. Lo que
+            todavía falta es el detalle: cuáles son, en qué número y en qué categoría.
+          </p>
+
+          <dl class="ca-ficha">
+            <div class="ca-ficha__row">
+              <dt>Canales incluidos</dt>
+              <dd><b>90</b> SD + HD</dd>
+            </div>
+            <div class="ca-ficha__row">
+              <dt>Cómo llegan</dt>
+              <dd>Antena parabólica en el techo</dd>
+            </div>
+            <div class="ca-ficha__row">
+              <dt>En el mismo plan</dt>
+              <dd>Internet de <b>50 Mbps</b> de descarga</dd>
+            </div>
+            <div class="ca-ficha__row">
+              <dt>Pago mensual</dt>
+              <dd><b>$70.000</b> COP</dd>
+            </div>
+            <div class="ca-ficha__row ca-ficha__row--pend">
+              <dt>Parrilla de canales</dt>
+              <dd>Por confirmar</dd>
+            </div>
+          </dl>
+
+          <p class="ca-oferta__nota">
+            No publicamos nombres ni números de canal hasta que la administración entregue
+            la parrilla. Tampoco prometemos categorías —deportes, infantiles, novelas— que
+            no estén en esa lista.
+          </p>
+        </div>
+
+        <aside class="ca-numero" aria-label="90 canales SD + HD, la parrilla está por confirmar">
+          <p class="bt-kicker ca-numero__kicker">Televisión por antena parabólica</p>
+          <p class="ca-numero__big">90</p>
+          <p class="ca-numero__sub">canales SD + HD</p>
+          <p class="ca-numero__txt">
+            Un solo plan con internet de 50 Mbps de descarga y televisión.
+            <b>$70.000 al mes</b>, con 1 mes gratis.
+          </p>
+          <div class="bt-por-confirmar ca-numero__pend" role="note" aria-label="Parrilla por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              La parrilla real de los 90 canales: cuáles son, en qué número y en qué
+              categoría. Se publica cuando la administración la confirme.
+            </span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       LA PARRILLA · casillas vacías, sin inventar canales
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken ca-section ca-section--sunken" id="parrilla" aria-labelledby="h-parrilla">
+    <div class="bt-container">
+      <p class="bt-kicker">La parrilla</p>
+      <h2 class="bt-display bt-display--2xl" id="h-parrilla">
+        Los canales<br>
+        van <span class="bt-brush">en blanco.</span>
+      </h2>
+      <p class="bt-lead">
+        Así se va a ver la parrilla cuando esté lista. Por ahora mostramos el formato:
+        las casillas están vacías a propósito.
+      </p>
+
+      <div class="ca-parrilla-wrap">
+        <div>
+          <h3 class="bt-display bt-display--lg">Categorías sugeridas</h3>
+          <ul class="ca-cats">
+            <li class="ca-cat">
+              <p class="ca-cat__name">Categoría 1</p>
+              <p class="ca-cat__txt">Canales por confirmar</p>
+              <span class="ca-cat__tag">Formato</span>
+            </li>
+            <li class="ca-cat">
+              <p class="ca-cat__name">Categoría 2</p>
+              <p class="ca-cat__txt">Canales por confirmar</p>
+              <span class="ca-cat__tag">Formato</span>
+            </li>
+            <li class="ca-cat">
+              <p class="ca-cat__name">Categoría 3</p>
+              <p class="ca-cat__txt">Canales por confirmar</p>
+              <span class="ca-cat__tag">Formato</span>
+            </li>
+          </ul>
+
+          <p class="ca-parrilla-nota">
+            Los nombres de las categorías también están pendientes: no sabemos cómo las
+            agrupa la administración. Estos tres renglones solo muestran cómo se va a leer
+            la lista.
+          </p>
+
+          <div class="bt-por-confirmar ca-pend" role="note" aria-label="Parrilla por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Los 90 canales, sus números y sus categorías. No inventamos nombres ni
+              posiciones: la parrilla real la entrega la administración.
+            </span>
+          </div>
+        </div>
+
+        <div class="ca-parrilla">
+          <div class="ca-parrilla__head">
+            <h3 class="ca-parrilla__title">Parrilla · edición pendiente</h3>
+            <span class="ca-parrilla__edicion">90 canales SD + HD</span>
+          </div>
+          <ol class="ca-slots">
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">01</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">02</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">03</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">04</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">05</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">06</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">07</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">08</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">09</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">10</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">11</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+            <li class="ca-slot"><span class="ca-slot__num" aria-hidden="true">12</span><span class="ca-slot__bar" aria-hidden="true"></span><span class="ca-slot__lbl">Por confirmar</span></li>
+          </ol>
+          <p class="ca-parrilla__foot">
+            Doce casillas de ejemplo, no doce canales. La lista completa son 90 y todavía
+            no está publicada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       PREGUNTAR · la parrilla de hoy se consulta
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy ca-section" id="preguntar" aria-labelledby="h-preguntar">
+    <div class="bt-container">
+      <div class="ca-preg">
+        <div>
+          <p class="bt-kicker">Mientras se publica</p>
+          <h2 class="bt-display bt-display--2xl" id="h-preguntar">
+            ¿Qué hay hoy<br>
+            en <span class="bt-brush bt-brush--sky">la tele?</span>
+          </h2>
+          <p class="bt-lead ca-preg__p">
+            La parrilla escrita todavía no está, pero la atención sí. Pregunte por los
+            canales que hay hoy y le contestamos con lo que esté funcionando.
+          </p>
+          <p class="ca-preg__p">
+            Si lo que busca es un canal puntual, dígalo tal cual. Si no está, también se lo
+            decimos: no vamos a venderle un canal que no tenemos.
+          </p>
+
+          <div class="bt-cluster ca-preg__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Preguntar por los canales de hoy por WhatsApp o llamada al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Preguntar por canales
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="contacto.html">Ir a Atención</a>
+          </div>
+        </div>
+
+        <aside class="ca-directorio" aria-label="Canales de atención">
+          <p class="bt-kicker ca-directorio__kicker">Atención al asociado</p>
+          <a class="ca-directorio__tel" href="tel:+573147182506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            314&nbsp;718&nbsp;2506
+          </a>
+          <p class="ca-directorio__txt">
+            WhatsApp y llamadas. Contestamos de lunes a viernes, en horario de oficina.
+          </p>
+          <div class="bt-cluster ca-directorio__cta">
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              Escribir por WhatsApp
+            </a>
+          </div>
+          <dl class="ca-directorio__dl">
+            <div class="ca-directorio__row">
+              <dt>Horario</dt>
+              <dd>Lun – Vie, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</dd>
+            </div>
+            <div class="ca-directorio__row">
+              <dt>Sin atención</dt>
+              <dd>Sábados, domingos y festivos.</dd>
+            </div>
+            <div class="ca-directorio__row">
+              <dt>Parrilla de hoy</dt>
+              <dd>Se consulta por estos mismos canales.</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper ca-section" id="cierre" aria-labelledby="h-cierre">
+    <div class="bt-container">
+      <div class="ca-cierre">
+        <div>
+          <p class="bt-kicker">Contratar o preguntar</p>
+          <h2 class="ca-cierre__line" id="h-cierre">
+            Noventa canales,<br>
+            <span class="bt-brush bt-brush--orange">cero inventos.</span>
+          </h2>
+          <p class="ca-cierre__txt">
+            Lleve televisión por antena parabólica e internet por fibra óptica en un solo
+            pago de <b>$70.000 al mes</b>. El primer mes va por nuestra cuenta.
+          </p>
+
+          <div class="bt-cluster ca-cierre__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver planes y precios</a>
+          </div>
+
+          <p class="ca-cierre__txt" style="margin-top: var(--bt-space-5); font-size: var(--bt-fs-sm);">
+            «Recuerde señor asociado: que me es cumplido, me es pago.»
+          </p>
+        </div>
+
+        <aside class="ca-cierre__poster" aria-label="90 canales SD + HD, parrilla por confirmar">
+          <p class="ca-cierre__num">90</p>
+          <p class="ca-cierre__sub">canales<br>SD + HD</p>
+          <p class="ca-cierre__pend">Parrilla por confirmar</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="ca-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list ca-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list ca-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="ca-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="ca-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT — botón flotante + panel (abre con JS en
+     producción; en la maqueta el panel vive cerrado y no hay JS)
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="ca-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="ca-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Qué canales hay?</button>
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>

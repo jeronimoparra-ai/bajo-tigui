@@ -1,0 +1,1295 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nosotros — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="Bajo Tigui es una organización sin ánimo de lucro de El Bagre, Antioquia. Televisión por antena parabólica e internet por fibra óptica para sus asociados. WhatsApp y llamadas: 314 718 2506.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Nosotros» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .no-section[id] { scroll-margin-top: 5.5rem; }
+    /* AA sobre el gris del sistema: el kicker pequeño va en navy. */
+    .no-section--sunken .bt-kicker { color: var(--bt-brand); }
+
+    /* --- navegación: los seis enlaces necesitan 64rem para no apretarse --- */
+    .no-nav .bt-nav__brand { min-height: 44px; }
+    .no-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .no-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .no-nav .bt-nav__links { display: flex; }
+    }
+    .no-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    @media (max-width: 23rem) {
+      .no-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .no-aviso { padding-top: var(--bt-space-4); }
+    /* AA: el texto pequeño del tag no puede ir blanco sobre naranja (3,0:1). */
+    .no-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .no-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .no-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -7rem;
+      right: -9rem;
+      width: min(50rem, 112vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.15;
+    }
+    .no-hero__grid {
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .no-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .no-hero__title {
+      font-size: clamp(2.3rem, 1.15rem + 4.8vw, 3.9rem);
+      line-height: 0.93;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .no-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .no-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+      max-width: 46ch;
+    }
+    .no-hero__pills { list-style: none; margin: var(--bt-space-5) 0 0; padding: 0; }
+    .no-hero__ctas { margin-top: var(--bt-space-6); }
+    .no-hero__meta {
+      margin-top: var(--bt-space-5);
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+
+    /* Sello de la organización: letrero pintado a mano, no un logo corporativo. */
+    .no-sello {
+      position: relative;
+      width: 100%;
+      max-width: 27rem;
+      margin-inline: auto;
+      padding: clamp(1.2rem, 3.5vw, 2rem);
+      background: var(--bt-paper-50);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-aqua-500);
+      transform: rotate(-1.8deg);
+      color: var(--bt-ink-900);
+    }
+    .no-sello__tag {
+      position: absolute;
+      top: calc(-1 * var(--bt-space-4));
+      right: var(--bt-space-4);
+      font-size: var(--bt-fs-2xs);
+    }
+    .no-sello__mark {
+      position: relative;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      text-align: center;
+      aspect-ratio: 1;
+      padding: clamp(1rem, 4vw, 1.8rem);
+      border: 4px solid var(--bt-ink-900);
+      border-radius: 50%;
+      background: var(--bt-yellow-200);
+      transform: rotate(2deg);
+    }
+    .no-sello__mark::before {
+      content: "";
+      position: absolute;
+      inset: 0.55rem;
+      border: 2px dashed var(--bt-ink-900);
+      border-radius: 50%;
+      opacity: 0.55;
+    }
+    .no-sello__top {
+      margin: 0;
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+    .no-sello__name {
+      margin: var(--bt-space-1) 0;
+      font-family: var(--bt-font-display);
+      font-style: italic;
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark), "wght" 900;
+      font-size: clamp(1.6rem, 1rem + 2.6vw, 2.3rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+    }
+    .no-sello__mid {
+      margin: var(--bt-space-2) 0 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .no-sello__bottom {
+      margin: var(--bt-space-2) 0 0;
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .no-sello__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-ink-900) 30%, transparent);
+      font-size: var(--bt-fs-xs);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* ============================ QUÉ ES ===================================== */
+    .no-que {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .no-que {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .no-que p { max-width: 58ch; }
+    .no-ficha {
+      background: var(--bt-surface);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      padding: clamp(1.2rem, 3vw, 1.75rem);
+      transform: rotate(1deg);
+    }
+    .no-ficha .bt-kicker { color: var(--bt-brand); }
+    .no-ficha__dl {
+      margin: var(--bt-space-3) 0 0;
+      display: grid;
+      gap: var(--bt-space-3);
+    }
+    .no-ficha__row {
+      display: grid;
+      gap: 0.15rem;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed var(--bt-border-soft);
+    }
+    .no-ficha__row:first-child { border-top: 0; padding-top: 0; }
+    .no-ficha__row dt {
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      color: var(--bt-brand);
+    }
+    .no-ficha__row dd {
+      margin: 0;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .no-ficha__row dd b {
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+    }
+    .no-que__nota {
+      margin: var(--bt-space-5) 0 0;
+      padding: clamp(1.1rem, 3vw, 1.5rem);
+      background: var(--bt-bg-raised);
+      border: 2px dashed var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 56ch;
+    }
+
+    /* ============================ ASOCIADOS ================================== */
+    .no-asoc {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .no-asoc {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .no-principios {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-4);
+    }
+    .no-principio {
+      display: grid;
+      grid-template-columns: 2.6rem minmax(0, 1fr);
+      gap: var(--bt-space-3);
+      padding-bottom: var(--bt-space-4);
+      border-bottom: 2px dashed var(--bt-border);
+    }
+    .no-principio:last-child { border-bottom: 0; padding-bottom: 0; }
+    .no-principio__num {
+      display: grid;
+      place-items: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      background: var(--bt-yellow-400);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      color: var(--bt-ink-900);
+      font-variant-numeric: tabular-nums;
+    }
+    .no-principio:nth-child(2) .no-principio__num { background: var(--bt-aqua-500); }
+    .no-principio:nth-child(3) .no-principio__num { background: var(--bt-sky-400); }
+    .no-principio__body { min-width: 0; }
+    .no-principio__title {
+      margin: 0 0 var(--bt-space-1);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+    }
+    .no-principio__txt {
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 46ch;
+    }
+    .no-cita {
+      position: relative;
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-yellow-400);
+      padding: clamp(1.4rem, 4vw, 2.2rem);
+      transform: rotate(-1.2deg);
+    }
+    .no-cita__mark {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(2.5rem, 2rem + 3vw, 4rem);
+      line-height: 0.6;
+      color: var(--bt-yellow-400);
+    }
+    .no-cita__txt {
+      margin: var(--bt-space-3) 0 0;
+      font-family: var(--bt-font-display);
+      font-style: italic;
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-titular), "wght" 900;
+      font-size: clamp(1.3rem, 1rem + 1.2vw, 1.75rem);
+      line-height: 1.15;
+      color: var(--bt-sky-200);
+    }
+    .no-cita__cap {
+      margin: var(--bt-space-4) 0 0;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+      color: var(--bt-sky-400);
+    }
+
+    /* ============================ LEMA ======================================= */
+    .no-lema {
+      position: relative;
+      max-width: 58rem;
+      isolation: isolate;
+    }
+    .no-lema__arcs {
+      position: absolute;
+      z-index: -1;
+      bottom: -3rem;
+      right: -2rem;
+      width: min(26rem, 70vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.14;
+      transform: rotate(180deg);
+    }
+    .no-lema__quote {
+      margin: var(--bt-space-4) 0 0;
+      font-family: var(--bt-font-display);
+      font-style: italic;
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark), "wght" 900;
+      font-size: clamp(1.7rem, 1.1rem + 3.2vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--bt-yellow-400);
+      max-width: 24ch;
+    }
+    .no-lema__cap {
+      margin: var(--bt-space-5) 0 0;
+      padding-top: var(--bt-space-4);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+      max-width: 54ch;
+      color: var(--bt-sky-200);
+      font-size: var(--bt-fs-md);
+      line-height: 1.5;
+    }
+
+    /* ============================ HORARIO ==================================== */
+    .no-horario {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 56rem) {
+      .no-horario {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .no-semana {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: var(--bt-space-1);
+    }
+    @media (min-width: 30rem) {
+      .no-semana { gap: var(--bt-space-2); }
+    }
+    .no-dia {
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      min-height: 4.5rem;
+      padding: var(--bt-space-2) 0.15rem;
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-sm);
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+      color: var(--bt-ink-900);
+      text-align: center;
+    }
+    .no-dia__abbr {
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-xs);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .no-dia__hrs {
+      margin-top: 0.2rem;
+      font-size: 0.62rem;
+      font-weight: var(--bt-fw-bold);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+    .no-dia--off {
+      background-color: var(--bt-paper-50);
+      background-image: repeating-linear-gradient(
+        -45deg,
+        color-mix(in srgb, var(--bt-ink-900) 16%, transparent) 0 2px,
+        transparent 2px 8px
+      );
+      border-style: dashed;
+      box-shadow: none;
+      color: var(--bt-text);
+    }
+    .no-dia--off .no-dia__hrs { color: var(--bt-text); }
+    .no-dia__x {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: var(--bt-fs-sm);
+      line-height: 1;
+      font-weight: var(--bt-fw-bold);
+    }
+    .no-semana__leyenda {
+      margin: var(--bt-space-3) 0 0;
+      font-size: var(--bt-fs-xs);
+      line-height: 1.4;
+      color: var(--bt-text-soft);
+    }
+    .no-reloj {
+      background: var(--bt-surface);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: var(--bt-shadow-hard);
+      padding: clamp(1.2rem, 3vw, 1.75rem);
+    }
+    .no-reloj__kicker { color: var(--bt-brand); }
+    .no-reloj__hora {
+      margin: var(--bt-space-2) 0 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.45rem, 1rem + 1.6vw, 1.9rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--bt-brand);
+      font-variant-numeric: tabular-nums;
+    }
+    .no-reloj__dias {
+      margin: var(--bt-space-2) 0 0;
+      font-weight: var(--bt-fw-bold);
+    }
+    .no-reloj__dl {
+      margin: var(--bt-space-4) 0 0;
+      display: grid;
+      gap: var(--bt-space-2);
+      font-size: var(--bt-fs-sm);
+    }
+    .no-reloj__row {
+      padding-top: var(--bt-space-2);
+      border-top: 2px dashed var(--bt-border-soft);
+    }
+    .no-reloj__row:first-child { border-top: 0; padding-top: 0; }
+    .no-reloj__row dt { color: var(--bt-brand); font-weight: var(--bt-fw-bold); }
+    .no-reloj__row dd { margin: 0; }
+
+    /* ============================ CONTACTO =================================== */
+    .no-contacto {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .no-contacto {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .no-tel {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+      min-height: 48px;
+      margin-top: var(--bt-space-4);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.75rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--bt-brand);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .no-tel svg { width: 32px; height: 32px; flex: 0 0 auto; fill: currentColor; }
+    .no-tel:hover { color: var(--bt-cobalt-600); }
+    .no-contacto__ctas { margin-top: var(--bt-space-4); }
+    .no-faltan {
+      display: flex;
+      width: 100%;
+      padding: var(--bt-space-4);
+      background: var(--bt-paper-50);
+    }
+    .no-faltan__body { min-width: 0; }
+    .no-faltan__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+    }
+    .no-faltan__txt {
+      margin: var(--bt-space-2) 0 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+    }
+    .no-faltan__list {
+      margin: var(--bt-space-3) 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: var(--bt-space-2);
+      font-size: var(--bt-fs-sm);
+    }
+    .no-faltan__list li {
+      display: flex;
+      align-items: baseline;
+      gap: var(--bt-space-2);
+      padding-bottom: var(--bt-space-2);
+      border-bottom: 2px dashed var(--bt-border-soft);
+    }
+    .no-faltan__list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .no-faltan__list b { font-family: var(--bt-font-display); }
+    .no-faltan__tag {
+      margin-inline-start: auto;
+      flex: 0 0 auto;
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      color: var(--bt-text-soft);
+    }
+    .no-nota {
+      margin: var(--bt-space-5) 0 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+      max-width: 52ch;
+    }
+
+    /* ============================ CIERRE ===================================== */
+    .no-cierre {
+      position: relative;
+      background: var(--bt-paper-50);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 10px 10px 0 var(--bt-aqua-500);
+      padding: clamp(1.5rem, 5vw, 3rem);
+      overflow: hidden;
+    }
+    .no-cierre__stamp {
+      position: absolute;
+      right: clamp(1rem, 4vw, 2.5rem);
+      top: clamp(1rem, 4vw, 2rem);
+      display: grid;
+      place-items: center;
+      width: 7.5rem;
+      height: 7.5rem;
+      border: 3px solid var(--bt-ink-900);
+      border-radius: 50%;
+      background: var(--bt-yellow-400);
+      box-shadow: 3px 3px 0 var(--bt-ink-900);
+      transform: rotate(9deg);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-2xs);
+      line-height: 1.15;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--bt-ink-900);
+      padding: var(--bt-space-2);
+    }
+    @media (max-width: 34rem) {
+      .no-cierre__stamp {
+        position: static;
+        margin: 0 0 var(--bt-space-4);
+        width: 6.5rem;
+        height: 6.5rem;
+        transform: rotate(-4deg);
+      }
+    }
+    .no-cierre__line {
+      margin: 0;
+      max-width: 18ch;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      font-size: clamp(2rem, 1.2rem + 3vw, 3.3rem);
+      line-height: 0.96;
+      letter-spacing: var(--bt-ls-display);
+      text-transform: uppercase;
+    }
+    .no-cierre__txt { margin: var(--bt-space-4) 0 0; max-width: 46ch; }
+    .no-cierre__ctas { margin-top: var(--bt-space-5); }
+    .no-cierre__nota {
+      margin: var(--bt-space-5) 0 0;
+      padding-top: var(--bt-space-4);
+      border-top: 2px dashed var(--bt-border-soft);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+      max-width: 60ch;
+    }
+
+    /* ============================ PIE ======================================== */
+    .no-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .no-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .no-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    .no-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .no-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .no-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    /* El display:flex del sistema anula el [hidden] del navegador. */
+    .no-chat .bt-chat-panel[hidden] { display: none; }
+    .no-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .no-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    .no-chat .bt-chat-quick button,
+    .no-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .no-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="no-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html">Cómo funciona</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="canales.html">Canales</a></li>
+          <li><a href="nosotros.html" aria-current="page">Nosotros</a></li>
+          <li><a href="contacto.html">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="no-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE (semilla inactiva; encendida para revisar
+     el diseño, igual que en Inicio y Planes)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container no-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · quiénes somos, sin discurso corporativo
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy no-hero" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs no-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="no-hero__grid">
+        <div>
+          <p class="bt-kicker">Nosotros · El Bagre, Antioquia</p>
+          <h1 class="bt-display no-hero__title" id="h-portada">
+            Bajo Tigui<br>
+            es <span class="bt-brush bt-brush--sky">del barrio.</span>
+          </h1>
+          <p class="bt-lead no-hero__lead">
+            Una organización sin ánimo de lucro de El Bagre que lleva televisión por antena
+            parabólica y, desde este año, internet por fibra óptica a las casas del municipio.
+          </p>
+
+          <ul class="bt-cluster no-hero__pills" role="list" aria-label="Cómo es la organización">
+            <li class="bt-pill bt-pill--aqua">Sin ánimo de lucro</li>
+            <li class="bt-pill bt-pill--sun">El Bagre, Antioquia</li>
+            <li class="bt-pill">Asociados, no clientes</li>
+          </ul>
+
+          <div class="bt-cluster no-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Hablar con alguien
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver el plan</a>
+          </div>
+
+          <p class="no-hero__meta">
+            Lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. ·
+            WhatsApp y llamadas: 314&nbsp;718&nbsp;2506
+          </p>
+        </div>
+
+        <aside class="no-sello" aria-label="Sello de la organización Bajo Tigui">
+          <span class="bt-sticker bt-sticker--sun no-sello__tag">Sin ánimo de lucro</span>
+          <div class="no-sello__mark">
+            <p class="no-sello__top">Antena Parabólica</p>
+            <p class="no-sello__name">Bajo Tigui</p>
+            <p class="no-sello__mid">Organización<br>sin ánimo<br>de lucro</p>
+            <p class="no-sello__bottom">El Bagre · Antioquia</p>
+          </div>
+          <p class="no-sello__note">
+            No somos una empresa de afuera. Somos una organización del municipio, con
+            nombre propio.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUÉ ES · la ficha, sin datos inventados
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper no-section" id="que-es" aria-labelledby="h-que">
+    <div class="bt-container">
+      <div class="no-que">
+        <div>
+          <p class="bt-kicker">Qué es Bajo Tigui</p>
+          <h2 class="bt-display bt-display--2xl" id="h-que">
+            Una organización<br>
+            <span class="bt-brush bt-brush--orange">sin ánimo</span> de lucro.
+          </h2>
+          <p class="bt-lead">
+            Bajo Tigui es una organización sin ánimo de lucro de El Bagre, Antioquia.
+            Ofrece televisión por antena parabólica y, desde este año, internet por fibra
+            óptica a buen precio para El Bagre y sus alrededores.
+          </p>
+          <p>
+            Sin ánimo de lucro quiere decir que no hay utilidades para repartir entre
+            dueños: lo que se paga sostiene el servicio y el trabajo de quienes lo atienden.
+            Por eso hay un solo plan, de <b>$70.000 al mes</b>, y no una escalera de paquetes.
+          </p>
+          <p>
+            La televisión llega por una parabólica que se instala en el techo. El internet
+            llega por fibra óptica, con <b>50 Mbps de descarga</b>. Los dos servicios van
+            en la misma cuenta.
+          </p>
+
+          <p class="no-que__nota">
+            Esta página cuenta lo que la organización es. Los datos legales y de contacto
+            que todavía no están confirmados aparecen más abajo, marcados como tales.
+          </p>
+        </div>
+
+        <aside class="no-ficha" aria-labelledby="h-ficha">
+          <p class="bt-kicker">En una ficha</p>
+          <h3 class="bt-display bt-display--lg" id="h-ficha">Bajo Tigui, en corto</h3>
+          <dl class="no-ficha__dl">
+            <div class="no-ficha__row">
+              <dt>Nombre</dt>
+              <dd><b>Bajo Tigui</b></dd>
+            </div>
+            <div class="no-ficha__row">
+              <dt>Qué es</dt>
+              <dd>Organización sin ánimo de lucro</dd>
+            </div>
+            <div class="no-ficha__row">
+              <dt>Dónde</dt>
+              <dd>El Bagre, Antioquia, Colombia</dd>
+            </div>
+            <div class="no-ficha__row">
+              <dt>Servicios</dt>
+              <dd>TV por antena parabólica<br>Internet por fibra óptica</dd>
+            </div>
+            <div class="no-ficha__row">
+              <dt>Plan</dt>
+              <dd><b>$70.000</b> COP / mes<br>50 Mbps de descarga · 90 canales SD + HD</dd>
+            </div>
+            <div class="no-ficha__row">
+              <dt>Cómo llama a su gente</dt>
+              <dd><b>Asociados</b></dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       ASOCIADOS · el lenguaje de la casa
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken no-section no-section--sunken" id="asociados" aria-labelledby="h-asociados">
+    <div class="bt-container">
+      <div class="no-asoc">
+        <div>
+          <p class="bt-kicker">La palabra importa</p>
+          <h2 class="bt-display bt-display--2xl" id="h-asociados">
+            Aquí la gente<br>
+            se llama <span class="bt-brush">asociada.</span>
+          </h2>
+          <p class="bt-lead">
+            No decimos «usuario» ni «cliente»: decimos asociado. Porque la organización es
+            de quienes la sostienen, y porque en un pueblo uno se conoce.
+          </p>
+
+          <ol class="no-principios" role="list">
+            <li class="no-principio">
+              <span class="no-principio__num" aria-hidden="true">01</span>
+              <div class="no-principio__body">
+                <h3 class="no-principio__title">Se le dice por su nombre</h3>
+                <p class="no-principio__txt">
+                  El asociado no es un número de contrato. Es la señora de la esquina, el
+                  profesor del barrio, la familia que lleva años con la parabólica.
+                </p>
+              </div>
+            </li>
+            <li class="no-principio">
+              <span class="no-principio__num" aria-hidden="true">02</span>
+              <div class="no-principio__body">
+                <h3 class="no-principio__title">Lo que se paga, sostiene el servicio</h3>
+                <p class="no-principio__txt">
+                  No hay utilidades para repartir entre dueños: el pago mensual mantiene la
+                  red, la antena y el trabajo de quienes atienden.
+                </p>
+              </div>
+            </li>
+            <li class="no-principio">
+              <span class="no-principio__num" aria-hidden="true">03</span>
+              <div class="no-principio__body">
+                <h3 class="no-principio__title">La atención es de oficina</h3>
+                <p class="no-principio__txt">
+                  El soporte se atiende de lunes a viernes, en el horario de la
+                  oficina. Sábados, domingos y festivos no hay atención.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <figure class="no-cita">
+          <p class="no-cita__mark" aria-hidden="true">«</p>
+          <blockquote>
+            <p class="no-cita__txt">
+              Recuerde señor asociado: que me es cumplido, me es pago.
+            </p>
+          </blockquote>
+          <figcaption class="no-cita__cap">
+            La frase que se dice en la oficina y que resume el trato: lo que se promete,
+            se cumple.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       LEMA · destacado, tal cual
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy no-section" id="lema" aria-labelledby="h-lema">
+    <svg class="bt-signal-arcs no-lema__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+    <div class="bt-container">
+      <div class="no-lema">
+        <span class="bt-sticker bt-sticker--sun">El lema</span>
+        <h2 class="bt-visually-hidden" id="h-lema">El lema de Bajo Tigui</h2>
+        <blockquote class="no-lema__quote">
+          «Recuerde señor asociado: que me es cumplido, me es pago.»
+        </blockquote>
+        <p class="no-lema__cap">
+          No es una frase de mercadeo: es la manera en que la organización entiende el
+          compromiso. Si se prometió, se cumple; si no se puede, se dice de frente.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HORARIO · la semana dibujada
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper no-section" id="horario" aria-labelledby="h-horario">
+    <div class="bt-container">
+      <p class="bt-kicker">Horario de atención</p>
+      <h2 class="bt-display bt-display--2xl" id="h-horario">
+        De lunes a viernes,<br>
+        <span class="bt-brush bt-brush--aqua">ahí estamos.</span>
+      </h2>
+      <p class="bt-lead">
+        La oficina abre de 7:00 a.&nbsp;m. a 5:00 p.&nbsp;m., hora de Colombia. Sábados,
+        domingos y festivos no hay atención.
+      </p>
+
+      <div class="no-horario">
+        <div>
+          <ol class="no-semana" aria-label="Semana de atención: lunes a viernes abierto, sábado y domingo cerrado">
+            <li class="no-dia">
+              <span class="no-dia__abbr" aria-hidden="true">Lun</span>
+              <span class="no-dia__hrs" aria-hidden="true">7–5</span>
+              <span class="bt-visually-hidden">Lunes: atención de 7:00 a. m. a 5:00 p. m.</span>
+            </li>
+            <li class="no-dia">
+              <span class="no-dia__abbr" aria-hidden="true">Mar</span>
+              <span class="no-dia__hrs" aria-hidden="true">7–5</span>
+              <span class="bt-visually-hidden">Martes: atención de 7:00 a. m. a 5:00 p. m.</span>
+            </li>
+            <li class="no-dia">
+              <span class="no-dia__abbr" aria-hidden="true">Mié</span>
+              <span class="no-dia__hrs" aria-hidden="true">7–5</span>
+              <span class="bt-visually-hidden">Miércoles: atención de 7:00 a. m. a 5:00 p. m.</span>
+            </li>
+            <li class="no-dia">
+              <span class="no-dia__abbr" aria-hidden="true">Jue</span>
+              <span class="no-dia__hrs" aria-hidden="true">7–5</span>
+              <span class="bt-visually-hidden">Jueves: atención de 7:00 a. m. a 5:00 p. m.</span>
+            </li>
+            <li class="no-dia">
+              <span class="no-dia__abbr" aria-hidden="true">Vie</span>
+              <span class="no-dia__hrs" aria-hidden="true">7–5</span>
+              <span class="bt-visually-hidden">Viernes: atención de 7:00 a. m. a 5:00 p. m.</span>
+            </li>
+            <li class="no-dia no-dia--off">
+              <span class="no-dia__abbr" aria-hidden="true">Sáb</span>
+              <span class="no-dia__x" aria-hidden="true">—</span>
+              <span class="bt-visually-hidden">Sábado: sin atención.</span>
+            </li>
+            <li class="no-dia no-dia--off">
+              <span class="no-dia__abbr" aria-hidden="true">Dom</span>
+              <span class="no-dia__x" aria-hidden="true">—</span>
+              <span class="bt-visually-hidden">Domingo: sin atención.</span>
+            </li>
+          </ol>
+          <p class="no-semana__leyenda">
+            Lun–Vie: 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. · Sáb, Dom y festivos: sin atención.
+          </p>
+        </div>
+
+        <aside class="no-reloj" aria-label="Detalle del horario de atención">
+          <p class="bt-kicker no-reloj__kicker">La oficina</p>
+          <p class="no-reloj__hora">7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</p>
+          <p class="no-reloj__dias">Lunes a viernes</p>
+          <dl class="no-reloj__dl">
+            <div class="no-reloj__row">
+              <dt>Zona horaria</dt>
+              <dd>Colombia (America/Bogota).</dd>
+            </div>
+            <div class="no-reloj__row">
+              <dt>Sin atención</dt>
+              <dd>Sábados, domingos y festivos.</dd>
+            </div>
+            <div class="no-reloj__row">
+              <dt>Fuera de horario</dt>
+              <dd>El mensaje queda y se responde cuando se abra.</dd>
+            </div>
+            <div class="no-reloj__row">
+              <dt>WhatsApp y llamadas</dt>
+              <dd><a href="tel:+573147182506">314&nbsp;718&nbsp;2506</a></dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CONTACTO · lo confirmado y lo que falta
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken no-section no-section--sunken" id="contacto" aria-labelledby="h-contacto">
+    <div class="bt-container">
+      <div class="no-contacto">
+        <div>
+          <p class="bt-kicker">Contacto</p>
+          <h2 class="bt-display bt-display--2xl" id="h-contacto">
+            Hable con<br>
+            <span class="bt-brush">una persona.</span>
+          </h2>
+          <p class="bt-lead">
+            WhatsApp y llamadas al 314 718 2506, de lunes a viernes en horario de oficina.
+            Si escribe fuera de horario, el mensaje queda para el día siguiente hábil.
+          </p>
+
+          <a class="no-tel" href="tel:+573147182506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            314&nbsp;718&nbsp;2506
+          </a>
+
+          <div class="bt-cluster no-contacto__ctas">
+            <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline" href="contacto.html">Ir a Atención</a>
+          </div>
+
+          <p class="no-nota">
+            El asistente de la esquina responde dudas básicas y siempre deja la salida a
+            WhatsApp. Si no sabe algo, lo pasa a una persona.
+          </p>
+        </div>
+
+        <div class="bt-por-confirmar no-faltan" role="note" aria-label="Datos legales y de contacto por confirmar">
+          <span class="bt-por-confirmar__tag">Por confirmar</span>
+          <div class="no-faltan__body">
+            <h3 class="no-faltan__title">Lo que todavía no publicamos</h3>
+            <p class="no-faltan__txt">
+              Estos datos aparecen cuando la administración los confirme. Hasta entonces,
+              no inventamos ninguno:
+            </p>
+            <ul class="no-faltan__list">
+              <li><b>NIT y razón social</b><span class="no-faltan__tag">Pendiente</span></li>
+              <li><b>Dirección física</b><span class="no-faltan__tag">Pendiente</span></li>
+              <li><b>Correos oficiales</b><span class="no-faltan__tag">Pendiente</span></li>
+              <li><b>Redes sociales</b><span class="no-faltan__tag">Pendiente</span></li>
+              <li><b>Zonas exactas de cobertura</b><span class="no-faltan__tag">Pendiente</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper no-section" id="cierre" aria-labelledby="h-cierre">
+    <div class="bt-container">
+      <div class="no-cierre">
+        <div class="no-cierre__stamp" aria-hidden="true">
+          Hecho en<br>El Bagre
+        </div>
+        <p class="bt-kicker">Empezar</p>
+        <h2 class="no-cierre__line" id="h-cierre">
+          Esto no es<br>
+          <span class="bt-brush bt-brush--orange">una empresa<br>de afuera.</span>
+        </h2>
+        <p class="no-cierre__txt">
+          Es una organización de El Bagre que lleva la señal a las casas del municipio:
+          televisión por antena parabólica e internet por fibra óptica en un solo pago de
+          <b>$70.000 al mes</b>.
+        </p>
+
+        <div class="bt-cluster no-cierre__ctas">
+          <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            Escribir por WhatsApp
+          </a>
+          <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver planes y precios</a>
+        </div>
+
+        <p class="no-cierre__nota">
+          «Recuerde señor asociado: que me es cumplido, me es pago.»
+          La instalación gratis y la vigencia de la promoción del mes gratis siguen
+          pendientes de confirmación con la administración.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="no-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list no-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list no-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="no-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="no-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT — botón flotante + panel (abre con JS en
+     producción; en la maqueta el panel vive cerrado y no hay JS)
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="no-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="no-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Quiénes son?</button>
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>

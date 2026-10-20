@@ -846,6 +846,66 @@ button, input, textarea, select {
   }
 }
 
+/* Entre tableta y portátil el menú completo no cabe con el logo grande y el
+   botón de WhatsApp: se compacta antes que desbordar la página. */
+@media (min-width: 56rem) and (max-width: 74.99rem) {
+  .bt-nav__links {
+    gap: var(--bt-space-1);
+  }
+
+  .bt-nav__links a {
+    font-size: var(--bt-fs-xs);
+    padding-inline: 0.4rem;
+  }
+
+  .bt-nav__logo {
+    width: clamp(150px, 14vw, 190px);
+  }
+}
+
+/* En móvil el menú no se esconde: pasa a una segunda fila desplazable.
+   Antes solo quedaban el logo y WhatsApp, así que desde el encabezado no
+   había forma de llegar a las demás pantallas. */
+@media (max-width: 55.99rem) {
+  .bt-nav__inner {
+    flex-wrap: wrap;
+    row-gap: 0;
+    padding-block: var(--bt-space-2) 0;
+  }
+
+  .bt-nav__brand { order: 1; }
+  .bt-nav__actions { order: 2; }
+
+  .bt-nav__links {
+    display: flex;
+    order: 3;
+    width: 100%;
+    gap: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-block: var(--bt-space-2);
+    scrollbar-width: none;
+  }
+
+  .bt-nav__links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bt-nav__links li {
+    flex: 0 0 auto;
+  }
+
+  .bt-nav__links a {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  /* El encabezado móvil es más alto: los anclajes necesitan más aire. */
+  section[id] {
+    scroll-margin-top: 7.5rem;
+  }
+}
+
 /* ----------------------------------------------------------------
    10. FOOTER COMUNITARIO E INSTITUCIONAL
    ---------------------------------------------------------------- */
