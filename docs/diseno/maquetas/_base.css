@@ -244,6 +244,12 @@ button, input, textarea, select {
   padding-inline: 0.22em;
   isolation: isolate;
   white-space: nowrap;
+  /* Las cuatro manchas del sistema son claras, así que el texto del pincel va
+     SIEMPRE en tinta, venga de donde venga el color heredado (si hereda blanco
+     —secciones navy— el contraste cae a 1,39–1,74 y no pasa AA).
+     Medido: tinta/amarillo 14,13 · tinta/naranja 6,56 · tinta/celeste 11,31 ·
+     tinta/verde agua 12,55. */
+  color: var(--bt-ink-900);
 }
 
 .bt-brush::before {

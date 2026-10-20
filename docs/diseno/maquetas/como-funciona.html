@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cómo funciona — Antena Parabólica Bajo Tigui</title>
+  <meta name="description" content="Así se conecta un asociado de Bajo Tigui: hablamos, miramos su caso, instalamos y queda con fibra óptica y televisión por antena parabólica. Atención de lunes a viernes en El Bagre, Antioquia.">
+  <meta name="theme-color" content="#002E84">
+  <link rel="icon" href="../../../public/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="_base.css">
+  <style>
+    /* ==========================================================================
+       Pantalla «Cómo funciona» — utilidades de composición de esta página.
+       No es sistema: todo valor sale de tokens.css y de las clases bt-* de
+       _base.css. Solo se añade lo que esta composición editorial necesita.
+       ========================================================================== */
+
+    .cf-section[id] { scroll-margin-top: 5.5rem; }
+
+    /* --- navegación: los seis enlaces necesitan 64rem para no apretarse --- */
+    .cf-nav .bt-nav__brand { min-height: 44px; }
+    .cf-nav .bt-nav__logo { width: clamp(150px, 120px + 10vw, 240px); }
+    .cf-nav .bt-nav__links { display: none; }
+    @media (min-width: 64rem) {
+      .cf-nav .bt-nav__links { display: flex; }
+    }
+    .cf-nav .bt-nav__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    @media (max-width: 23rem) {
+      .cf-nav__label { display: none; }
+    }
+
+    /* --- aviso administrable --- */
+    .cf-aviso { padding-top: var(--bt-space-4); }
+    /* AA: el texto pequeño del tag no puede ir blanco sobre naranja (3,0:1). */
+    .cf-aviso .bt-banner-aviso__tag { color: var(--bt-ink-900); }
+    .bt-por-confirmar__tag { color: var(--bt-ink-900); }
+
+    /* ============================ PORTADA ==================================== */
+    .cf-hero {
+      background: var(--bt-navy-900);
+      border-bottom: var(--bt-border-w-thick) solid var(--bt-border);
+      isolation: isolate;
+    }
+    .cf-hero__arcs {
+      position: absolute;
+      z-index: -1;
+      top: -7rem;
+      right: -9rem;
+      width: min(50rem, 112vw);
+      height: auto;
+      color: var(--bt-sky-400);
+      opacity: 0.15;
+    }
+    .cf-hero__grid {
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 4.5rem);
+    }
+    @media (min-width: 62rem) {
+      .cf-hero__grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .cf-hero__title {
+      font-size: clamp(2.2rem, 1.1rem + 4.6vw, 3.8rem);
+      line-height: 0.94;
+      font-variation-settings: "wdth" var(--bt-display-wdth-wordmark);
+      margin-top: var(--bt-space-3);
+    }
+    .cf-hero__title .bt-brush { color: var(--bt-ink-900); }
+    .cf-hero__lead {
+      color: var(--bt-sky-200);
+      margin: var(--bt-space-5) 0 0;
+      max-width: 46ch;
+    }
+    .cf-hero__pills { list-style: none; margin: var(--bt-space-5) 0 0; padding: 0; }
+    .cf-hero__ctas { margin-top: var(--bt-space-6); }
+    .cf-hero__meta {
+      margin-top: var(--bt-space-5);
+      color: var(--bt-sky-400);
+      font-size: var(--bt-fs-sm);
+    }
+
+    /* Itinerario: boleto dibujado, no una tarjeta genérica */
+    .cf-itinerario-card {
+      position: relative;
+      width: 100%;
+      max-width: 26rem;
+      margin-inline: auto;
+      margin-top: var(--bt-space-5);
+      padding: clamp(1.4rem, 4vw, 2rem);
+      background: var(--bt-paper-50);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      transform: rotate(-1.1deg);
+      color: var(--bt-text);
+    }
+    .cf-itinerario-card .bt-kicker { color: var(--bt-brand); margin-bottom: 0; }
+    .cf-itinerario__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--bt-space-3);
+      padding-bottom: var(--bt-space-3);
+      border-bottom: 2px dashed var(--bt-border-soft);
+    }
+    .cf-itinerario__top .bt-sticker { font-size: var(--bt-fs-2xs); }
+    .cf-itinerario {
+      list-style: none;
+      margin: var(--bt-space-2) 0 0;
+      padding: 0;
+      position: relative;
+    }
+    .cf-itinerario li {
+      display: grid;
+      grid-template-columns: 2.4rem minmax(0, 1fr);
+      gap: var(--bt-space-3);
+      align-items: start;
+      padding-block: var(--bt-space-3);
+    }
+    .cf-itinerario li + li {
+      border-top: 2px dashed var(--bt-border-soft);
+    }
+    .cf-itinerario__num {
+      display: grid;
+      place-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      background: var(--bt-yellow-400);
+      border: 2px solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      color: var(--bt-ink-900);
+      font-variant-numeric: tabular-nums;
+    }
+    .cf-itinerario__txt { min-width: 0; }
+    .cf-itinerario__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1.15;
+    }
+    .cf-itinerario__sub {
+      margin: 0;
+      font-size: var(--bt-fs-xs);
+      line-height: 1.35;
+      color: var(--bt-text-soft);
+    }
+    .cf-itinerario__foot {
+      margin: var(--bt-space-3) 0 0;
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed var(--bt-border-soft);
+      font-family: var(--bt-font-display);
+      font-style: italic;
+      font-weight: var(--bt-fw-bold);
+      font-size: var(--bt-fs-sm);
+      line-height: 1.25;
+      color: var(--bt-brand);
+    }
+
+    /* ============================ LA RUTA ==================================== */
+    .cf-ruta {
+      list-style: none;
+      margin: var(--bt-space-6) 0 0;
+      padding: 0;
+    }
+    .cf-paso {
+      display: grid;
+      grid-template-columns: 3.6rem minmax(0, 1fr);
+      gap: var(--bt-space-4);
+      align-items: start;
+      padding-block: clamp(1.4rem, 3vw, 2.2rem);
+      border-top: 2px dashed var(--bt-border-soft);
+    }
+    .cf-paso:last-child {
+      border-bottom: 2px dashed var(--bt-border-soft);
+    }
+    @media (min-width: 62rem) {
+      .cf-paso {
+        grid-template-columns: 4.6rem minmax(0, 1fr);
+        gap: var(--bt-space-5);
+      }
+      .cf-paso:nth-child(2) { margin-inline-start: 2rem; }
+      .cf-paso:nth-child(3) { margin-inline-start: 4rem; }
+      .cf-paso:nth-child(4) { margin-inline-start: 6rem; }
+    }
+    .cf-paso__num {
+      display: grid;
+      place-items: center;
+      width: 3.4rem;
+      height: 3.4rem;
+      background: var(--bt-yellow-400);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 4px 4px 0 var(--bt-ink-900);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      color: var(--bt-ink-900);
+      font-variant-numeric: tabular-nums;
+    }
+    .cf-paso:nth-child(2) .cf-paso__num { background: var(--bt-aqua-500); }
+    .cf-paso:nth-child(3) .cf-paso__num { background: var(--bt-sky-400); }
+    .cf-paso:nth-child(4) .cf-paso__num { background: var(--bt-yellow-400); }
+    @media (min-width: 48rem) {
+      .cf-paso__num {
+        width: 4.4rem;
+        height: 4.4rem;
+        font-size: var(--bt-fs-lg);
+      }
+    }
+    .cf-paso__body { min-width: 0; }
+    .cf-paso__title {
+      margin: 0 0 var(--bt-space-2);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-xl);
+      line-height: 1.05;
+    }
+    .cf-paso__text {
+      margin: 0;
+      max-width: 58ch;
+    }
+    .cf-paso__nota {
+      display: flex;
+      width: 100%;
+      max-width: 56ch;
+      margin-top: var(--bt-space-3);
+    }
+    .cf-paso__link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-top: var(--bt-space-2);
+      font-weight: var(--bt-fw-bold);
+    }
+
+    /* ============================ LA SEÑAL =================================== */
+    .cf-senal {
+      display: grid;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+    @media (min-width: 62rem) {
+      .cf-senal {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        align-items: center;
+        gap: var(--bt-space-8);
+      }
+    }
+    .cf-senal__text p { color: var(--bt-sky-200); }
+    .cf-senal__text .bt-kicker { color: var(--bt-sky-400); }
+    .cf-fig {
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+      padding: clamp(0.75rem, 2.5vw, 1.5rem);
+    }
+    .cf-fig svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .cf-fig__inkline {
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cf-fig__dash {
+      fill: none;
+      stroke: var(--bt-navy-900);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-dasharray: 9 9;
+    }
+    /* Los rellenos van después de __inkline: así los elementos que llevan
+       ambas clases conservan su color plano y las líneas sueltas quedan sin relleno. */
+    .cf-fig__sun { fill: var(--bt-yellow-400); }
+    .cf-fig__sky { fill: var(--bt-sky-400); }
+    .cf-fig__navy { fill: var(--bt-navy-800); }
+    .cf-fig__paper { fill: var(--bt-paper-50); }
+    .cf-fig__orange { fill: var(--bt-orange-500); }
+    .cf-paradas {
+      list-style: none;
+      margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-5);
+    }
+    @media (min-width: 48rem) {
+      .cf-paradas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 64rem) {
+      .cf-paradas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    .cf-parada {
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 50%, transparent);
+      min-width: 0;
+    }
+    .cf-parada__num {
+      margin: 0;
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      color: var(--bt-yellow-400);
+      font-variant-numeric: tabular-nums;
+    }
+    .cf-parada__title {
+      margin: var(--bt-space-1) 0 var(--bt-space-1);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+      color: var(--bt-white);
+    }
+    .cf-parada p {
+      margin: 0;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.45;
+      color: var(--bt-sky-200);
+    }
+
+    /* ============================ QUÉ NECESITA =============================== */
+    .cf-section--sunken .bt-kicker { color: var(--bt-brand); }
+    .cf-tiene {
+      display: grid;
+      gap: var(--bt-space-6);
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 52rem) {
+      .cf-tiene { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .cf-tiene__item {
+      padding-top: var(--bt-space-4);
+      border-top: var(--bt-border-w-thick) solid var(--bt-border);
+      min-width: 0;
+    }
+    .cf-tiene__head {
+      display: flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+    }
+    .cf-tiene__icon {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      background: var(--bt-aqua-500);
+      border: var(--bt-border-w-thick) solid var(--bt-border);
+      border-radius: 50%;
+      box-shadow: 2px 2px 0 var(--bt-ink-900);
+    }
+    .cf-tiene__item:nth-child(2) .cf-tiene__icon { background: var(--bt-yellow-400); }
+    .cf-tiene__icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: var(--bt-ink-900);
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cf-tiene__title {
+      margin: 0;
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+    }
+    .cf-tiene__item p {
+      margin: var(--bt-space-3) 0 0;
+      max-width: 44ch;
+    }
+    .cf-tiene__link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-top: var(--bt-space-2);
+      font-weight: var(--bt-fw-bold);
+    }
+    .cf-tiene__pend {
+      display: flex;
+      width: 100%;
+      margin-top: var(--bt-space-6);
+    }
+    .cf-tiene__nota {
+      margin: var(--bt-space-6) 0 0;
+      padding: clamp(1.2rem, 3vw, 1.75rem);
+      background: var(--bt-paper-50);
+      border: 2px dashed var(--bt-border);
+      border-radius: var(--bt-radius-md);
+      max-width: 58ch;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+
+    /* ============================ DESPUÉS ==================================== */
+    .cf-despues {
+      display: grid;
+      gap: 0;
+      margin-top: var(--bt-space-6);
+    }
+    @media (min-width: 56rem) {
+      .cf-despues { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--bt-space-8); }
+    }
+    .cf-despues__item {
+      padding-block: var(--bt-space-5);
+      border-top: 2px solid var(--bt-border-soft);
+      min-width: 0;
+    }
+    .cf-despues__kicker {
+      margin: 0;
+      font-family: var(--bt-font-body);
+      font-size: var(--bt-fs-2xs);
+      font-weight: var(--bt-fw-bold);
+      letter-spacing: var(--bt-ls-caps);
+      text-transform: uppercase;
+      color: var(--bt-brand);
+    }
+    .cf-despues__title {
+      margin: var(--bt-space-1) 0 var(--bt-space-2);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-lg);
+      line-height: 1.1;
+    }
+    .cf-despues__num {
+      display: block;
+      margin-bottom: var(--bt-space-1);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(2.2rem, 1.5rem + 2.8vw, 3.2rem);
+      line-height: 1;
+      color: var(--bt-brand);
+      font-variant-numeric: tabular-nums;
+    }
+    .cf-despues__item p {
+      margin: 0;
+      max-width: 46ch;
+      font-size: var(--bt-fs-sm);
+      line-height: 1.5;
+    }
+    .cf-despues__pend {
+      display: flex;
+      width: 100%;
+      margin-top: var(--bt-space-4);
+    }
+    .cf-despues__item .bt-pill {
+      min-height: 44px;
+      margin-top: var(--bt-space-3);
+    }
+
+    /* ============================ CIERRE ===================================== */
+    .cf-cierre { display: grid; gap: clamp(2rem, 5vw, 4rem); }
+    @media (min-width: 60rem) {
+      .cf-cierre {
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        align-items: start;
+        gap: var(--bt-space-8);
+      }
+    }
+    .cf-cierre__text p { color: var(--bt-sky-200); }
+    .cf-cierre__tel {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--bt-space-3);
+      min-height: 48px;
+      margin-top: var(--bt-space-4);
+      font-family: var(--bt-font-display);
+      font-weight: var(--bt-fw-black);
+      font-size: clamp(1.9rem, 1.2rem + 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--bt-yellow-400);
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .cf-cierre__tel:hover { color: var(--bt-sky-200); }
+    .cf-cierre__tel svg { width: 32px; height: 32px; flex: 0 0 auto; fill: currentColor; }
+    .cf-cierre__ctas { margin-top: var(--bt-space-5); }
+    .cf-cierre__card {
+      padding: clamp(1.4rem, 4vw, 2rem);
+      background: var(--bt-navy-800);
+      border: var(--bt-border-w-thick) solid var(--bt-sky-400);
+      border-radius: var(--bt-radius-lg);
+      box-shadow: 8px 8px 0 var(--bt-orange-500);
+    }
+    .cf-cierre__card .bt-kicker { color: var(--bt-sky-400); }
+    .cf-cierre__list {
+      list-style: none;
+      margin: var(--bt-space-3) 0 0;
+      padding: 0;
+      display: grid;
+      gap: var(--bt-space-3);
+      font-size: var(--bt-fs-sm);
+      color: var(--bt-sky-200);
+    }
+    .cf-cierre__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--bt-space-3);
+      padding-top: var(--bt-space-3);
+      border-top: 2px dashed color-mix(in srgb, var(--bt-sky-400) 45%, transparent);
+    }
+    .cf-cierre__list svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      margin-top: 0.15em;
+      fill: none;
+      stroke: var(--bt-yellow-400);
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cf-cierre__lema {
+      margin: var(--bt-space-5) 0 0;
+      font-family: var(--bt-font-display);
+      font-style: italic;
+      font-weight: var(--bt-fw-black);
+      font-size: var(--bt-fs-md);
+      line-height: 1.25;
+      color: var(--bt-yellow-400);
+    }
+
+    /* ============================ PIE ======================================== */
+    .cf-footer__logo {
+      width: 112px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: var(--bt-space-4);
+    }
+    .cf-footer__list a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .cf-footer__legal a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline-end: var(--bt-space-4);
+    }
+    .cf-footer__note {
+      margin: var(--bt-space-4) 0 0;
+      padding-bottom: 5rem;
+      max-width: 62ch;
+    }
+
+    /* ============================ WIDGET DEL CHATBOT ========================= */
+    .cf-chat {
+      position: fixed;
+      right: max(var(--bt-space-4), env(safe-area-inset-right));
+      bottom: max(var(--bt-space-4), env(safe-area-inset-bottom));
+      z-index: var(--bt-z-chat);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: var(--bt-space-3);
+      max-width: calc(100vw - 2 * var(--bt-space-4));
+    }
+    .cf-chat .bt-chat-panel { max-height: calc(100vh - 7rem); }
+    .cf-chat .bt-chat-panel[hidden] { display: none; }
+    .cf-chat__close {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 2px solid var(--bt-sky-300);
+      border-radius: 50%;
+      color: var(--bt-white);
+      font-size: var(--bt-fs-md);
+      line-height: 1;
+      cursor: pointer;
+    }
+    .cf-chat__close:hover { background: var(--bt-sky-300); color: var(--bt-navy-900); }
+    .cf-chat .bt-chat-quick button,
+    .cf-chat .bt-chat-panel__wa-exit { min-height: 44px; }
+    @media (max-width: 26rem) {
+      .cf-chat .bt-chat-panel { max-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+<a class="bt-skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ══════════════════════════════════════════════════════════════
+     NAVEGACIÓN
+     ══════════════════════════════════════════════════════════════ -->
+<header class="cf-nav">
+  <nav class="bt-nav" aria-label="Navegación principal">
+    <div class="bt-container">
+      <div class="bt-nav__inner">
+        <a href="inicio.html" class="bt-nav__brand" aria-label="Inicio — Antena Parabólica Bajo Tigui">
+          <img
+            class="bt-nav__logo"
+            src="../../../public/brand/logo-horizontal.svg"
+            alt="Antena Parabólica Bajo Tigui"
+            width="240"
+            height="70"
+          >
+        </a>
+        <ul class="bt-nav__links">
+          <li><a href="inicio.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="como-funciona.html" aria-current="page">Cómo funciona</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="canales.html">Canales</a></li>
+          <li><a href="contacto.html">Atención</a></li>
+        </ul>
+        <div class="bt-nav__actions">
+          <a class="bt-btn bt-btn--wa" href="tel:+573147182506"
+             aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            <span class="cf-nav__label">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════
+     AVISO ADMINISTRABLE (semilla inactiva; encendida para revisar
+     el diseño, igual que en la pantalla de Inicio)
+     ══════════════════════════════════════════════════════════════ -->
+<div class="bt-container cf-aviso">
+  <aside class="bt-banner-aviso" aria-label="Aviso importante">
+    <span class="bt-banner-aviso__tag">Aviso importante</span>
+    <div class="bt-banner-aviso__content">
+      Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+      <strong>$37.000</strong>. No hay una fecha fija: la administración define cuándo.
+    </div>
+  </aside>
+</div>
+
+<main id="contenido" tabindex="-1">
+
+  <!-- ════════════════════════════════════════════════════════════
+       PORTADA · un proceso acompañado
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy cf-hero" aria-labelledby="h-portada">
+    <svg class="bt-signal-arcs cf-hero__arcs" viewBox="0 0 120 100" aria-hidden="true" focusable="false">
+      <path d="M 60 92 L 60 74" stroke-linecap="round"/>
+      <path d="M 26 74 A 42 42 0 0 1 94 74" stroke-linecap="round"/>
+      <path d="M 12 56 A 62 62 0 0 1 108 56" stroke-linecap="round"/>
+      <path d="M 0 38 A 82 82 0 0 1 120 38" stroke-linecap="round"/>
+      <path d="M -14 20 A 102 102 0 0 1 134 20" stroke-linecap="round"/>
+    </svg>
+
+    <div class="bt-container">
+      <div class="cf-hero__grid">
+        <div>
+          <p class="bt-kicker">Cómo funciona · El Bagre, Antioquia</p>
+          <h1 class="bt-display cf-hero__title" id="h-portada">
+            De la llamada<br>
+            a la <span class="bt-brush">señal.</span>
+          </h1>
+          <p class="bt-lead cf-hero__lead">
+            Conectarse con Bajo Tigui es un proceso acompañado: hablamos, miramos su casa,
+            instalamos y probamos todo con usted. Sin prometer plazos que no existen y con
+            gente del pueblo al otro lado del teléfono.
+          </p>
+
+          <ul class="bt-cluster cf-hero__pills" role="list" aria-label="Cómo es la atención">
+            <li class="bt-pill bt-pill--sky">Atención L–V · 7 a.&nbsp;m. – 5 p.&nbsp;m.</li>
+            <li class="bt-pill bt-pill--aqua">Gente de El Bagre</li>
+            <li class="bt-pill bt-pill--sun">Sin ánimo de lucro</li>
+          </ul>
+
+          <div class="bt-cluster cf-hero__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Empezar por WhatsApp o llamada al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Empezar por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver el plan</a>
+          </div>
+
+          <p class="cf-hero__meta">
+            Lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m. ·
+            WhatsApp y llamadas: 314&nbsp;718&nbsp;2506
+          </p>
+        </div>
+
+        <aside class="cf-itinerario-card" aria-label="La ruta del asociado, en cuatro paradas">
+          <div class="cf-itinerario__top">
+            <p class="bt-kicker">La ruta</p>
+            <span class="bt-sticker bt-sticker--sun">Paso a paso</span>
+          </div>
+          <ol class="cf-itinerario">
+            <li>
+              <span class="cf-itinerario__num" aria-hidden="true">01</span>
+              <div class="cf-itinerario__txt">
+                <p class="cf-itinerario__title">Hablamos</p>
+                <p class="cf-itinerario__sub">WhatsApp o llamada al 314&nbsp;718&nbsp;2506.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cf-itinerario__num" aria-hidden="true">02</span>
+              <div class="cf-itinerario__txt">
+                <p class="cf-itinerario__title">Miramos su caso</p>
+                <p class="cf-itinerario__sub">Dirección y qué necesita. La visita, por confirmar.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cf-itinerario__num" aria-hidden="true">03</span>
+              <div class="cf-itinerario__txt">
+                <p class="cf-itinerario__title">Instalamos</p>
+                <p class="cf-itinerario__sub">Tiempo y costo de instalación, por confirmar.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cf-itinerario__num" aria-hidden="true">04</span>
+              <div class="cf-itinerario__txt">
+                <p class="cf-itinerario__title">Queda conectado</p>
+                <p class="cf-itinerario__sub">$70.000 al mes; el primer mes va por nuestra cuenta.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="cf-itinerario__foot">
+            Cuatro paradas. Ninguna empieza sin que usted diga que sí.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       LA RUTA DEL ASOCIADO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper cf-section" id="ruta" aria-labelledby="h-ruta">
+    <div class="bt-container">
+      <p class="bt-kicker">La ruta del asociado</p>
+      <h2 class="bt-display bt-display--2xl" id="h-ruta">
+        Cuatro pasos,<br>
+        <span class="bt-brush bt-brush--aqua">sin vueltas.</span>
+      </h2>
+      <p class="bt-lead">
+        Esto es lo que pasa desde que nos escribe hasta que queda con internet y televisión.
+        Donde falta un dato de la administración, lo decimos en el mismo paso.
+      </p>
+
+      <ol class="cf-ruta">
+        <li class="cf-paso">
+          <span class="cf-paso__num" aria-hidden="true">01</span>
+          <div class="cf-paso__body">
+            <h3 class="cf-paso__title">Hablas con nosotros</h3>
+            <p class="cf-paso__text">
+              Nos escribe por WhatsApp o nos llama al <b>314&nbsp;718&nbsp;2506</b>. Nos cuenta
+              dónde vive y qué necesita. Le contestamos de lunes a viernes, de 7:00 a.&nbsp;m.
+              a 5:00 p.&nbsp;m. Sábados, domingos y festivos no hay atención.
+            </p>
+          </div>
+        </li>
+
+        <li class="cf-paso">
+          <span class="cf-paso__num" aria-hidden="true">02</span>
+          <div class="cf-paso__body">
+            <h3 class="cf-paso__title">Miramos su caso</h3>
+            <p class="cf-paso__text">
+              Revisamos su dirección y qué servicio necesita. Si hay red en su sector,
+              seguimos; si no, se lo decimos con claridad. Así nadie pierde el día esperando
+              una visita que no va a llegar.
+            </p>
+            <div class="bt-por-confirmar cf-paso__nota" role="note" aria-label="Dato por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>
+                La forma de agendar la visita y el tiempo que toma llegar hasta su casa:
+                pendientes de confirmación con la administración.
+              </span>
+            </div>
+          </div>
+        </li>
+
+        <li class="cf-paso">
+          <span class="cf-paso__num" aria-hidden="true">03</span>
+          <div class="cf-paso__body">
+            <h3 class="cf-paso__title">Se instala</h3>
+            <p class="cf-paso__text">
+              Vamos a su casa y dejamos la parabólica y la fibra funcionando. Probamos los
+              canales y el internet con usted al frente: si algo no se ve, se ajusta antes
+              de irnos.
+            </p>
+            <div class="bt-por-confirmar cf-paso__nota" role="note" aria-label="Datos por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>
+                El costo de instalación y el tiempo que toma: pendientes de confirmación
+                con la administración. No anunciamos instalación gratis hasta que esté aprobada.
+              </span>
+            </div>
+          </div>
+        </li>
+
+        <li class="cf-paso">
+          <span class="cf-paso__num" aria-hidden="true">04</span>
+          <div class="cf-paso__body">
+            <h3 class="cf-paso__title">Queda conectado y paga $70.000 al mes</h3>
+            <p class="cf-paso__text">
+              Queda con fibra óptica de <b>50 Mbps de descarga</b> y <b>90 canales SD + HD</b>
+              por antena parabólica. El primer mes va por nuestra cuenta; de ahí en adelante
+              son $70.000 al mes, un solo pago.
+            </p>
+            <div class="bt-por-confirmar cf-paso__nota" role="note" aria-label="Dato por confirmar">
+              <span class="bt-por-confirmar__tag">Por confirmar</span>
+              <span>La vigencia de la promoción del mes gratis.</span>
+            </div>
+            <a class="cf-paso__link" href="planes.html">Ver el plan completo</a>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       EL RECORRIDO DE LA SEÑAL
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy cf-section" id="recorrido" aria-labelledby="h-recorrido">
+    <div class="bt-container">
+      <div class="cf-senal">
+        <div class="cf-senal__text">
+          <p class="bt-kicker">El recorrido de la señal</p>
+          <h2 class="bt-display bt-display--2xl" id="h-recorrido">
+            Del cielo<br>
+            a <span class="bt-brush bt-brush--sky">su sala.</span>
+          </h2>
+          <p class="bt-lead">
+            La señal baja del satélite a la parabólica del techo, entra a la casa y termina
+            en el televisor y en el celular. No tiene que entender de frecuencias ni de cables:
+            nosotros la dejamos lista.
+          </p>
+          <p>
+            Lo que sí puede saber: la parabólica se orienta y se fija, y la fibra entra hasta
+            su casa. Todo se prueba con usted antes de dar el trabajo por terminado.
+          </p>
+        </div>
+
+        <div class="cf-fig">
+          <svg viewBox="0 0 640 420" role="img" aria-label="Ilustración: la señal baja de un satélite a la parabólica del techo, entra a la casa y llega al televisor y al celular">
+            <!-- satélite -->
+            <rect x="86" y="52" width="64" height="46" rx="8" class="cf-fig__sun cf-fig__inkline"/>
+            <rect x="26" y="58" width="48" height="34" rx="3" class="cf-fig__sky cf-fig__inkline"/>
+            <rect x="162" y="58" width="48" height="34" rx="3" class="cf-fig__sky cf-fig__inkline"/>
+            <path d="M74 75 H86 M150 75 H162" class="cf-fig__inkline"/>
+            <path d="M38 70 H62 M38 80 H62 M174 70 H198 M174 80 H198" class="cf-fig__inkline" stroke-width="2.5"/>
+            <path d="M118 52 V34" class="cf-fig__inkline"/>
+            <circle cx="118" cy="28" r="7" class="cf-fig__orange cf-fig__inkline"/>
+            <path d="M196 100 A 34 34 0 0 1 196 134" class="cf-fig__dash"/>
+            <path d="M210 92 A 48 48 0 0 1 210 142" class="cf-fig__dash"/>
+
+            <!-- casa -->
+            <rect x="330" y="250" width="190" height="112" class="cf-fig__paper cf-fig__inkline"/>
+            <path d="M310 252 L425 174 L540 252 Z" class="cf-fig__orange cf-fig__inkline"/>
+            <rect x="352" y="272" width="34" height="34" class="cf-fig__sky cf-fig__inkline"/>
+            <path d="M369 272 V306 M352 289 H386" class="cf-fig__inkline" stroke-width="2.5"/>
+            <rect x="404" y="306" width="44" height="56" class="cf-fig__sky cf-fig__inkline"/>
+            <circle cx="439" cy="335" r="3" class="cf-fig__navy"/>
+
+            <!-- parabólica sobre el techo -->
+            <g transform="rotate(-22 372 150)">
+              <path d="M346 150 A 26 44 0 0 1 398 150 Z" class="cf-fig__sky cf-fig__inkline"/>
+              <path d="M372 150 V188" class="cf-fig__inkline"/>
+              <circle cx="372" cy="150" r="4" class="cf-fig__orange cf-fig__inkline" stroke-width="2.5"/>
+            </g>
+            <path d="M372 188 V246" class="cf-fig__inkline"/>
+
+            <!-- recorrido: satélite → parabólica → casa → pantallas -->
+            <path d="M214 150 C 260 110, 300 112, 340 138" class="cf-fig__dash"/>
+            <path d="M454 246 V286" class="cf-fig__dash"/>
+            <path d="M520 300 C 540 300, 548 306, 556 312" class="cf-fig__dash"/>
+
+            <!-- televisor -->
+            <rect x="534" y="300" width="88" height="66" rx="6" class="cf-fig__navy cf-fig__inkline"/>
+            <rect x="544" y="310" width="68" height="38" rx="2" class="cf-fig__sky cf-fig__inkline" stroke-width="2.5"/>
+            <path d="M566 366 V376 M590 366 V376 M556 378 H600" class="cf-fig__inkline"/>
+
+            <!-- celular -->
+            <rect x="548" y="166" width="46" height="78" rx="9" class="cf-fig__paper cf-fig__inkline"/>
+            <rect x="555" y="178" width="32" height="46" rx="2" class="cf-fig__sky cf-fig__inkline" stroke-width="2.5"/>
+            <path d="M564 234 H578" class="cf-fig__inkline" stroke-width="2.5"/>
+            <path d="M560 152 A 18 18 0 0 1 582 152 M554 142 A 28 28 0 0 1 588 142" class="cf-fig__inkline" stroke-width="3"/>
+          </svg>
+        </div>
+      </div>
+
+      <ol class="cf-paradas">
+        <li class="cf-parada">
+          <p class="cf-parada__num" aria-hidden="true">01</p>
+          <h3 class="cf-parada__title">Satélite</h3>
+          <p>De allá baja la señal de televisión.</p>
+        </li>
+        <li class="cf-parada">
+          <p class="cf-parada__num" aria-hidden="true">02</p>
+          <h3 class="cf-parada__title">Parabólica</h3>
+          <p>En su techo, orientada y fijada para recibir.</p>
+        </li>
+        <li class="cf-parada">
+          <p class="cf-parada__num" aria-hidden="true">03</p>
+          <h3 class="cf-parada__title">Su casa</h3>
+          <p>La fibra óptica entra hasta su casa.</p>
+        </li>
+        <li class="cf-parada">
+          <p class="cf-parada__num" aria-hidden="true">04</p>
+          <h3 class="cf-parada__title">TV y celular</h3>
+          <p>Los canales en el televisor y el internet en sus equipos.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUÉ NECESITA TENER LISTO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--sunken cf-section cf-section--sunken" id="necesita" aria-labelledby="h-necesita">
+    <div class="bt-container">
+      <p class="bt-kicker">Antes de empezar</p>
+      <h2 class="bt-display bt-display--2xl" id="h-necesita">
+        Solo<br>
+        <span class="bt-brush bt-brush--orange">dos cosas.</span>
+      </h2>
+      <p class="bt-lead">
+        No le vamos a pedir una lista larga de requisitos que todavía no está definida.
+        Para dar el primer paso, con esto basta.
+      </p>
+
+      <div class="cf-tiene">
+        <article class="cf-tiene__item">
+          <div class="cf-tiene__head">
+            <span class="cf-tiene__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21s7-5.2 7-11a7 7 0 10-14 0c0 5.8 7 11 7 11z"/>
+                <circle cx="12" cy="10" r="2.5"/>
+              </svg>
+            </span>
+            <h3 class="cf-tiene__title">Una dirección dentro de la cobertura</h3>
+          </div>
+          <p>
+            El barrio o la vereda donde vive. Con eso miramos si hay red en su sector.
+            Si no la hay, se lo decimos de una.
+          </p>
+          <a class="cf-tiene__link" href="cobertura.html">Consultar cobertura</a>
+        </article>
+
+        <article class="cf-tiene__item">
+          <div class="cf-tiene__head">
+            <span class="cf-tiene__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 3h4l2 5-3 2a12 12 0 004 4l2-3 5 2v4a2 2 0 01-2 2A16 16 0 015 5a2 2 0 012-2z"/>
+              </svg>
+            </span>
+            <h3 class="cf-tiene__title">Un teléfono de contacto</h3>
+          </div>
+          <p>
+            El mismo número por donde nos escribe o nos llama, para ubicarlo y confirmar
+            la visita. Puede ser fijo o celular.
+          </p>
+          <a class="cf-tiene__link" href="tel:+573147182506">Llamar al 314&nbsp;718&nbsp;2506</a>
+        </article>
+      </div>
+
+      <div class="bt-por-confirmar cf-tiene__pend" role="note" aria-label="Requisitos por confirmar">
+        <span class="bt-por-confirmar__tag">Por confirmar</span>
+        <span>
+          Las zonas exactas de cobertura y los requisitos documentales —documentos, estrato,
+          dirección exacta, permanencia o contrato— están pendientes de confirmación con la
+          administración. No se los vamos a inventar ni a pedir de más.
+        </span>
+      </div>
+
+      <p class="cf-tiene__nota">
+        Tampoco necesita saber de antenas, cables ni velocidades. Para eso vamos nosotros.
+        Si tiene una duda, pregúntela tal como se le ocurra: aquí contesta una persona.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUÉ PASA DESPUÉS
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--paper cf-section" id="despues" aria-labelledby="h-despues">
+    <div class="bt-container">
+      <p class="bt-kicker">Ya conectado</p>
+      <h2 class="bt-display bt-display--2xl" id="h-despues">
+        ¿Y después<br>
+        <span class="bt-brush">qué sigue?</span>
+      </h2>
+      <p class="bt-lead">
+        La instalación no es el final: es el comienzo del servicio. Esto es lo que debe
+        tener claro para los meses siguientes.
+      </p>
+
+      <div class="cf-despues">
+        <article class="cf-despues__item">
+          <p class="cf-despues__kicker">Cada mes</p>
+          <h3 class="cf-despues__title">Un solo pago</h3>
+          <span class="cf-despues__num">$70.000</span>
+          <p>
+            Fibra óptica y televisión en una sola cuenta mensual. El primer mes va por
+            nuestra cuenta; la vigencia de esa promoción está por confirmar.
+          </p>
+          <a class="bt-pill bt-pill--sky" href="planes.html">Ver el plan</a>
+        </article>
+
+        <article class="cf-despues__item">
+          <p class="cf-despues__kicker">Si se atrasa</p>
+          <h3 class="cf-despues__title">El aviso de suspensión</h3>
+          <span class="cf-despues__num">$37.000</span>
+          <p>
+            Los servicios de parabólica pueden suspenderse cuando el saldo supera los
+            $37.000. No hay una fecha fija: la administración define cuándo. Si tiene una
+            dificultad, escríbanos antes de que el saldo crezca.
+          </p>
+        </article>
+
+        <article class="cf-despues__item">
+          <p class="cf-despues__kicker">Si necesita ayuda</p>
+          <h3 class="cf-despues__title">Atención de persona</h3>
+          <p>
+            WhatsApp y llamadas de <b>lunes a viernes, 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</b>
+            Sábados, domingos y festivos no hay atención. Si escribe fuera de horario,
+            el mensaje queda y se responde cuando se abra.
+          </p>
+          <a class="bt-pill bt-pill--aqua" href="contacto.html">Ver canales de atención</a>
+        </article>
+
+        <article class="cf-despues__item">
+          <p class="cf-despues__kicker">Para pagar</p>
+          <h3 class="cf-despues__title">Los medios de pago</h3>
+          <p>
+            Todavía no tenemos un canal de pago confirmado para publicar. No queremos
+            mandarlo a consignar a un lado equivocado.
+          </p>
+          <div class="bt-por-confirmar cf-despues__pend" role="note" aria-label="Dato por confirmar">
+            <span class="bt-por-confirmar__tag">Por confirmar</span>
+            <span>
+              Medios de pago disponibles (efectivo, transferencia u otros): pendientes de
+              confirmación con la administración. Pregunte al 314&nbsp;718&nbsp;2506.
+            </span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CIERRE · el primer paso
+       ════════════════════════════════════════════════════════════ -->
+  <section class="bt-section bt-section--navy cf-section" id="empezar" aria-labelledby="h-empezar">
+    <div class="bt-container">
+      <div class="cf-cierre">
+        <div class="cf-cierre__text">
+          <p class="bt-kicker">El primer paso</p>
+          <h2 class="bt-display bt-display--2xl" id="h-empezar">
+            Empecemos por<br>
+            <span class="bt-brush">una llamada.</span>
+          </h2>
+          <p class="bt-lead">
+            Si ya vio el plan, escríbanos. Si todavía tiene dudas, también. Del otro lado
+            contesta alguien de El Bagre que conoce el servicio.
+          </p>
+
+          <a class="cf-cierre__tel" href="tel:+573147182506">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+            </svg>
+            314&nbsp;718&nbsp;2506
+          </a>
+
+          <div class="bt-cluster cf-cierre__ctas">
+            <a class="bt-btn bt-btn--wa bt-btn--lg" href="tel:+573147182506"
+               aria-label="Escribir por WhatsApp o llamar al 314 718 2506">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+              </svg>
+              Escribir por WhatsApp
+            </a>
+            <a class="bt-btn bt-btn--outline bt-btn--lg" href="planes.html">Ver planes y precios</a>
+          </div>
+        </div>
+
+        <aside class="cf-cierre__card" aria-label="Lo que puede esperar de la atención">
+          <p class="bt-kicker">Lo que puede esperar</p>
+          <ul class="cf-cierre__list">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Una persona que lo escucha, no un menú de opciones.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Le decimos si hay red en su sector antes de agendar nada.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Ningún dato inventado: lo que falta se dice como falta.</span>
+            </li>
+          </ul>
+          <p class="cf-cierre__lema">
+            «Recuerde señor asociado: que me es cumplido, me es pago.»
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PIE
+     ══════════════════════════════════════════════════════════════ -->
+<footer class="bt-footer" role="contentinfo" aria-label="Pie de página">
+  <div class="bt-container">
+    <div class="bt-footer__grid">
+
+      <div>
+        <img
+          class="cf-footer__logo"
+          src="../../../public/brand/logo-mono-blanco.svg"
+          alt=""
+          width="112"
+          height="112"
+          loading="lazy"
+        >
+        <p class="bt-display--wordmark" style="margin: 0; font-size: var(--bt-fs-lg); color: var(--bt-white);">
+          Antena Parabólica<br>Bajo Tigui
+        </p>
+        <p style="margin: var(--bt-space-2) 0 0; font-size: var(--bt-fs-sm); color: var(--bt-sky-200);">
+          Organización sin ánimo de lucro<br>
+          El Bagre, Antioquia, Colombia
+        </p>
+        <p class="bt-footer__lema">
+          "Recuerde señor asociado:<br>que me es cumplido, me es pago."
+        </p>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Servicios</p>
+        <ul class="bt-footer__list cf-footer__list">
+          <li><a href="planes.html">Plan $70.000 / mes</a></li>
+          <li><a href="planes.html">Internet 50 Mbps de descarga</a></li>
+          <li><a href="canales.html">TV 90 canales SD + HD</a></li>
+          <li><a href="cobertura.html">Cobertura</a></li>
+          <li><a href="contacto.html">Atención al asociado</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="bt-kicker" style="color: var(--bt-sky-400);">Contacto</p>
+        <ul class="bt-footer__list cf-footer__list">
+          <li>
+            <a href="tel:+573147182506" aria-label="WhatsApp y llamadas: 314 718 2506">
+              WhatsApp / llamadas: 314&nbsp;718&nbsp;2506
+            </a>
+          </li>
+          <li>Lun – Vie · 7:00 a.&nbsp;m. – 5:00 p.&nbsp;m.</li>
+          <li><a href="cobertura.html">¿Llega a mi casa?</a></li>
+          <li><a href="planes.html">Ver el plan</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bt-footer__bottom">
+      <p style="margin: 0;">© 2026 Antena Parabólica Bajo Tigui.</p>
+      <nav class="cf-footer__legal" aria-label="Documentos legales">
+        <a href="#">Política de privacidad</a>
+        <a href="#">Términos y condiciones</a>
+        <a href="#">Política de reembolsos</a>
+      </nav>
+    </div>
+
+    <p class="cf-footer__note">
+      Tratamos sus datos personales según la Ley 1581 de 2012 y solo con su consentimiento.
+      Este sitio <b>no guarda datos de tarjeta</b>.
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WIDGET DEL CHATBOT — botón flotante + panel (abre con JS en
+     producción; en la maqueta el panel vive cerrado y no hay JS)
+     ══════════════════════════════════════════════════════════════ -->
+<aside class="cf-chat" aria-label="Asistente virtual de Bajo Tigui">
+  <div class="bt-chat-panel" id="panel-asistente" role="dialog" aria-labelledby="asistente-titulo" hidden>
+    <div class="bt-chat-panel__head">
+      <div class="bt-chat-panel__identity">
+        <span class="bt-chat-panel__dot" aria-hidden="true"></span>
+        <span id="asistente-titulo">Asistente Bajo Tigui</span>
+      </div>
+      <button class="cf-chat__close" type="button" aria-label="Cerrar el asistente">✕</button>
+    </div>
+    <div class="bt-chat-panel__body">
+      <div class="bt-chat-msg bt-chat-msg--system" role="status">
+        Responde con datos confirmados; si no sabe, lo pasa a una persona.
+      </div>
+      <div class="bt-chat-msg bt-chat-msg--bot">
+        ¡Hola! Soy el asistente de Bajo Tigui. ¿Qué necesita saber?
+      </div>
+      <div class="bt-chat-quick">
+        <button type="button">¿Cuánto vale el plan?</button>
+        <button type="button">¿Llega a mi casa?</button>
+        <button type="button">Quiero contratar</button>
+      </div>
+    </div>
+    <div class="bt-chat-panel__foot">
+      <div class="bt-chat-panel__input-row">
+        <input type="text" placeholder="Escriba su pregunta…" aria-label="Mensaje al asistente">
+        <button class="bt-btn bt-btn--primary" type="button" aria-label="Enviar mensaje">→</button>
+      </div>
+      <a class="bt-chat-panel__wa-exit" href="tel:+573147182506">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="width: 16px; height: 16px; flex: 0 0 auto; fill: currentColor;">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.565 4.136 1.545 5.87L.057 23.944l6.23-1.516A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.851 0-3.598-.485-5.112-1.338l-.367-.218-3.695.899.934-3.594-.24-.38A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/>
+        </svg>
+        Continuar por WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <button
+    class="bt-chat-fab"
+    type="button"
+    aria-label="Abrir el asistente virtual"
+    aria-expanded="false"
+    aria-controls="panel-asistente"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+    </svg>
+  </button>
+</aside>
+
+</body>
+</html>
