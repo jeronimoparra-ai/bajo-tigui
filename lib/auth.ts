@@ -3,6 +3,7 @@
 // Roles: asociado, soporte, admin. Necesita NEXTAUTH_SECRET y SUPABASE_*.
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { supabase } from "@/lib/db";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -14,15 +15,17 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
-        // POR IMPLEMENTAR: buscar usuario en BD (usuarios + roles), verificar hash con bcrypt.
-        // Requiere SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY y bcryptjs.
-        // Ejemplo (cuando haya BD):
-        //   const { data: user } = await supabase.from("usuarios").select("*, roles(nombre)").eq("email", credentials.email).single();
-        //   if (!user || !user.activo) return null;
-        //   const ok = await bcrypt.compare(credentials.password, user.password_hash);
-        //   if (!ok) return null;
-        //   return { id: user.id, email: user.email, role: user.roles?.nombre };
-        return null;
+        if (!supabase) return null;
+        const { data: user, error } = await supabase
+          .from("usuarios")
+          .select("id, email, password_hash, activo, roles(nombre)")
+          .eq("email", credentials.email)
+          .single();
+        if (error || !user || !user.activo) return null;
+        const bcrypt = await import("bcryptjs");
+        const ok = await bcrypt.compare(credentials.password, user.password_hash);
+        if (!ok) return null;
+        return { id: user.id, email: user.email, role: (user.roles as { nombre?: string } | null)?.nombre };
       },
     }),
   ],
