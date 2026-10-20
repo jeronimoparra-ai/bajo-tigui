@@ -10,6 +10,7 @@ Carpeta de trabajo de diseño. **Todo es HTML + CSS plano, sin build, sin depend
 | `componentes.html` | **Muestra viva de todos los componentes**, con los ratios de contraste medidos en el propio archivo |
 | `fonts/` | Archivo y Karla variables en `.woff2` (normal e itálica × latin y latin-ext), **locales** |
 | `capturas/` | Capturas de revisión con Playwright (móvil 390 px y escritorio 1440 px) |
+| `../assets/escenas/` | Escenas duotono para los fondos fijos por módulo (ver su `README.md`) |
 | `wip-1b-i/` | **Archivo del WIP 1B-i** (mismas 3 páginas y sus capturas) con su propia hoja `.mq-*`. Referencia histórica, no se actualiza |
 
 ## Reglas que este sistema cumple (no reintroducirlas)
@@ -28,6 +29,27 @@ Carpeta de trabajo de diseño. **Todo es HTML + CSS plano, sin build, sin depend
 6. **Movimiento**：`prefers-reduced-motion` y `[data-motion="lite"]` llevan las duraciones a 0.
 7. **Datos no confirmados** van con `.bt-por-confirmar`. No se inventa nada.
 8. El nombre es **"Bajo Tigui"**, sin tilde ni diéresis, y no se le asigna ningún significado.
+9. **Los fondos de módulo no usan `background-attachment: fixed`.** Safari en iOS lo ignora. Se usa el
+   wrapper `.bt-escena-bloque` (fondo `sticky` + `overflow: clip`), que funciona igual en móvil y escritorio.
+
+## Fondos por módulo
+
+Cada escena envuelve la sección completa:
+
+```html
+<div class="bt-escena-bloque" data-escena="poste">
+  <div class="bt-escena-bloque__fondo" aria-hidden="true"></div>
+  <section class="bt-section bt-section--navy ...">...</section>
+</div>
+```
+
+- `data-escena="poste"` y `data-escena="cables"` mapean a `../assets/escenas/*.webp`.
+- El fondo es `position: sticky; top: 0; height: 100vh` con margen negativo: la imagen queda quieta y el
+  contenido pasa por encima. El wrapper la recorta al módulo, así que cambia al entrar en el siguiente.
+- Solo en módulos oscuros. El velo navy (84–90 %) y la trama de puntos mantienen el contraste AA; si se
+  pone en una sección clara hay que medir de nuevo.
+- `[data-motion="lite"]` quita las imágenes y deja el navy del sistema.
+- Para reemplazar una foto, conservar el nombre y el duotono (ver `docs/diseno/assets/escenas/README.md`).
 
 ## Cómo verlo
 
@@ -44,9 +66,11 @@ npm run maquetas:capturar
 node tools/verificar-maqueta.mjs docs/diseno/maquetas/inicio.html
 ```
 
-## Pendiente de la 1B (screens aún sin diseñar)
+## Estado de la 1B
 
-Inicio · Planes · Cómo funciona · Cobertura · Canales · Nosotros · Contacto/Atención · Buzón ·
-404 · Mantenimiento · widget del chatbot · (Login, Pagos, Portal y Admin quedan para después).
+**Hechas:** Inicio · Planes · Cómo funciona · Cobertura · Canales · Nosotros.
+
+**Pendientes:** Contacto/Atención · Buzón · 404 · Mantenimiento · widget del chatbot.
+(Login, Pagos, Portal y Admin quedan para después).
 
 Todas se construyen **con este sistema**: no se redefinen tokens ni colores, se componen clases `bt-*`.

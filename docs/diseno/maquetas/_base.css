@@ -1358,3 +1358,67 @@ code {
   }
 }
 
+/* ----------------------------------------------------------------
+   16. ESCENAS DE FONDO POR MÓDULO
+   La imagen queda quieta dentro del módulo y el contenido pasa por
+   encima. Se usa «sticky» y no background-attachment: fixed porque
+   Safari en iOS ignora «fixed». El wrapper recorta la escena para que
+   no invada el módulo siguiente.
+   ---------------------------------------------------------------- */
+
+.bt-escena-bloque {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--bt-navy-900);
+}
+
+.bt-escena-bloque__fondo {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  height: 100svh;
+  margin-bottom: -100vh;
+  margin-bottom: -100svh;
+  background-color: var(--bt-navy-900);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bt-escena-bloque__fondo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(rgb(247 244 236 / 0.08) 1px, transparent 1.4px) 0 0 / 6px 6px,
+    linear-gradient(180deg, rgb(0 46 132 / 0.84), rgb(0 46 132 / 0.9));
+}
+
+[data-escena="poste"] > .bt-escena-bloque__fondo {
+  background-image: url("../assets/escenas/escena-poste.webp");
+  background-position: 38% center;
+}
+
+[data-escena="cables"] > .bt-escena-bloque__fondo {
+  background-image: url("../assets/escenas/escena-cables.webp");
+  background-position: 50% center;
+}
+
+.bt-escena-bloque > section {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+/* Modo ligero: sin imágenes, solo el navy del sistema. */
+[data-motion="lite"] .bt-escena-bloque__fondo {
+  background-image: none;
+}
+
+[data-motion="lite"] .bt-escena-bloque__fondo::after {
+  background: var(--bt-navy-900);
+}
+
