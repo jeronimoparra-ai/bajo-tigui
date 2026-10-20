@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Ilustración: parrilla de canales de televisión en una pantalla con dial de sintonía">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0F2A5C"/>
+      <stop offset="1" stop-color="#0A1740"/>
+    </linearGradient>
+    <pattern id="puntos" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#8FCCF0" opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#fondo)"/>
+  <rect width="1600" height="900" fill="url(#puntos)"/>
+
+  <!-- Pantalla de TV -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="260" y="150" width="1080" height="600" rx="20" fill="#0B1B45"/>
+    <rect x="300" y="196" width="1000" height="508" rx="10" fill="#142850"/>
+  </g>
+
+  <!-- Parrilla de canales (mini-pantallas) -->
+  <g stroke="#0B0B0B" stroke-width="7" stroke-linejoin="round">
+    <rect x="340" y="240" width="290" height="190" rx="8" fill="#8FCCF0"/>
+    <rect x="670" y="240" width="290" height="190" rx="8" fill="#A1D9D4"/>
+    <rect x="1000" y="240" width="260" height="190" rx="8" fill="#FE6301"/>
+    <rect x="340" y="470" width="290" height="190" rx="8" fill="#F7F4EC"/>
+    <rect x="670" y="470" width="290" height="190" rx="8" fill="#1A3A6B"/>
+    <rect x="1000" y="470" width="260" height="190" rx="8" fill="#8FCCF0"/>
+  </g>
+
+  <!-- Iconos dentro de cada canal -->
+  <g fill="none" stroke="#0B0B0B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="485" cy="335" r="52"/><path d="M 455 305 L 485 335 L 455 365 Z" fill="#0B0B0B"/>
+    <path d="M 780 300 L 780 370 M 810 300 L 810 370 M 840 300 L 840 370"/>
+    <circle cx="1130" cy="335" r="46"/><path d="M 1130 300 L 1130 370 M 1100 335 L 1160 335"/>
+    <rect x="390" y="520" width="190" height="110" rx="8"/><path d="M 415 555 L 555 555"/>
+    <path d="M 740 520 L 890 520 L 890 610 L 740 610 Z"/><path d="M 770 555 L 860 555"/>
+    <circle cx="1130" cy="565" r="45"/><path d="M 1130 535 L 1130 595"/>
+  </g>
+
+  <!-- Dial de sintonía -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linecap="round">
+    <path d="M 180 760 L 180 300" fill="none"/>
+    <circle cx="180" cy="250" r="46" fill="#A1D9D4"/>
+    <path d="M 180 250 L 180 150" fill="none" stroke-width="12"/>
+    <path d="M 1420 760 L 1420 300" fill="none"/>
+    <circle cx="1420" cy="250" r="46" fill="#8FCCF0"/>
+  </g>
+</svg>

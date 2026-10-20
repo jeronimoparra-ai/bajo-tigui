@@ -1,4 +1,5 @@
 import { PorConfirmar } from "@/components/ui/PorConfirmar";
+import { Escena } from "@/components/sections/Escena";
 
 export default function Nosotros() {
   return (
@@ -19,6 +20,7 @@ export default function Nosotros() {
       </section>
       </div>
 
+      <Escena foto="/assets/fotos/barrio-2.webp">
       <section className="bt-section bt-section--paper" id="que" aria-labelledby="h-que">
         <div className="bt-container">
           <p className="bt-kicker bt-kicker--ch">CH 02 · Qué es Bajo Tigui</p>
@@ -35,6 +37,7 @@ export default function Nosotros() {
           </PorConfirmar>
         </div>
       </section>
+      </Escena>
     </main>
   );
 }

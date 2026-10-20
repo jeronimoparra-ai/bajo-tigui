@@ -1,6 +1,7 @@
 import { CoberturaMapClient } from "@/components/map/CoberturaMapClient";
 import { Button } from "@/components/ui/Button";
 import { PorConfirmar } from "@/components/ui/PorConfirmar";
+import { Escena } from "@/components/sections/Escena";
 
 export default function Cobertura() {
   return (
@@ -20,6 +21,7 @@ export default function Cobertura() {
       </section>
       </div>
 
+      <Escena foto="/assets/fotos/barrio-1.webp">
       <section className="bt-section bt-section--paper" id="mapa" aria-labelledby="h-mapa">
         <div className="bt-container">
           <p className="bt-kicker bt-kicker--ch">CH 02 · El mapa</p>
@@ -34,6 +36,7 @@ export default function Cobertura() {
           </PorConfirmar>
         </div>
       </section>
+      </Escena>
 
       <section className="bt-section bt-section--navy" id="cierre" aria-labelledby="h-cierre">
         <div className="bt-container">

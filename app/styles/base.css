@@ -819,6 +819,7 @@ button, input, textarea, select {
   font-size: var(--bt-fs-sm);
   padding: 0.35rem 0.5rem;
   border-radius: var(--bt-radius-sm);
+  white-space: nowrap;
   transition: color var(--bt-dur-1) ease, background-color var(--bt-dur-1) ease;
 }
 
@@ -1537,6 +1538,17 @@ body[data-theme="dark"]::after {
   border-bottom: 0;
   box-shadow: inset 0 -2px 0 -1px var(--bt-sky-400), 0 8px 26px -14px rgb(143 204 240 / 0.55);
 }
+/* Sobre navy el contorno negro del logo desaparece: va sobre placa crema
+   (mismo tratamiento que logo-sobre-oscuro.svg, ver public/brand/README.md). */
+[data-theme="dark"] .bt-nav__brand {
+  background: var(--bt-cream-100);
+  border: 2px solid var(--bt-border);
+  border-radius: var(--bt-radius-sm);
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
 
 /* Footer. */
 [data-theme="dark"] .bt-footer {
@@ -1733,6 +1745,88 @@ body[data-theme="dark"]::after {
 /* Fundido suave al entrar en cada módulo: la escena entrante
    empieza oculta y el script la revela con transición de opacidad. */
 .bt-escena-bloque__fondo--entrando { opacity: 0; }
+
+/* ----------------------------------------------------------------
+   17. ESCENA CON FOTO O ILUSTRACIÓN (fondos de página)
+/* ----------------------------------------------------------------
+   17. ESCENA CON FOTO O ILUSTRACIÓN (fondos de página)
+   El fondo es una imagen fija con velo navy; el contenido va por
+   encima. A diferencia de .bt-escena-bloque (fondo "sticky" por
+   módulo), aquí la imagen es un fondo estático de la sección.
+   ---------------------------------------------------------------- */
+.bt-escena-foto {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--bt-bg);
+}
+.bt-escena-foto__fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--bt-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Velo navy: mantiene el contraste AA del texto sobre la foto. */
+  opacity: 0.9;
+}
+.bt-escena-foto__fondo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(rgb(247 244 236 / 0.07) 1px, transparent 1.4px) 0 0 / 6px 6px,
+    linear-gradient(180deg, rgb(15 42 92 / 0.72), rgb(10 23 64 / 0.88));
+}
+/* Ilustraciones propias: van a sangre y con menos velo (ya son oscuras). */
+.bt-escena-foto__fondo--ilust {
+  opacity: 1;
+  background-size: cover;
+}
+.bt-escena-foto__fondo--ilust::after {
+  background:
+    radial-gradient(rgb(247 244 236 / 0.07) 1px, transparent 1.4px) 0 0 / 6px 6px,
+    linear-gradient(180deg, rgb(15 42 92 / 0.35), rgb(10 23 64 / 0.6));
+}
+.bt-escena-foto__contenido {
+  position: relative;
+  z-index: 1;
+}
+/* La sección interior debe dejar ver el fondo: si no, tapa la imagen. */
+.bt-escena-foto .bt-section,
+.bt-escena-foto__contenido .bt-section {
+  background: transparent !important;
+}
+[data-motion="lite"] .bt-escena-foto__fondo--ilust { display: none; }
+
+/* ----------------------------------------------------------------
+   18. HERO CON ILUSTRACIÓN (dos columnas)
+   ---------------------------------------------------------------- */
+.in-hero {
+  display: grid;
+  gap: var(--bt-space-6);
+  align-items: center;
+}
+@media (min-width: 62rem) {
+  .in-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--bt-space-8);
+  }
+}
+.in-hero__arte {
+  display: none;
+}
+@media (min-width: 62rem) {
+  .in-hero__arte { display: block; }
+}
+.in-hero__arte img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--bt-radius-lg);
+  box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
+}
 
 /* Modo ligero: sin imágenes, solo el navy del sistema. */
 [data-motion="lite"] .bt-escena-bloque__fondo {

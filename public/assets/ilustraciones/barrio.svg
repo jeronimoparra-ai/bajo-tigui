@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Ilustración: casas de un barrio colombiano con parabólicas y líneas de señal">
+  <defs>
+    <linearGradient id="tarde" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1A3A6B"/>
+      <stop offset="1" stop-color="#0F2A5C"/>
+    </linearGradient>
+    <pattern id="puntos" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#8FCCF0" opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#tarde)"/>
+  <rect width="1600" height="900" fill="url(#puntos)"/>
+
+  <!-- Sol de la tarde -->
+  <circle cx="1320" cy="180" r="90" fill="#A1D9D4" opacity="0.35"/>
+
+  <!-- Casas del barrio (colores de la paleta) -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linejoin="round">
+    <path d="M 120 700 L 120 520 L 300 400 L 480 520 L 480 700 Z" fill="#F7F4EC"/>
+    <path d="M 90 530 L 300 380 L 510 530 L 510 520 L 300 370 L 90 520 Z" fill="#FE6301"/>
+    <rect x="260" y="570" width="80" height="130" fill="#8FCCF0"/>
+
+    <path d="M 560 700 L 560 540 L 720 430 L 880 540 L 880 700 Z" fill="#8FCCF0"/>
+    <path d="M 530 550 L 720 410 L 910 550 L 910 540 L 720 400 L 530 540 Z" fill="#A1D9D4"/>
+    <rect x="690" y="590" width="80" height="110" fill="#F7F4EC"/>
+
+    <path d="M 980 700 L 980 500 L 1180 380 L 1380 500 L 1380 700 Z" fill="#F7F4EC"/>
+    <path d="M 950 510 L 1180 360 L 1410 510 L 1410 500 L 1180 350 L 950 500 Z" fill="#FE6301"/>
+    <rect x="1140" y="560" width="80" height="140" fill="#A1D9D4"/>
+  </g>
+
+  <!-- Parabólicas en los techos -->
+  <g stroke="#0B0B0B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 300 380 L 300 340" fill="none"/>
+    <path d="M 262 340 Q 300 400 338 340" fill="#8FCCF0"/>
+    <path d="M 1180 360 L 1180 320" fill="none"/>
+    <path d="M 1142 320 Q 1180 380 1218 320" fill="#A1D9D4"/>
+  </g>
+
+  <!-- Ondas de señal sobre el barrio -->
+  <g fill="none" stroke="#8FCCF0" stroke-width="6" stroke-linecap="round" opacity="0.75">
+    <path d="M 250 300 Q 300 240 350 300"/>
+    <path d="M 1130 280 Q 1180 220 1230 280"/>
+  </g>
+
+  <!-- Calle -->
+  <path d="M 0 700 L 1600 700 L 1600 900 L 0 900 Z" fill="#0B1B45"/>
+  <path d="M 700 700 L 900 700 L 980 900 L 620 900 Z" fill="#071B3C"/>
+</svg>

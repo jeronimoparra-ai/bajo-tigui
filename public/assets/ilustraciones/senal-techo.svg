@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Ilustración: parabólica en el techo de una casa con ondas de señal hacia la casa">
+  <defs>
+    <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0F2A5C"/>
+      <stop offset="1" stop-color="#1A3A6B"/>
+    </linearGradient>
+    <pattern id="puntos" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#8FCCF0" opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#cielo)"/>
+  <rect width="1600" height="900" fill="url(#puntos)"/>
+
+  <!-- Ondas de señal (satélite -> casa) -->
+  <g fill="none" stroke="#8FCCF0" stroke-linecap="round" stroke-width="7" opacity="0.85">
+    <path d="M 250 250 Q 380 90 520 250"/>
+    <path d="M 205 145 Q 385 -60 565 145"/>
+    <path d="M 160 40 Q 390 -210 620 40"/>
+  </g>
+  <circle cx="235" cy="330" r="20" fill="#A1D9D4" opacity="0.9"/>
+
+  <!-- Casa -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M 900 780 L 900 560 L 1100 420 L 1300 560 L 1300 780 Z" fill="#F7F4EC"/>
+    <path d="M 860 570 L 1100 400 L 1340 570 L 1340 560 L 1100 390 L 860 560 Z" fill="#FE6301"/>
+    <rect x="1040" y="640" width="120" height="140" fill="#8FCCF0"/>
+    <rect x="1220" y="610" width="80" height="80" fill="#A1D9D4"/>
+  </g>
+
+  <!-- Parabólica en el techo -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 640 250 L 640 400" fill="none" stroke="#8FCCF0"/>
+    <path d="M 560 250 Q 640 360 720 250" fill="#8FCCF0"/>
+    <path d="M 560 250 Q 640 150 720 250" fill="none" stroke="#A1D9D4"/>
+    <circle cx="640" cy="222" r="14" fill="#A1D9D4"/>
+    <path d="M 640 250 L 640 190" fill="none" stroke="#0B0B0B" stroke-width="8"/>
+  </g>
+
+  <!-- Cable hasta la casa -->
+  <path d="M 640 400 Q 700 560 860 700" fill="none" stroke="#A1D9D4" stroke-width="8" stroke-linecap="round" stroke-dasharray="4 22"/>
+
+  <!-- Suelo -->
+  <path d="M 0 780 L 1600 780 L 1600 900 L 0 900 Z" fill="#0B1B45"/>
+</svg>

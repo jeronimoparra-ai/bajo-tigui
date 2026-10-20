@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Ilustración: haz de fibra óptica travels de la caja de conexión hasta el televisor de la sala">
+  <defs>
+    <linearGradient id="noche" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0F2A5C"/>
+      <stop offset="1" stop-color="#071B3C"/>
+    </linearGradient>
+    <pattern id="puntos" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#8FCCF0" opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#noche)"/>
+  <rect width="1600" height="900" fill="url(#puntos)"/>
+
+  <!-- Fibra: haz de luz -->
+  <path d="M 120 700 Q 420 640 700 560 Q 980 480 1300 470" fill="none" stroke="#A1D9D4" stroke-width="14" stroke-linecap="round" opacity="0.9"/>
+  <path d="M 120 700 Q 420 640 700 560 Q 980 480 1300 470" fill="none" stroke="#DEFAFA" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Caja de conexión en la pared -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linejoin="round">
+    <rect x="60" y="600" width="130" height="170" rx="10" fill="#F7F4EC"/>
+    <rect x="90" y="640" width="70" height="30" rx="4" fill="#8FCCF0"/>
+    <circle cx="125" cy="720" r="16" fill="#A1D9D4"/>
+  </g>
+
+  <!-- Televisor en la sala -->
+  <g stroke="#0B0B0B" stroke-width="10" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="1150" y="330" width="330" height="200" rx="12" fill="#0B1B45"/>
+    <rect x="1176" y="356" width="278" height="148" rx="6" fill="#8FCCF0"/>
+    <path d="M 1176 430 L 1240 380 L 1300 430 L 1380 372 L 1454 430 L 1454 504 L 1176 504 Z" fill="#A1D9D4" stroke="none"/>
+    <path d="M 1250 530 L 1380 530 M 1315 530 L 1315 570 M 1255 570 L 1375 570" fill="none"/>
+  </g>
+
+  <!-- Onditas de sonido de la TV -->
+  <g fill="none" stroke="#FE6301" stroke-width="7" stroke-linecap="round">
+    <path d="M 1315 300 Q 1290 250 1315 200 Q 1340 150 1315 100"/>
+  </g>
+</svg>
