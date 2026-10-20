@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "maquetas:capturar": "node tools/capturar-maqueta.mjs",
     "maquetas:verificar": "node tools/verificar-maqueta.mjs",
-    "migrate": "node scripts/migrate.mjs"
+    "migrate": "node scripts/migrate.mjs",
+    "chatbot:probar": "node scripts/probar-chatbot.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.0",

@@ -13,8 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contacto",
     "/buzon",
     "/portal",
-  ];
-  return routes.map((r) => ({
+  ];  return routes.map((r) => ({
     url: `${base}${r}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
