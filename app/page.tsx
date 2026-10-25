@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { StatusBadge } from "@/components/ui/StatusBadge";
 import { DialSintonia } from "@/components/sections/DialSintonia";
 import { HeroSenal } from "@/components/sections/HeroSenal";
 import { Escena } from "@/components/sections/Escena";
@@ -40,11 +39,8 @@ export default function Home() {
       <section className="bt-section bt-section--navy bt-seccion" id="portada" aria-labelledby="h-portada">
         <div className="bt-container">
           <div className="in-hero">
-            <Reveal>
+            <div className="in-hero__copy">
               <p className="bt-kicker bt-kicker--ch">CH 01 · Inicio, El Bagre, Antioquia</p>
-              <div style={{ marginTop: "var(--bt-space-2)" }}>
-                <StatusBadge />
-              </div>
               <h1 className="bt-display" id="h-portada" style={{ marginTop: "var(--bt-space-3)" }}>
                 La señal viaja lejos.<br />
                 <span className="bt-brush bt-brush--aqua">Aquí se queda.</span>
@@ -55,18 +51,15 @@ export default function Home() {
               </p>
               <div className="bt-cluster" style={{ marginTop: "var(--bt-space-6)" }}>
                 <Button href="https://wa.me/573122740219" variant="primary" size="lg">
-                  Contratar por WhatsApp
+                  Quiero este plan
                 </Button>
-                <Button href="/planes" variant="outline" size="lg">
-                  Ver planes
+                <Button href="#plan" variant="outline" size="lg">
+                  Qué incluye
                 </Button>
               </div>
-            </Reveal>
-            <Reveal delay={120}>
-              <div className="in-hero__arte" style={{ display: "block" }}>
-                <HeroSenal />
-              </div>
-            </Reveal>
+              <p className="in-hero__note">Atención: lun–vie, 7:00 a. m.–5:00 p. m., excepto festivos.</p>
+            </div>
+            <HeroSenal />
           </div>
         </div>
       </section>
