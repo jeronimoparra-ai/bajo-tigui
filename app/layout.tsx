@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <LiteMode />
+        <a className="bt-skip-link" href="#contenido">Saltar al contenido</a>
         <Nav />
         {children}
         <Footer />
