@@ -1,15 +1,12 @@
-"use client";
-
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
- * Revela el contenido al entrar en pantalla (IntersectionObserver).
- * - Solo añade una clase: si el JS falla, el contenido se ve igual.
- * - `prefers-reduced-motion` y `[data-motion="lite"]` desactivan el desplazamiento.
+ * Contenedor compatible con las páginas existentes, ahora estático.
+ * El contenido siempre está visible en el HTML, incluso sin JavaScript.
+ * `delay` se conserva por compatibilidad, sin temporizadores ni observadores.
  */
 export function Reveal({
   children,
-  delay = 0,
   as: Tag = "div",
   className = "",
   style,
@@ -18,40 +15,7 @@ export function Reveal({
   delay?: number;
   as?: "div" | "section" | "li" | "article" | "header";
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setVisible(true);
-            obs.unobserve(e.target);
-          }
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <Tag
-      ref={ref as never}
-      className={`bt-reveal ${visible ? "is-visible" : ""} ${className}`.trim()}
-      style={{ ...style, ...(delay ? { transitionDelay: `${delay}ms` } : null) }}
-    >
-      {children}
-    </Tag>
-  );
+  return <Tag className={`bt-reveal ${className}`.trim()} style={style}>{children}</Tag>;
 }
