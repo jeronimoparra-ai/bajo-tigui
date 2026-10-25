@@ -1,216 +1,202 @@
-/* ----------------------------------------------------------------
-   19. MOVIMIENTO (señal de TV)
-   Todo el movimiento es CSS: si el JS falla, la página sigue viéndose.
-   `prefers-reduced-motion` y `[data-motion="lite"]` lo apagan por completo.
-   ---------------------------------------------------------------- */
+/* Portada estática y navegación progresiva. Sin animaciones de entrada. */
+.bt-reveal { opacity: 1; transform: none; }
 
-/* --- revelado al hacer scroll --- */
-.bt-reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity var(--bt-dur-3) var(--bt-ease-out),
-    transform var(--bt-dur-3) var(--bt-ease-out);
-  will-change: opacity, transform;
-}
-.bt-reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* --- hero animado de señal --- */
-.hero-senal {
-  position: relative;
-  border-radius: var(--bt-radius-lg);
-  overflow: hidden;
-  box-shadow: inset 0 0 0 2px var(--bt-sky-400), var(--bt-shadow-hard);
-}
-.hero-senal__svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* Ondas de la parábola: pulsan hacia fuera */
-.hero-senal__ondas path {
-  opacity: 0.25;
-  transform-origin: 196px 214px;
-  animation: hs-onda 3.2s var(--bt-ease-out) infinite;
-}
-@keyframes hs-onda {
-  0% { opacity: 0.15; transform: scale(0.86); }
-  35% { opacity: 0.9; }
-  70% { opacity: 0.2; transform: scale(1.08); }
-  100% { opacity: 0.15; transform: scale(0.86); }
-}
-
-/* La parábola gira despacio, como si buscara la señal */
-.hero-senal__p-dish {
-  transform-origin: 244px 214px;
-  animation: hs-dish 9s ease-in-out infinite alternate;
-}
-@keyframes hs-dish {
-  0% { transform: rotate(-7deg); }
-  100% { transform: rotate(7deg); }
-}
-
-/* El haz se desliza hacia la pantalla */
-.hero-senal__haz {
-  animation: hs-haz 3.2s var(--bt-ease-inout) infinite;
-}
-@keyframes hs-haz {
-  0% { opacity: 0.15; transform: translateX(-40px); }
-  50% { opacity: 0.9; }
-  100% { opacity: 0.15; transform: translateX(40px); }
-}
-
-/* Barra de escaneo de la pantalla */
-.hero-senal__scan {
-  animation: hs-scan 3.6s linear infinite;
-}
-@keyframes hs-scan {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(122px); }
-}
-
-/* Medidor de señal: las barras suben y bajan */
-.hero-senal__barras rect {
-  transform-origin: center bottom;
-  animation: hs-barra 1.8s var(--bt-ease-inout) infinite alternate;
-}
-.hero-senal__barras rect:nth-child(1) { animation-delay: 0s; }
-.hero-senal__barras rect:nth-child(2) { animation-delay: 0.15s; }
-.hero-senal__barras rect:nth-child(3) { animation-delay: 0.3s; }
-.hero-senal__barras rect:nth-child(4) { animation-delay: 0.45s; }
-@keyframes hs-barra {
-  0% { transform: scaleY(0.45); }
-  100% { transform: scaleY(1); }
-}
-
-/* Pulso del cable de fibra */
-.hero-senal__cable {
-  animation: hs-cable 2.4s linear infinite;
-}
-@keyframes hs-cable {
-  to { stroke-dashoffset: -44; }
-}
-
-/* Distintivo EN VIVO */
-.hero-senal__vivo {
-  position: absolute;
-  top: var(--bt-space-3);
-  right: var(--bt-space-3);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  padding: 0.25em 0.6em;
-  background: var(--bt-orange-500);
-  color: #0B0B0B;
-  font-family: var(--bt-font-mono);
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
-}
-.hero-senal__vivo i {
-  width: 0.6em;
-  height: 0.6em;
-  border-radius: 50%;
-  background: #0B0B0B;
-  animation: bt-blink 1.4s steps(1, end) infinite;
-}
-@keyframes bt-blink {
-  0%, 55% { opacity: 1; }
-  56%, 100% { opacity: 0.2; }
-}
-
-/* --- transiciones de sección: "cambio de canal" --- */
-.bt-seccion {
-  position: relative;
-}
+.bt-seccion { position: relative; }
 .bt-seccion::before {
   content: "";
   position: absolute;
   inset-inline: 0;
   top: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--bt-sky-400), var(--bt-aqua-500), transparent);
-  opacity: 0.55;
+  height: 1px;
+  background: var(--bt-border);
 }
 
-/* --- menú de capítulos (índice de la página) --- */
+/* Un solo elemento sticky: el índice no se superpone a la cabecera. */
 .bt-capitulos {
-  position: sticky;
-  top: 0;
-  z-index: var(--bt-z-sticky);
-  background: color-mix(in srgb, var(--bt-bg) 88%, transparent);
-  backdrop-filter: blur(8px);
+  background: var(--bt-bg-sunken);
   border-bottom: 1px solid var(--bt-border);
-  overflow-x: auto;
-  scrollbar-width: none;
 }
-.bt-capitulos::-webkit-scrollbar { display: none; }
 .bt-capitulos__lista {
   display: flex;
   gap: var(--bt-space-1);
   list-style: none;
   margin: 0;
   padding: var(--bt-space-2) 0;
-  white-space: nowrap;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
 }
 .bt-capitulos a {
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
+  min-height: 44px;
   padding: 0.3rem 0.6rem;
-  border-radius: var(--bt-radius-pill);
   color: var(--bt-text-soft);
   font-family: var(--bt-font-mono);
   font-size: var(--bt-fs-2xs);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  white-space: nowrap;
   text-decoration: none;
-  transition: color var(--bt-dur-1) ease, background-color var(--bt-dur-1) ease;
 }
-.bt-capitulos a:hover {
+.bt-capitulos a:hover { color: var(--bt-aqua-500); }
+section[id], main[id] { scroll-margin-top: 7rem; }
+
+/* Plan editorial: marca original y datos confirmados, sin efectos ni canvas. */
+.hero-plan {
+  min-width: 0;
+  background: var(--bt-cream-100);
+  color: var(--bt-ink-900);
+  border: 2px solid var(--bt-aqua-500);
+  box-shadow: 8px 8px 0 #061533;
+}
+.hero-plan__brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 2px solid var(--bt-ink-900);
+}
+.hero-plan__brand img { width: 76px; flex-shrink: 0; }
+.hero-plan__brand p {
+  margin: 0;
+  font-family: var(--bt-font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.hero-plan__brand span {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--bt-font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.hero-plan__body { padding: clamp(1.25rem, 3vw, 2rem); }
+.hero-plan__eyebrow {
+  margin: 0;
+  color: var(--bt-navy-800);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.hero-plan__price {
+  margin: 1rem 0 1.5rem;
+  color: var(--bt-navy-800);
+  font-family: var(--bt-font-display);
+  font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.hero-plan__price span {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--bt-font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.hero-plan__features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0;
+  padding-block: 1.25rem;
+  border-block: 1px solid #bac5c9;
+}
+.hero-plan__features dt { font-size: 1.7rem; font-weight: 900; line-height: 1.2; }
+.hero-plan__features dt span { font-size: 0.85rem; font-weight: 700; }
+.hero-plan__features dd { margin: 0.4rem 0 0; font-size: 0.85rem; }
+.hero-plan__promo {
+  display: inline-block;
+  margin: 1.25rem 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bt-aqua-500);
+  font-weight: 800;
+}
+.bt-section--navy a.hero-plan__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  color: var(--bt-navy-800);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.hero-plan__footer {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  background: var(--bt-aqua-500);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.in-hero__copy { min-width: 0; }
+.in-hero__note { margin: 1.5rem 0 0; color: var(--bt-sky-200); font-size: 0.85rem; }
+#portada { padding-block: clamp(2rem, 5vw, 5rem); }
+
+/* Menú nativo: se puede abrir con teclado y sin JavaScript. */
+.bt-nav__inner { flex-wrap: nowrap; padding-block: 0.75rem; gap: 1rem; }
+.bt-nav__brand { min-width: 0; }
+.bt-nav__logo { width: clamp(145px, 18vw, 205px); }
+.bt-nav__actions { gap: 0.75rem; flex-shrink: 0; }
+.bt-nav__desktop { display: none; }
+.bt-nav__whatsapp { display: none; }
+.bt-nav__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--bt-sky-400);
   color: var(--bt-text);
-  background: color-mix(in srgb, var(--bt-sky-400) 16%, transparent);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
 }
+.bt-nav__toggle::-webkit-details-marker { display: none; }
+.bt-nav__mobile[open] .bt-nav__toggle { background: var(--bt-aqua-500); color: var(--bt-ink-900); }
+.bt-nav__panel {
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  padding: 1rem var(--bt-gutter) 1.5rem;
+  max-height: calc(100dvh - 6rem);
+  overflow-y: auto;
+  background: var(--bt-bg);
+  border-bottom: 2px solid var(--bt-aqua-500);
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.25);
+}
+.bt-nav__mobile-links { list-style: none; padding: 0; margin: 0 0 1rem; }
+.bt-nav__mobile-links a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.6rem 0.75rem;
+  color: var(--bt-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--bt-border);
+}
+.bt-nav__mobile-links a[aria-current="page"] {
+  color: var(--bt-aqua-500);
+  border-left: 3px solid var(--bt-aqua-500);
+  font-weight: 800;
+}
+:focus-visible { outline: 3px solid var(--bt-aqua-500); outline-offset: 3px; }
+.hero-plan :focus-visible { outline-color: var(--bt-navy-800); }
+[data-theme="dark"] .bt-btn:focus-visible { outline: 3px solid currentColor; outline-offset: -6px; }
 
-/* --- acento al enfocar un módulo (parpadeo de canal) --- */
-.bt-foco-modulo {
-  animation: bt-canal 0.45s steps(2, end);
+@media (min-width: 40rem) { .bt-nav__whatsapp { display: inline-flex; } }
+@media (max-width: 39.99rem) {
+  #portada .bt-cluster { align-items: stretch; }
+  #portada .bt-cluster .bt-btn { width: 100%; white-space: normal; }
+  #portada .bt-display { font-size: clamp(1.8rem, 7.7vw, 2.8rem); }
 }
-@keyframes bt-canal {
-  0% { transform: translateY(6px); filter: brightness(1.5); }
-  50% { filter: brightness(0.85); }
-  100% { transform: none; filter: none; }
+@media (min-width: 75rem) {
+  .bt-nav__desktop { display: block; }
+  .bt-nav__mobile { display: none; }
+  .bt-nav__links { gap: 0.25rem; }
+  .bt-nav__links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.9rem; }
+  [data-theme="dark"] .bt-nav__links a[aria-current="page"] { color: var(--bt-aqua-500); }
 }
-
-/* ----------------------------------------------------------------
-   Apagado total del movimiento
-   ---------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  .bt-reveal { opacity: 1; transform: none; transition: none; }
-  .hero-senal__ondas path,
-  .hero-senal__p-dish,
-  .hero-senal__haz,
-  .hero-senal__scan,
-  .hero-senal__barras rect,
-  .hero-senal__cable,
-  .hero-senal__vivo i {
-    animation: none !important;
-  }
-  .bt-foco-modulo { animation: none; }
-}
-[data-motion="lite"] .bt-reveal { opacity: 1; transform: none; transition: none; }
-[data-motion="lite"] .hero-senal__ondas path,
-[data-motion="lite"] .hero-senal__p-dish,
-[data-motion="lite"] .hero-senal__haz,
-[data-motion="lite"] .hero-senal__scan,
-[data-motion="lite"] .hero-senal__barras rect,
-[data-motion="lite"] .hero-senal__cable,
-[data-motion="lite"] .hero-senal__vivo i {
-  animation: none !important;
-}
-[data-motion="lite"] .bt-foco-modulo { animation: none; }
